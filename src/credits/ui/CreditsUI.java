@@ -52,7 +52,7 @@ public class CreditsUI extends javax.swing.JFrame {
         btnBack = new commons.RoundButton();
         btnMinimize = new commons.RoundButton();
         btnExit = new commons.RoundButton();
-        jPanel3 = new javax.swing.JPanel();
+        pnlBody = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -157,10 +157,10 @@ public class CreditsUI extends javax.swing.JFrame {
 
         getContentPane().add(Header, java.awt.BorderLayout.NORTH);
 
-        jPanel3.setBackground(new java.awt.Color(14, 22, 48));
-        jPanel3.setMaximumSize(new java.awt.Dimension(1920, 32767));
-        jPanel3.setMinimumSize(new java.awt.Dimension(1920, 0));
-        jPanel3.setPreferredSize(new java.awt.Dimension(1920, 823));
+        pnlBody.setBackground(new java.awt.Color(14, 22, 48));
+        pnlBody.setMaximumSize(new java.awt.Dimension(1920, 32767));
+        pnlBody.setMinimumSize(new java.awt.Dimension(1920, 0));
+        pnlBody.setPreferredSize(new java.awt.Dimension(1920, 823));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -171,25 +171,25 @@ public class CreditsUI extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/credits/icons/TeacherFrame.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
+        pnlBody.setLayout(pnlBodyLayout);
+        pnlBodyLayout.setHorizontalGroup(
+            pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
                 .addContainerGap(42, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addGap(24, 24, 24))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(551, 551, 551)))))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        pnlBodyLayout.setVerticalGroup(
+            pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel6)
                 .addGap(50, 50, 50)
@@ -199,7 +199,7 @@ public class CreditsUI extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
+        getContentPane().add(pnlBody, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -232,6 +232,6 @@ public class CreditsUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel pnlBody;
     // End of variables declaration//GEN-END:variables
 }
