@@ -4,6 +4,8 @@
  */
 package learn;
 
+import dashboard.admin.UI.AdminUI;
+
 /**
  *
  * @author Joko
@@ -14,7 +16,9 @@ public class LEARN {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        AdminUI frm = new AdminUI();
+        frm.setVisible(true);
     }
     
 }

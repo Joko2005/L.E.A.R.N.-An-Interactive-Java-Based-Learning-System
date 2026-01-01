@@ -4,7 +4,12 @@
  */
 package dashboard.admin.UI;
 
+import credits.ui.CreditsUI;
+import datavisualization.charts;
+import quiz.QuizUI;
+
 import javax.swing.JFrame;
+
 
 /**
  *
@@ -14,12 +19,16 @@ public class AdminUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminUI.class.getName());
 
-    /**
-     * Creates new form adminUI
-     */
+    QuizUI Quizframe = new QuizUI();
+    charts DataVisframe = new charts();
+    CreditsUI Creditsframe = new CreditsUI(this);
+    
     public AdminUI() {
         setUndecorated(true);
         initComponents();
+        this.setVisible(true);
+        
+        
     }
 
     /**
@@ -33,9 +42,16 @@ public class AdminUI extends javax.swing.JFrame {
 
         pnlSidebar = new javax.swing.JPanel();
         pnlSidebarHeader = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
+        LogoName = new javax.swing.JLabel();
         pnlSidebarOptions = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnSbChatbot = new commons.RoundButton();
+        btnSbDashboard = new commons.RoundButton();
+        btnSbTakeQuiz = new commons.RoundButton();
+        btnSbDataVis = new commons.RoundButton();
+        btnSbCredits = new commons.RoundButton();
+        btnLogout = new commons.RoundButton();
         pnlPlaceholder = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -43,9 +59,16 @@ public class AdminUI extends javax.swing.JFrame {
         btnMinimize = new commons.RoundButton();
         btnExit = new commons.RoundButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        gradientButton2 = new commons.GradientButton();
+        Title = new javax.swing.JLabel();
+        Subtitle = new javax.swing.JLabel();
+        btnChatbot = new commons.GradientButton();
+        btnDataVis = new commons.GradientButton();
+        btnCredits = new commons.GradientButton();
+        btnQuiz = new commons.GradientButton();
+        CreditPane = new javax.swing.JLabel();
+        QuizPane = new javax.swing.JLabel();
+        DataVisPane = new javax.swing.JLabel();
+        ChatbotPane = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,11 +79,11 @@ public class AdminUI extends javax.swing.JFrame {
         pnlSidebarHeader.setBackground(new java.awt.Color(31, 35, 84));
         pnlSidebarHeader.setPreferredSize(new java.awt.Dimension(262, 77));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/LEARNLogo.png"))); // NOI18N
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/LEARNLogo.png"))); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("LEARN");
+        LogoName.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
+        LogoName.setForeground(new java.awt.Color(255, 255, 255));
+        LogoName.setText("LEARN");
 
         javax.swing.GroupLayout pnlSidebarHeaderLayout = new javax.swing.GroupLayout(pnlSidebarHeader);
         pnlSidebarHeader.setLayout(pnlSidebarHeaderLayout);
@@ -68,9 +91,9 @@ public class AdminUI extends javax.swing.JFrame {
             pnlSidebarHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSidebarHeaderLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel5)
+                .addComponent(Logo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LogoName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlSidebarHeaderLayout.setVerticalGroup(
@@ -79,10 +102,10 @@ public class AdminUI extends javax.swing.JFrame {
                 .addGroup(pnlSidebarHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlSidebarHeaderLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(jLabel5))
+                        .addComponent(Logo))
                     .addGroup(pnlSidebarHeaderLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jLabel6)))
+                        .addComponent(LogoName)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -90,15 +113,146 @@ public class AdminUI extends javax.swing.JFrame {
 
         pnlSidebarOptions.setBackground(new java.awt.Color(28, 32, 77));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminUserProfile.png"))); // NOI18N
+
+        btnSbChatbot.setForeground(new java.awt.Color(255, 255, 255));
+        btnSbChatbot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconChatbot.png"))); // NOI18N
+        btnSbChatbot.setText("Simple Chatbot");
+        btnSbChatbot.setBorderEnabled(false);
+        btnSbChatbot.setColor(new java.awt.Color(28, 32, 77));
+        btnSbChatbot.setColorClick(new java.awt.Color(44, 45, 108));
+        btnSbChatbot.setColorOver(new java.awt.Color(44, 45, 108));
+        btnSbChatbot.setFocusable(false);
+        btnSbChatbot.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        btnSbChatbot.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSbChatbot.setIconTextGap(15);
+        btnSbChatbot.setPaddingLeft(23);
+        btnSbChatbot.setPaddingRight(20);
+        btnSbChatbot.setRadius(20);
+
+        btnSbDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        btnSbDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconDashboard.png"))); // NOI18N
+        btnSbDashboard.setText("Dashboard");
+        btnSbDashboard.setBorderEnabled(false);
+        btnSbDashboard.setColor(new java.awt.Color(44, 45, 108));
+        btnSbDashboard.setColorClick(new java.awt.Color(44, 45, 108));
+        btnSbDashboard.setColorOver(new java.awt.Color(44, 45, 108));
+        btnSbDashboard.setFocusable(false);
+        btnSbDashboard.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        btnSbDashboard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSbDashboard.setIconTextGap(15);
+        btnSbDashboard.setPaddingLeft(23);
+        btnSbDashboard.setPaddingRight(20);
+        btnSbDashboard.setRadius(20);
+
+        btnSbTakeQuiz.setForeground(new java.awt.Color(255, 255, 255));
+        btnSbTakeQuiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconTakeQuiz.png"))); // NOI18N
+        btnSbTakeQuiz.setText("Take Quiz");
+        btnSbTakeQuiz.setBorderEnabled(false);
+        btnSbTakeQuiz.setColor(new java.awt.Color(28, 32, 77));
+        btnSbTakeQuiz.setColorClick(new java.awt.Color(44, 45, 108));
+        btnSbTakeQuiz.setColorOver(new java.awt.Color(44, 45, 108));
+        btnSbTakeQuiz.setFocusable(false);
+        btnSbTakeQuiz.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        btnSbTakeQuiz.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSbTakeQuiz.setIconTextGap(15);
+        btnSbTakeQuiz.setPaddingLeft(23);
+        btnSbTakeQuiz.setPaddingRight(20);
+        btnSbTakeQuiz.setRadius(20);
+        btnSbTakeQuiz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSbTakeQuizActionPerformed(evt);
+            }
+        });
+
+        btnSbDataVis.setForeground(new java.awt.Color(255, 255, 255));
+        btnSbDataVis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconDataVis.png"))); // NOI18N
+        btnSbDataVis.setText("Data Visualization");
+        btnSbDataVis.setBorderEnabled(false);
+        btnSbDataVis.setColor(new java.awt.Color(28, 32, 77));
+        btnSbDataVis.setColorClick(new java.awt.Color(44, 45, 108));
+        btnSbDataVis.setColorOver(new java.awt.Color(44, 45, 108));
+        btnSbDataVis.setFocusable(false);
+        btnSbDataVis.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        btnSbDataVis.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSbDataVis.setIconTextGap(15);
+        btnSbDataVis.setPaddingLeft(23);
+        btnSbDataVis.setPaddingRight(20);
+        btnSbDataVis.setRadius(20);
+        btnSbDataVis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSbDataVisActionPerformed(evt);
+            }
+        });
+
+        btnSbCredits.setForeground(new java.awt.Color(255, 255, 255));
+        btnSbCredits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconCredits.png"))); // NOI18N
+        btnSbCredits.setText("Credits");
+        btnSbCredits.setBorderEnabled(false);
+        btnSbCredits.setColor(new java.awt.Color(28, 32, 77));
+        btnSbCredits.setColorClick(new java.awt.Color(44, 45, 108));
+        btnSbCredits.setColorOver(new java.awt.Color(44, 45, 108));
+        btnSbCredits.setFocusable(false);
+        btnSbCredits.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        btnSbCredits.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSbCredits.setIconTextGap(15);
+        btnSbCredits.setPaddingLeft(23);
+        btnSbCredits.setPaddingRight(20);
+        btnSbCredits.setRadius(20);
+        btnSbCredits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSbCreditsActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconLogout.png"))); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.setBorderEnabled(false);
+        btnLogout.setColor(new java.awt.Color(28, 32, 77));
+        btnLogout.setColorClick(new java.awt.Color(44, 45, 108));
+        btnLogout.setColorOver(new java.awt.Color(44, 45, 108));
+        btnLogout.setFocusable(false);
+        btnLogout.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnLogout.setIconTextGap(15);
+        btnLogout.setPaddingLeft(23);
+        btnLogout.setPaddingRight(20);
+        btnLogout.setRadius(20);
+
         javax.swing.GroupLayout pnlSidebarOptionsLayout = new javax.swing.GroupLayout(pnlSidebarOptions);
         pnlSidebarOptions.setLayout(pnlSidebarOptionsLayout);
         pnlSidebarOptionsLayout.setHorizontalGroup(
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSidebarOptionsLayout.createSequentialGroup()
+                .addContainerGap(70, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(69, 69, 69))
+            .addComponent(btnSbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSbChatbot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSbDataVis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSbCredits, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlSidebarOptionsLayout.setVerticalGroup(
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1003, Short.MAX_VALUE)
+            .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel2)
+                .addGap(41, 41, 41)
+                .addComponent(btnSbDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE)
+                .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnSbChatbot, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnSbDataVis, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnSbCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
 
         pnlSidebar.add(pnlSidebarOptions, java.awt.BorderLayout.CENTER);
@@ -117,12 +271,13 @@ public class AdminUI extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(178, 177, 223));
-        jLabel3.setText("Date and Time PLaceholder");
+        jLabel3.setText("Date and Time Placeholder");
 
         btnMinimize.setBorder(null);
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
         btnMinimize.setText("–");
         btnMinimize.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setBorderEnabled(false);
         btnMinimize.setBorderPainted(false);
         btnMinimize.setColor(new java.awt.Color(75, 74, 151));
         btnMinimize.setColorClick(new java.awt.Color(48, 43, 116));
@@ -141,6 +296,7 @@ public class AdminUI extends javax.swing.JFrame {
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
         btnExit.setText("x");
         btnExit.setBorderColor(new java.awt.Color(219, 60, 172));
+        btnExit.setBorderEnabled(false);
         btnExit.setBorderPainted(false);
         btnExit.setColor(new java.awt.Color(219, 60, 172));
         btnExit.setColorClick(new java.awt.Color(153, 62, 145));
@@ -189,48 +345,80 @@ public class AdminUI extends javax.swing.JFrame {
         pnlPlaceholder.add(Header, java.awt.BorderLayout.NORTH);
 
         jPanel1.setBackground(new java.awt.Color(14, 22, 48));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("DASHBOARD");
+        Title.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        Title.setForeground(new java.awt.Color(255, 255, 255));
+        Title.setText("Welcome Joko!");
+        jPanel1.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 23, 314, -1));
 
-        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(182, 181, 228));
-        jLabel4.setText("Date and Time PLaceholder");
+        Subtitle.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        Subtitle.setForeground(new java.awt.Color(182, 181, 228));
+        Subtitle.setText("Learn something new today.");
+        jPanel1.add(Subtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 73, 479, -1));
 
-        gradientButton2.setText("START QUIZ");
-        gradientButton2.setColor1(new java.awt.Color(109, 31, 239));
-        gradientButton2.setColor2(new java.awt.Color(234, 46, 201));
-        gradientButton2.setFocusable(false);
-        gradientButton2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
-        gradientButton2.setHoverColor1(new java.awt.Color(158, 100, 255));
-        gradientButton2.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnChatbot.setText("CHAT NOW");
+        btnChatbot.setColor1(new java.awt.Color(109, 31, 239));
+        btnChatbot.setColor2(new java.awt.Color(234, 46, 201));
+        btnChatbot.setFocusable(false);
+        btnChatbot.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        btnChatbot.setHoverColor1(new java.awt.Color(158, 100, 255));
+        btnChatbot.setHoverColor2(new java.awt.Color(244, 105, 220));
+        jPanel1.add(btnChatbot, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 850, 200, 40));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(gradientButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1141, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(124, 124, 124)
-                .addComponent(gradientButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(733, Short.MAX_VALUE))
-        );
+        btnDataVis.setText("VIEW DATA");
+        btnDataVis.setColor1(new java.awt.Color(109, 31, 239));
+        btnDataVis.setColor2(new java.awt.Color(234, 46, 201));
+        btnDataVis.setFocusable(false);
+        btnDataVis.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        btnDataVis.setHoverColor1(new java.awt.Color(158, 100, 255));
+        btnDataVis.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnDataVis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDataVisActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnDataVis, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 850, 200, 40));
+
+        btnCredits.setText("VIEW QUIZ");
+        btnCredits.setColor1(new java.awt.Color(109, 31, 239));
+        btnCredits.setColor2(new java.awt.Color(234, 46, 201));
+        btnCredits.setFocusable(false);
+        btnCredits.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        btnCredits.setHoverColor1(new java.awt.Color(158, 100, 255));
+        btnCredits.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnCredits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreditsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCredits, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 390, 210, 40));
+
+        btnQuiz.setText("START QUIZ");
+        btnQuiz.setColor1(new java.awt.Color(109, 31, 239));
+        btnQuiz.setColor2(new java.awt.Color(234, 46, 201));
+        btnQuiz.setFocusable(false);
+        btnQuiz.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        btnQuiz.setHoverColor1(new java.awt.Color(158, 100, 255));
+        btnQuiz.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnQuiz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuizActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnQuiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 200, 40));
+
+        CreditPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminCreditsPanel.png"))); // NOI18N
+        jPanel1.add(CreditPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 130, -1, -1));
+
+        QuizPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminQuizPanel.png"))); // NOI18N
+        jPanel1.add(QuizPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 129, -1, -1));
+
+        DataVisPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminDataVisPanel.png"))); // NOI18N
+        jPanel1.add(DataVisPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, -1, -1));
+
+        ChatbotPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminChatBotPanel.png"))); // NOI18N
+        jPanel1.add(ChatbotPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 500, -1, -1));
 
         pnlPlaceholder.add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -246,6 +434,33 @@ public class AdminUI extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnSbTakeQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbTakeQuizActionPerformed
+        Quizframe.setVisible(true);
+    }//GEN-LAST:event_btnSbTakeQuizActionPerformed
+
+    private void btnSbDataVisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbDataVisActionPerformed
+        DataVisframe.setVisible(true);
+    }//GEN-LAST:event_btnSbDataVisActionPerformed
+
+    private void btnSbCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbCreditsActionPerformed
+        Creditsframe.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSbCreditsActionPerformed
+
+    private void btnQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuizActionPerformed
+        Quizframe.setVisible(true);
+    }//GEN-LAST:event_btnQuizActionPerformed
+
+    private void btnCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditsActionPerformed
+        Creditsframe.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCreditsActionPerformed
+
+    private void btnDataVisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataVisActionPerformed
+        DataVisframe.setVisible(true);
+        
+    }//GEN-LAST:event_btnDataVisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,16 +488,30 @@ public class AdminUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ChatbotPane;
+    private javax.swing.JLabel CreditPane;
+    private javax.swing.JLabel DataVisPane;
     private javax.swing.JPanel Header;
+    private javax.swing.JLabel Logo;
+    private javax.swing.JLabel LogoName;
+    private javax.swing.JLabel QuizPane;
+    private javax.swing.JLabel Subtitle;
+    private javax.swing.JLabel Title;
+    private commons.GradientButton btnChatbot;
+    private commons.GradientButton btnCredits;
+    private commons.GradientButton btnDataVis;
     private commons.RoundButton btnExit;
+    private commons.RoundButton btnLogout;
     private commons.RoundButton btnMinimize;
-    private commons.GradientButton gradientButton2;
+    private commons.GradientButton btnQuiz;
+    private commons.RoundButton btnSbChatbot;
+    private commons.RoundButton btnSbCredits;
+    private commons.RoundButton btnSbDashboard;
+    private commons.RoundButton btnSbDataVis;
+    private commons.RoundButton btnSbTakeQuiz;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel pnlPlaceholder;
     private javax.swing.JPanel pnlSidebar;
