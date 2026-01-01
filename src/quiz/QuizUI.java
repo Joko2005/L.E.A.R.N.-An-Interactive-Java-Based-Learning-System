@@ -1,5 +1,6 @@
 package quiz;
 
+import commons.UIUtils;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
@@ -16,11 +17,10 @@ public class QuizUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(QuizUI.class.getName());
 
-    /**
-     * Creates new form QuizFrame
-     */
+    UIUtils utils;
+   
     public QuizUI() {
-        setUndecorated(true);  // ← MUST be BEFORE initComponents()
+        setUndecorated(true);  
         initComponents();
         
         // Hide tabs
@@ -39,7 +39,8 @@ public class QuizUI extends javax.swing.JFrame {
         FullScreen();
         Tabs(startquizPanel); 
         QuizInstructions();
-        startTimer();
+        
+        utils = new UIUtils();
     }
     
     private void FullScreen(){
@@ -79,6 +80,7 @@ public class QuizUI extends javax.swing.JFrame {
     private void StartQuiz(){
         Tabs(q1Panel);
         IntializeQuestions();
+        startTimer();
     }
     
     private void Evaluate(JRadioButton answer, JPanel addThis){
@@ -459,7 +461,7 @@ public class QuizUI extends javax.swing.JFrame {
         closeBtn = new javax.swing.JLabel();
         minimizeBtn = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        backBtn1 = new javax.swing.JLabel();
+        backBtn = new javax.swing.JLabel();
         contentsTabbedPane = new javax.swing.JTabbedPane();
         startquizPanel = new javax.swing.JPanel();
         instructionsLbl = new javax.swing.JLabel();
@@ -677,11 +679,33 @@ public class QuizUI extends javax.swing.JFrame {
         closeBtn.setForeground(new java.awt.Color(255, 255, 255));
         closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/close-button.png"))); // NOI18N
         closeBtn.setIconTextGap(0);
+        closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                closeBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                closeBtnMouseExited(evt);
+            }
+        });
         jPanel2.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1860, 20, -1, -1));
 
         minimizeBtn.setForeground(new java.awt.Color(255, 255, 255));
         minimizeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/minimize-button.png"))); // NOI18N
         minimizeBtn.setIconTextGap(0);
+        minimizeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizeBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                minimizeBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                minimizeBtnMouseExited(evt);
+            }
+        });
         jPanel2.add(minimizeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1810, 20, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
@@ -689,10 +713,21 @@ public class QuizUI extends javax.swing.JFrame {
         jLabel4.setText("TAKE QUIZ");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        backBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        backBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/back-button.png"))); // NOI18N
-        backBtn1.setIconTextGap(0);
-        jPanel2.add(backBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 20, -1, -1));
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
+        backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/back-button.png"))); // NOI18N
+        backBtn.setIconTextGap(0);
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backBtnMouseExited(evt);
+            }
+        });
+        jPanel2.add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 20, -1, -1));
 
         mainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, -1));
 
@@ -2180,7 +2215,7 @@ public class QuizUI extends javax.swing.JFrame {
 // ============================================================================================================================
     
     private void startQuizBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startQuizBtnMouseClicked
-        // TODO add your handling code here:
+        StartQuiz();
     }//GEN-LAST:event_startQuizBtnMouseClicked
 
     private void next1BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next1BtnMouseClicked
@@ -2249,8 +2284,47 @@ public class QuizUI extends javax.swing.JFrame {
 
     private void next17BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next17BtnMouseClicked
         Summary();
+        stopTimer();
         Evaluate(Cq17RadioBtn , resultPanel);
     }//GEN-LAST:event_next17BtnMouseClicked
+
+// ============================================================================================================================        
+    
+    private void closeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseEntered
+        MouseEntered(closeBtn);
+    }//GEN-LAST:event_closeBtnMouseEntered
+
+    private void closeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseExited
+        MouseExited(closeBtn);
+    }//GEN-LAST:event_closeBtnMouseExited
+
+    private void minimizeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseEntered
+        MouseEntered(minimizeBtn);
+    }//GEN-LAST:event_minimizeBtnMouseEntered
+
+    private void minimizeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseExited
+        MouseExited(minimizeBtn);
+    }//GEN-LAST:event_minimizeBtnMouseExited
+
+    private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
+        MouseEntered(backBtn);
+    }//GEN-LAST:event_backBtnMouseEntered
+
+    private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
+        MouseExited(backBtn);
+    }//GEN-LAST:event_backBtnMouseExited
+
+    private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
+        UIUtils.closeFrame(this, "Are you sure you want to exit? Your progress will be lost.", "Warning", JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_closeBtnMouseClicked
+
+    private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
+        UIUtils.minimizeFrame(this);
+    }//GEN-LAST:event_minimizeBtnMouseClicked
+
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backBtnMouseClicked
 
 // ============================================================================================================================    
     
@@ -2348,7 +2422,7 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton Dq7RadioBtn;
     private javax.swing.JRadioButton Dq8RadioBtn;
     private javax.swing.JRadioButton Dq9RadioBtn;
-    private javax.swing.JLabel backBtn1;
+    private javax.swing.JLabel backBtn;
     private javax.swing.JLabel closeBtn;
     private javax.swing.JTabbedPane contentsTabbedPane;
     private javax.swing.JLabel goToDashboardBtn;
