@@ -25,7 +25,6 @@ public class CreditsUI extends javax.swing.JFrame {
         setUndecorated(true);
         initComponents();
         setSize(1920, 1080);
-        jButton1.setContentAreaFilled(false);
         
 
         GraphicsDevice gd = GraphicsEnvironment
@@ -49,17 +48,20 @@ public class CreditsUI extends javax.swing.JFrame {
         Header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBack = new commons.RoundButton();
+        btnBack1 = new commons.RoundButton();
+        btnBack2 = new commons.RoundButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(14, 22, 48));
         setPreferredSize(new java.awt.Dimension(1920, 1080));
         setSize(new java.awt.Dimension(0, 0));
 
-        Header.setBackground(new java.awt.Color(45, 45, 144));
+        Header.setBackground(new java.awt.Color(45, 45, 114));
         Header.setPreferredSize(new java.awt.Dimension(1920, 77));
 
         jLabel1.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
@@ -70,7 +72,42 @@ public class CreditsUI extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(178, 177, 223));
         jLabel3.setText("Team and Instructor");
 
-        jButton1.setText("Back");
+        btnBack.setBorder(null);
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("BACK");
+        btnBack.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnBack.setBorderPainted(false);
+        btnBack.setColor(new java.awt.Color(75, 74, 151));
+        btnBack.setColorClick(new java.awt.Color(48, 43, 116));
+        btnBack.setColorOver(new java.awt.Color(48, 43, 116));
+        btnBack.setFocusable(false);
+        btnBack.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnBack.setRadius(10);
+
+        btnBack1.setBorder(null);
+        btnBack1.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack1.setText("–");
+        btnBack1.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnBack1.setBorderPainted(false);
+        btnBack1.setColor(new java.awt.Color(75, 74, 151));
+        btnBack1.setColorClick(new java.awt.Color(48, 43, 116));
+        btnBack1.setColorOver(new java.awt.Color(48, 43, 116));
+        btnBack1.setFocusable(false);
+        btnBack1.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnBack1.setRadius(10);
+
+        btnBack2.setBackground(new java.awt.Color(219, 60, 172));
+        btnBack2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnBack2.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack2.setText("x");
+        btnBack2.setBorderColor(new java.awt.Color(219, 60, 172));
+        btnBack2.setBorderPainted(false);
+        btnBack2.setColor(new java.awt.Color(219, 60, 172));
+        btnBack2.setColorClick(new java.awt.Color(153, 62, 145));
+        btnBack2.setColorOver(new java.awt.Color(153, 62, 145));
+        btnBack2.setFocusable(false);
+        btnBack2.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnBack2.setRadius(10);
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -81,22 +118,30 @@ public class CreditsUI extends javax.swing.JFrame {
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1598, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1437, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HeaderLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(HeaderLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBack1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(12, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(24, 24, 24))
         );
 
         getContentPane().add(Header, java.awt.BorderLayout.NORTH);
@@ -113,28 +158,34 @@ public class CreditsUI extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/credits/icons/TeamFrame.png"))); // NOI18N
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/credits/icons/TeacherFrame.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(323, 323, 323))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(27, 27, 27))))
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(24, 24, 24))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(551, 551, 551)))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel6)
-                .addGap(52, 52, 52)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel2)
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(jLabel4)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
@@ -154,10 +205,13 @@ public class CreditsUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Header;
-    private javax.swing.JButton jButton1;
+    private commons.RoundButton btnBack;
+    private commons.RoundButton btnBack1;
+    private commons.RoundButton btnBack2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
