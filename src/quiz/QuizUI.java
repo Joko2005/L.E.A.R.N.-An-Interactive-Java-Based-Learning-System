@@ -3,8 +3,12 @@ package quiz;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class QuizUI extends javax.swing.JFrame {
@@ -33,8 +37,8 @@ public class QuizUI extends javax.swing.JFrame {
         
         FullScreen();
         Tabs(startquizPanel); 
-//        Tabs(resultPanel);
         QuizInstructions();
+        startTimer();
     }
     
     private void FullScreen(){
@@ -71,6 +75,7 @@ public class QuizUI extends javax.swing.JFrame {
     
     private void StartQuiz(){
         Tabs(q1Panel);
+        IntializeQuestions();
     }
     
     private String Recommendation(double percentage) {
@@ -114,6 +119,214 @@ public class QuizUI extends javax.swing.JFrame {
         contentsTabbedPane.add(addThis);
     }
     
+    // ============================================================================================================================
+    
+    /* FOR RADIO BUTTONS */
+    
+    ButtonGroup q1 = new ButtonGroup();
+    ButtonGroup q2 = new ButtonGroup();
+    ButtonGroup q3 = new ButtonGroup();
+    ButtonGroup q4 = new ButtonGroup();
+    ButtonGroup q5 = new ButtonGroup();
+    ButtonGroup q6 = new ButtonGroup();
+    ButtonGroup q7 = new ButtonGroup();
+    ButtonGroup q8 = new ButtonGroup();
+    ButtonGroup q9 = new ButtonGroup();
+    ButtonGroup q10 = new ButtonGroup();
+    ButtonGroup q11 = new ButtonGroup();
+    ButtonGroup q12 = new ButtonGroup();
+    ButtonGroup q13 = new ButtonGroup();
+    ButtonGroup q14 = new ButtonGroup();
+    ButtonGroup q15 = new ButtonGroup();
+    ButtonGroup q16 = new ButtonGroup();
+    ButtonGroup q17 = new ButtonGroup();
+    private void IntializeQuestions(){
+        Question1();
+        Question2();
+        Question3();
+        Question4();
+        Question5();
+        Question6();
+        Question7();
+        Question8();
+        Question9();
+        Question10();
+        Question11();
+        Question12();
+        Question13();
+        Question14();
+        Question15();
+        Question16();
+        Question17();
+    }
+    private void Question1(){
+        q1.add(Aq1RadioBtn);
+        q1.add(Bq1RadioBtn);
+        q1.add(Cq1RadioBtn);
+        q1.add(Dq1RadioBtn);
+    }
+    private void Question2(){
+        q2.add(Aq2RadioBtn);
+        q2.add(Bq2RadioBtn);
+        q2.add(Cq2RadioBtn);
+        q2.add(Dq2RadioBtn);
+    }
+    private void Question3(){
+        q3.add(Aq3RadioBtn);
+        q3.add(Bq3RadioBtn);
+        q3.add(Cq3RadioBtn);
+        q3.add(Dq3RadioBtn);
+    }
+    private void Question4(){
+        q4.add(Aq4RadioBtn);
+        q4.add(Bq4RadioBtn);
+        q4.add(Cq4RadioBtn);
+        q4.add(Dq4RadioBtn);
+    }
+    private void Question5(){
+        q5.add(Aq5RadioBtn);
+        q5.add(Bq5RadioBtn);
+        q5.add(Cq5RadioBtn);
+        q5.add(Dq5RadioBtn);
+    }
+    private void Question6(){
+        q6.add(Aq6RadioBtn);
+        q6.add(Bq6RadioBtn);
+        q6.add(Cq6RadioBtn);
+        q6.add(Dq6RadioBtn);
+    }
+    private void Question7(){
+        q7.add(Aq7RadioBtn);
+        q7.add(Bq7RadioBtn);
+        q7.add(Cq7RadioBtn);
+        q7.add(Dq7RadioBtn);
+    }
+    private void Question8(){
+        q8.add(Aq8RadioBtn);
+        q8.add(Bq8RadioBtn);
+        q8.add(Cq8RadioBtn);
+        q8.add(Dq8RadioBtn);
+    }
+    private void Question9(){
+        q9.add(Aq9RadioBtn);
+        q9.add(Bq9RadioBtn);
+        q9.add(Cq9RadioBtn);
+        q9.add(Dq9RadioBtn);
+    }
+    private void Question10(){
+        q10.add(Aq10RadioBtn);
+        q10.add(Bq10RadioBtn);
+        q10.add(Cq10RadioBtn);
+        q10.add(Dq10RadioBtn);
+    }
+    private void Question11(){
+        q11.add(Aq11RadioBtn);
+        q11.add(Bq11RadioBtn);
+        q11.add(Cq11RadioBtn);
+        q11.add(Dq11RadioBtn);
+    }
+    private void Question12(){
+        q12.add(Aq12RadioBtn);
+        q12.add(Bq12RadioBtn);
+        q12.add(Cq12RadioBtn);
+        q12.add(Dq12RadioBtn);
+    }
+    private void Question13(){
+        q13.add(Aq13RadioBtn);
+        q13.add(Bq13RadioBtn);
+        q13.add(Cq13RadioBtn);
+        q13.add(Dq13RadioBtn);
+    }
+    private void Question14(){
+        q14.add(Aq14RadioBtn);
+        q14.add(Bq14RadioBtn);
+        q14.add(Cq14RadioBtn);
+        q14.add(Dq14RadioBtn);
+    }
+    private void Question15(){
+        q15.add(Aq15RadioBtn);
+        q15.add(Bq15RadioBtn);
+        q15.add(Cq15RadioBtn);
+        q15.add(Dq15RadioBtn);
+    }
+    private void Question16(){
+        q16.add(Aq16RadioBtn);
+        q16.add(Bq16RadioBtn);
+        q16.add(Cq16RadioBtn);
+        q16.add(Dq16RadioBtn);
+    }
+    private void Question17(){
+        q17.add(Aq17RadioBtn);
+        q17.add(Bq17RadioBtn);
+        q17.add(Cq17RadioBtn);
+        q17.add(Dq17RadioBtn);
+    }
+    
+    // ============================================================================================================================
+    
+    /* FOR TIMER */
+    
+    private javax.swing.Timer quizTimer;
+    private int remainingSeconds = 600;
+
+    // Start the timer
+    private void startTimer() {
+        remainingSeconds = 600;
+
+        quizTimer = new javax.swing.Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remainingSeconds--;
+                updateTimerDisplay();
+                
+                if (remainingSeconds <= 0) {
+                    quizTimer.stop();
+                    onTimeUp();
+                }
+            }
+        });
+
+        quizTimer.start();
+        updateTimerDisplay(); 
+    }
+
+    private void updateTimerDisplay() {
+        int minutes = remainingSeconds / 60;
+        int seconds = remainingSeconds % 60;
+
+        String timeString = String.format("%02d:%02d", minutes, seconds);
+        timerLbl.setText(timeString);
+
+        if (remainingSeconds <= 60) {
+            timerLbl.setForeground(new Color(248, 113, 113)); // Red
+        } else if (remainingSeconds <= 180) { 
+            timerLbl.setForeground(new Color(251, 191, 36)); // Yellow
+        } else {
+            timerLbl.setForeground(new Color(255,255,255)); // Normal color
+        }
+    }
+
+    private void onTimeUp() {
+        System.out.println("Time's up!");
+
+        JOptionPane.showMessageDialog(this, 
+            "Time's up!  The quiz will be submitted automatically.", 
+            "Time Expired", 
+            JOptionPane. WARNING_MESSAGE);
+
+//        submitQuiz();
+    }
+
+    private void stopTimer() {
+        if (quizTimer != null && quizTimer.isRunning()) {
+            quizTimer.stop();
+        }
+    }
+    
+    // ============================================================================================================================
+    
+    /* FOR EVENTS */
+    
     private void MouseEntered(JLabel label){
         label.setOpaque(true);
         label.setBackground(new Color(179, 250, 160));
@@ -153,121 +366,121 @@ public class QuizUI extends javax.swing.JFrame {
         q1Panel = new javax.swing.JPanel();
         next1Btn = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        Dq1RadioBtn = new javax.swing.JRadioButton();
+        Aq1RadioBtn = new javax.swing.JRadioButton();
+        Bq1RadioBtn = new javax.swing.JRadioButton();
+        Cq1RadioBtn = new javax.swing.JRadioButton();
         q2Panel = new javax.swing.JPanel();
         next2Btn = new javax.swing.JLabel();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        jRadioButton8 = new javax.swing.JRadioButton();
+        Dq2RadioBtn = new javax.swing.JRadioButton();
+        Cq2RadioBtn = new javax.swing.JRadioButton();
+        Bq2RadioBtn = new javax.swing.JRadioButton();
+        Aq2RadioBtn = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         q3Panel = new javax.swing.JPanel();
         next3Btn = new javax.swing.JLabel();
-        jRadioButton9 = new javax.swing.JRadioButton();
-        jRadioButton10 = new javax.swing.JRadioButton();
-        jRadioButton11 = new javax.swing.JRadioButton();
-        jRadioButton12 = new javax.swing.JRadioButton();
+        Dq3RadioBtn = new javax.swing.JRadioButton();
+        Cq3RadioBtn = new javax.swing.JRadioButton();
+        Bq3RadioBtn = new javax.swing.JRadioButton();
+        Aq3RadioBtn = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
         q4Panel = new javax.swing.JPanel();
         next4Btn = new javax.swing.JLabel();
-        jRadioButton13 = new javax.swing.JRadioButton();
-        jRadioButton14 = new javax.swing.JRadioButton();
-        jRadioButton15 = new javax.swing.JRadioButton();
-        jRadioButton16 = new javax.swing.JRadioButton();
+        Dq4RadioBtn = new javax.swing.JRadioButton();
+        Cq4RadioBtn = new javax.swing.JRadioButton();
+        Bq4RadioBtn = new javax.swing.JRadioButton();
+        Aq4RadioBtn = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         q5Panel = new javax.swing.JPanel();
         next5Btn = new javax.swing.JLabel();
-        jRadioButton17 = new javax.swing.JRadioButton();
-        jRadioButton18 = new javax.swing.JRadioButton();
-        jRadioButton19 = new javax.swing.JRadioButton();
-        jRadioButton20 = new javax.swing.JRadioButton();
+        Dq5RadioBtn = new javax.swing.JRadioButton();
+        Cq5RadioBtn = new javax.swing.JRadioButton();
+        Bq5RadioBtn = new javax.swing.JRadioButton();
+        Aq5RadioBtn = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         q6Panel = new javax.swing.JPanel();
         next6Btn = new javax.swing.JLabel();
-        jRadioButton21 = new javax.swing.JRadioButton();
-        jRadioButton22 = new javax.swing.JRadioButton();
-        jRadioButton23 = new javax.swing.JRadioButton();
-        jRadioButton24 = new javax.swing.JRadioButton();
+        Dq6RadioBtn = new javax.swing.JRadioButton();
+        Cq6RadioBtn = new javax.swing.JRadioButton();
+        Bq6RadioBtn = new javax.swing.JRadioButton();
+        Aq6RadioBtn = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         q7Panel = new javax.swing.JPanel();
         next7Btn = new javax.swing.JLabel();
-        jRadioButton25 = new javax.swing.JRadioButton();
-        jRadioButton26 = new javax.swing.JRadioButton();
-        jRadioButton27 = new javax.swing.JRadioButton();
-        jRadioButton28 = new javax.swing.JRadioButton();
+        Dq7RadioBtn = new javax.swing.JRadioButton();
+        Cq7RadioBtn = new javax.swing.JRadioButton();
+        Bq7RadioBtn = new javax.swing.JRadioButton();
+        Aq7RadioBtn = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
         q8Panel = new javax.swing.JPanel();
         next8Btn = new javax.swing.JLabel();
-        jRadioButton29 = new javax.swing.JRadioButton();
-        jRadioButton30 = new javax.swing.JRadioButton();
-        jRadioButton31 = new javax.swing.JRadioButton();
-        jRadioButton32 = new javax.swing.JRadioButton();
+        Dq8RadioBtn = new javax.swing.JRadioButton();
+        Cq8RadioBtn = new javax.swing.JRadioButton();
+        Bq8RadioBtn = new javax.swing.JRadioButton();
+        Aq8RadioBtn = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         q9Panel = new javax.swing.JPanel();
         next9Btn = new javax.swing.JLabel();
-        jRadioButton33 = new javax.swing.JRadioButton();
-        jRadioButton34 = new javax.swing.JRadioButton();
-        jRadioButton35 = new javax.swing.JRadioButton();
-        jRadioButton36 = new javax.swing.JRadioButton();
+        Dq9RadioBtn = new javax.swing.JRadioButton();
+        Cq9RadioBtn = new javax.swing.JRadioButton();
+        Bq9RadioBtn = new javax.swing.JRadioButton();
+        Aq9RadioBtn = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
         q10Panel = new javax.swing.JPanel();
         next10Btn = new javax.swing.JLabel();
-        jRadioButton37 = new javax.swing.JRadioButton();
-        jRadioButton38 = new javax.swing.JRadioButton();
-        jRadioButton39 = new javax.swing.JRadioButton();
-        jRadioButton40 = new javax.swing.JRadioButton();
+        Dq10RadioBtn = new javax.swing.JRadioButton();
+        Cq10RadioBtn = new javax.swing.JRadioButton();
+        Bq10RadioBtn = new javax.swing.JRadioButton();
+        Aq10RadioBtn = new javax.swing.JRadioButton();
         jLabel12 = new javax.swing.JLabel();
         q11Panel = new javax.swing.JPanel();
         next11Btn = new javax.swing.JLabel();
-        jRadioButton41 = new javax.swing.JRadioButton();
-        jRadioButton42 = new javax.swing.JRadioButton();
-        jRadioButton43 = new javax.swing.JRadioButton();
-        jRadioButton44 = new javax.swing.JRadioButton();
+        Dq11RadioBtn = new javax.swing.JRadioButton();
+        Cq11RadioBtn = new javax.swing.JRadioButton();
+        Bq11RadioBtn = new javax.swing.JRadioButton();
+        Aq11RadioBtn = new javax.swing.JRadioButton();
         jLabel13 = new javax.swing.JLabel();
         q12Panel = new javax.swing.JPanel();
         next12Btn = new javax.swing.JLabel();
-        jRadioButton45 = new javax.swing.JRadioButton();
-        jRadioButton46 = new javax.swing.JRadioButton();
-        jRadioButton47 = new javax.swing.JRadioButton();
-        jRadioButton48 = new javax.swing.JRadioButton();
+        Dq12RadioBtn = new javax.swing.JRadioButton();
+        Cq12RadioBtn = new javax.swing.JRadioButton();
+        Bq12RadioBtn = new javax.swing.JRadioButton();
+        Aq12RadioBtn = new javax.swing.JRadioButton();
         jLabel14 = new javax.swing.JLabel();
         q13Panel = new javax.swing.JPanel();
         next13Btn = new javax.swing.JLabel();
-        jRadioButton49 = new javax.swing.JRadioButton();
-        jRadioButton50 = new javax.swing.JRadioButton();
-        jRadioButton51 = new javax.swing.JRadioButton();
-        jRadioButton52 = new javax.swing.JRadioButton();
+        Dq13RadioBtn = new javax.swing.JRadioButton();
+        Cq13RadioBtn = new javax.swing.JRadioButton();
+        Bq13RadioBtn = new javax.swing.JRadioButton();
+        Aq13RadioBtn = new javax.swing.JRadioButton();
         jLabel15 = new javax.swing.JLabel();
         q14Panel = new javax.swing.JPanel();
         next14Btn = new javax.swing.JLabel();
-        jRadioButton53 = new javax.swing.JRadioButton();
-        jRadioButton54 = new javax.swing.JRadioButton();
-        jRadioButton55 = new javax.swing.JRadioButton();
-        jRadioButton56 = new javax.swing.JRadioButton();
+        Dq14RadioBtn = new javax.swing.JRadioButton();
+        Cq14RadioBtn = new javax.swing.JRadioButton();
+        Bq14RadioBtn = new javax.swing.JRadioButton();
+        Aq14RadioBtn = new javax.swing.JRadioButton();
         jLabel16 = new javax.swing.JLabel();
         q15Panel = new javax.swing.JPanel();
         next15Btn = new javax.swing.JLabel();
-        jRadioButton57 = new javax.swing.JRadioButton();
-        jRadioButton58 = new javax.swing.JRadioButton();
-        jRadioButton59 = new javax.swing.JRadioButton();
-        jRadioButton60 = new javax.swing.JRadioButton();
+        Dq15RadioBtn = new javax.swing.JRadioButton();
+        Cq15RadioBtn = new javax.swing.JRadioButton();
+        Bq15RadioBtn = new javax.swing.JRadioButton();
+        Aq15RadioBtn = new javax.swing.JRadioButton();
         jLabel17 = new javax.swing.JLabel();
         q16Panel = new javax.swing.JPanel();
         next16Btn = new javax.swing.JLabel();
-        jRadioButton61 = new javax.swing.JRadioButton();
-        jRadioButton62 = new javax.swing.JRadioButton();
-        jRadioButton63 = new javax.swing.JRadioButton();
-        jRadioButton64 = new javax.swing.JRadioButton();
+        Dq16RadioBtn = new javax.swing.JRadioButton();
+        Cq16RadioBtn = new javax.swing.JRadioButton();
+        Bq16RadioBtn = new javax.swing.JRadioButton();
+        Aq16RadioBtn = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         q17Panel = new javax.swing.JPanel();
         next17Btn = new javax.swing.JLabel();
-        jRadioButton65 = new javax.swing.JRadioButton();
-        jRadioButton66 = new javax.swing.JRadioButton();
-        jRadioButton67 = new javax.swing.JRadioButton();
-        jRadioButton68 = new javax.swing.JRadioButton();
+        Dq17RadioBtn = new javax.swing.JRadioButton();
+        Cq17RadioBtn = new javax.swing.JRadioButton();
+        Bq17RadioBtn = new javax.swing.JRadioButton();
+        Aq17RadioBtn = new javax.swing.JRadioButton();
         jLabel19 = new javax.swing.JLabel();
         resultPanel = new javax.swing.JPanel();
         goToDashboardBtn = new javax.swing.JLabel();
@@ -338,7 +551,7 @@ public class QuizUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         titleLbl = new javax.swing.JLabel();
-        timer = new javax.swing.JLabel();
+        timerLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -434,29 +647,29 @@ public class QuizUI extends javax.swing.JFrame {
         jLabel1.setText("1. In what year did the Spanish expedition led by Ferdinand Magellan arrive in the Philippines?");
         q1Panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jRadioButton1.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton1.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setText(" D. 1898");
-        q1Panel.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq1RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq1RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq1RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq1RadioBtn.setText(" D. 1898");
+        q1Panel.add(Dq1RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton2.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton2.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText(" A. 1492");
-        q1Panel.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq1RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq1RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq1RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq1RadioBtn.setText(" A. 1492");
+        q1Panel.add(Aq1RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
-        jRadioButton3.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton3.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText(" B. 1521");
-        q1Panel.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq1RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq1RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq1RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq1RadioBtn.setText(" B. 1521");
+        q1Panel.add(Bq1RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton4.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton4.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton4.setText(" C. 1565");
-        q1Panel.add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq1RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq1RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq1RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq1RadioBtn.setText(" C. 1565");
+        q1Panel.add(Cq1RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
         contentsTabbedPane.addTab("Q1", q1Panel);
 
@@ -479,29 +692,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q2Panel.add(next2Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton5.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton5.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton5.setText(" D. Juan de Salcedo");
-        q2Panel.add(jRadioButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq2RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq2RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq2RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq2RadioBtn.setText(" D. Juan de Salcedo");
+        q2Panel.add(Dq2RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton6.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton6.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton6.setText(" C. Andrés de Urdaneta");
-        q2Panel.add(jRadioButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq2RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq2RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq2RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq2RadioBtn.setText(" C. Andrés de Urdaneta");
+        q2Panel.add(Cq2RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton7.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton7.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton7.setText(" B. Miguel López de Legazpi");
-        q2Panel.add(jRadioButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq2RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq2RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq2RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq2RadioBtn.setText(" B. Miguel López de Legazpi");
+        q2Panel.add(Bq2RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton8.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton8.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton8.setText(" A. Ferdinand Magellan");
-        q2Panel.add(jRadioButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq2RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq2RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq2RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq2RadioBtn.setText(" A. Ferdinand Magellan");
+        q2Panel.add(Aq2RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -529,29 +742,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q3Panel.add(next3Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton9.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton9.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton9.setText(" D. Batangas");
-        q3Panel.add(jRadioButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq3RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq3RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq3RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq3RadioBtn.setText(" D. Batangas");
+        q3Panel.add(Dq3RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton10.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton10.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton10.setText(" C. Cavite");
-        q3Panel.add(jRadioButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq3RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq3RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq3RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq3RadioBtn.setText(" C. Cavite");
+        q3Panel.add(Cq3RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton11.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton11.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton11.setText(" B. Cebu");
-        q3Panel.add(jRadioButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq3RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq3RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq3RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq3RadioBtn.setText(" B. Cebu");
+        q3Panel.add(Bq3RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton12.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton12.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton12.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton12.setText(" A. Manila");
-        q3Panel.add(jRadioButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq3RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq3RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq3RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq3RadioBtn.setText(" A. Manila");
+        q3Panel.add(Aq3RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -579,29 +792,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q4Panel.add(next4Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton13.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton13.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton13.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton13.setText(" D. Rajah Matanda");
-        q4Panel.add(jRadioButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq4RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq4RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq4RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq4RadioBtn.setText(" D. Rajah Matanda");
+        q4Panel.add(Dq4RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton14.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton14.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton14.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton14.setText(" C. Lapu-Lapu");
-        q4Panel.add(jRadioButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq4RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq4RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq4RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq4RadioBtn.setText(" C. Lapu-Lapu");
+        q4Panel.add(Cq4RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton15.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton15.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton15.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton15.setText(" B. Rajah Sulayman");
-        q4Panel.add(jRadioButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq4RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq4RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq4RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq4RadioBtn.setText(" B. Rajah Sulayman");
+        q4Panel.add(Bq4RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton16.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton16.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton16.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton16.setText(" A. Rajah Humabon");
-        q4Panel.add(jRadioButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq4RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq4RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq4RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq4RadioBtn.setText(" A. Rajah Humabon");
+        q4Panel.add(Aq4RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -629,29 +842,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q5Panel.add(next5Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton17.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton17.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton17.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton17.setText(" D. Political asylum");
-        q5Panel.add(jRadioButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq5RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq5RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq5RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq5RadioBtn.setText(" D. Political asylum");
+        q5Panel.add(Dq5RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton18.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton18.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton18.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton18.setText(" C. Scientific exploration");
-        q5Panel.add(jRadioButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq5RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq5RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq5RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq5RadioBtn.setText(" C. Scientific exploration");
+        q5Panel.add(Cq5RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton19.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton19.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton19.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton19.setText(" B. God, Gold, and Glory (Christianity, wealth, and power)");
-        q5Panel.add(jRadioButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq5RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq5RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq5RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq5RadioBtn.setText(" B. God, Gold, and Glory (Christianity, wealth, and power)");
+        q5Panel.add(Bq5RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton20.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton20.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton20.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton20.setText(" A.  Gold and spices");
-        q5Panel.add(jRadioButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq5RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq5RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq5RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq5RadioBtn.setText(" A.  Gold and spices");
+        q5Panel.add(Aq5RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -679,29 +892,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q6Panel.add(next6Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton21.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton21.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton21.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton21.setText(" D. Tribute");
-        q6Panel.add(jRadioButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq6RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq6RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq6RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq6RadioBtn.setText(" D. Tribute");
+        q6Panel.add(Dq6RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton22.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton22.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton22.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton22.setText(" C. Hacienda");
-        q6Panel.add(jRadioButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq6RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq6RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq6RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq6RadioBtn.setText(" C. Hacienda");
+        q6Panel.add(Cq6RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton23.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton23.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton23.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton23.setText(" B. Polo y Servicio");
-        q6Panel.add(jRadioButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq6RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq6RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq6RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq6RadioBtn.setText(" B. Polo y Servicio");
+        q6Panel.add(Bq6RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton24.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton24.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton24.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton24.setText(" A.  Encomienda");
-        q6Panel.add(jRadioButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq6RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq6RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq6RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq6RadioBtn.setText(" A.  Encomienda");
+        q6Panel.add(Aq6RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel8.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -729,29 +942,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q7Panel.add(next7Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton25.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton25.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton25.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton25.setText(" D. Mestizos");
-        q7Panel.add(jRadioButton25, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq7RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq7RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq7RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq7RadioBtn.setText(" D. Mestizos");
+        q7Panel.add(Dq7RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton26.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton26.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton26.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton26.setText(" C.  Gobernadorcillos");
-        q7Panel.add(jRadioButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq7RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq7RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq7RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq7RadioBtn.setText(" C.  Gobernadorcillos");
+        q7Panel.add(Cq7RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton27.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton27.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton27.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton27.setText(" B. Encomenderos");
-        q7Panel.add(jRadioButton27, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq7RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq7RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq7RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq7RadioBtn.setText(" B. Encomenderos");
+        q7Panel.add(Bq7RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton28.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton28.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton28.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton28.setText(" A. Friars");
-        q7Panel.add(jRadioButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq7RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq7RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq7RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq7RadioBtn.setText(" A. Friars");
+        q7Panel.add(Aq7RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel9.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -779,29 +992,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q8Panel.add(next8Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton29.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton29.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton29.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton29.setText(" D. All of the above");
-        q8Panel.add(jRadioButton29, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq8RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq8RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq8RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq8RadioBtn.setText(" D. All of the above");
+        q8Panel.add(Dq8RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton30.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton30.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton30.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton30.setText(" C. Augustinians");
-        q8Panel.add(jRadioButton30, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq8RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq8RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq8RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq8RadioBtn.setText(" C. Augustinians");
+        q8Panel.add(Cq8RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton31.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton31.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton31.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton31.setText(" B. Franciscans");
-        q8Panel.add(jRadioButton31, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq8RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq8RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq8RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq8RadioBtn.setText(" B. Franciscans");
+        q8Panel.add(Bq8RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton32.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton32.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton32.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton32.setText(" A.  Dominicans");
-        q8Panel.add(jRadioButton32, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq8RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq8RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq8RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq8RadioBtn.setText(" A.  Dominicans");
+        q8Panel.add(Aq8RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel10.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -829,29 +1042,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q9Panel.add(next9Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton33.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton33.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton33.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton33.setText(" D. Spanish Colonial Trade");
-        q9Panel.add(jRadioButton33, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq9RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq9RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq9RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq9RadioBtn.setText(" D. Spanish Colonial Trade");
+        q9Panel.add(Dq9RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton34.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton34.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton34.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton34.setText(" C. Asian-American Exchange");
-        q9Panel.add(jRadioButton34, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq9RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq9RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq9RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq9RadioBtn.setText(" C. Asian-American Exchange");
+        q9Panel.add(Cq9RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton35.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton35.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton35.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton35.setText(" B. Pacific Trade Route");
-        q9Panel.add(jRadioButton35, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq9RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq9RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq9RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq9RadioBtn.setText(" B. Pacific Trade Route");
+        q9Panel.add(Bq9RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton36.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton36.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton36.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton36.setText(" A. Manila-Acapulco Galleon Trade");
-        q9Panel.add(jRadioButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq9RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq9RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq9RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq9RadioBtn.setText(" A. Manila-Acapulco Galleon Trade");
+        q9Panel.add(Aq9RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel11.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -879,29 +1092,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q10Panel.add(next10Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton37.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton37.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton37.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton37.setText(" D. 400 years");
-        q10Panel.add(jRadioButton37, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq10RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq10RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq10RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq10RadioBtn.setText(" D. 400 years");
+        q10Panel.add(Dq10RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton38.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton38.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton38.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton38.setText(" C. 333 years");
-        q10Panel.add(jRadioButton38, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq10RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq10RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq10RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq10RadioBtn.setText(" C. 333 years");
+        q10Panel.add(Cq10RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton39.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton39.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton39.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton39.setText(" B. 300 years");
-        q10Panel.add(jRadioButton39, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq10RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq10RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq10RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq10RadioBtn.setText(" B. 300 years");
+        q10Panel.add(Bq10RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton40.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton40.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton40.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton40.setText(" A. 250 years");
-        q10Panel.add(jRadioButton40, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq10RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq10RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq10RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq10RadioBtn.setText(" A. 250 years");
+        q10Panel.add(Aq10RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel12.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -929,29 +1142,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q11Panel.add(next11Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton41.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton41.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton41.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton41.setText(" D.  Apolinario Mabini");
-        q11Panel.add(jRadioButton41, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq11RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq11RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq11RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq11RadioBtn.setText(" D.  Apolinario Mabini");
+        q11Panel.add(Dq11RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton42.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton42.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton42.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton42.setText(" C.  Emilio Aguinaldo");
-        q11Panel.add(jRadioButton42, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq11RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq11RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq11RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq11RadioBtn.setText(" C.  Emilio Aguinaldo");
+        q11Panel.add(Cq11RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton43.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton43.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton43.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton43.setText(" B.  Andrés Bonifacio");
-        q11Panel.add(jRadioButton43, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq11RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq11RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq11RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq11RadioBtn.setText(" B.  Andrés Bonifacio");
+        q11Panel.add(Bq11RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton44.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton44.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton44.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton44.setText(" A.  José Rizal");
-        q11Panel.add(jRadioButton44, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq11RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq11RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq11RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq11RadioBtn.setText(" A.  José Rizal");
+        q11Panel.add(Aq11RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel13.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -979,29 +1192,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q12Panel.add(next12Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton45.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton45.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton45.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton45.setText(" D. Sobre la Indolencia de los Filipinos");
-        q12Panel.add(jRadioButton45, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq12RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq12RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq12RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq12RadioBtn.setText(" D. Sobre la Indolencia de los Filipinos");
+        q12Panel.add(Dq12RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton46.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton46.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton46.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton46.setText(" C. Mi Último Adiós");
-        q12Panel.add(jRadioButton46, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq12RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq12RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq12RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq12RadioBtn.setText(" C. Mi Último Adiós");
+        q12Panel.add(Cq12RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton47.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton47.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton47.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton47.setText(" B.  Noli Me Tangere");
-        q12Panel.add(jRadioButton47, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq12RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq12RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq12RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq12RadioBtn.setText(" B.  Noli Me Tangere");
+        q12Panel.add(Bq12RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton48.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton48.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton48.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton48.setText(" A. El Filibusterismo");
-        q12Panel.add(jRadioButton48, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq12RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq12RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq12RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq12RadioBtn.setText(" A. El Filibusterismo");
+        q12Panel.add(Aq12RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel14.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -1029,29 +1242,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q13Panel.add(next13Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton49.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton49.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton49.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton49.setText(" D. 1898");
-        q13Panel.add(jRadioButton49, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq13RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq13RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq13RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq13RadioBtn.setText(" D. 1898");
+        q13Panel.add(Dq13RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton50.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton50.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton50.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton50.setText(" C. 1565");
-        q13Panel.add(jRadioButton50, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq13RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq13RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq13RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq13RadioBtn.setText(" C. 1565");
+        q13Panel.add(Cq13RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton51.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton51.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton51.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton51.setText(" B. 1896");
-        q13Panel.add(jRadioButton51, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq13RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq13RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq13RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq13RadioBtn.setText(" B. 1896");
+        q13Panel.add(Bq13RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton52.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton52.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton52.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton52.setText(" A. 1892");
-        q13Panel.add(jRadioButton52, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq13RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq13RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq13RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq13RadioBtn.setText(" A. 1892");
+        q13Panel.add(Aq13RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel15.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -1079,29 +1292,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q14Panel.add(next14Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton53.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton53.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton53.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton53.setText(" D. Pact of Biak-na-Bato");
-        q14Panel.add(jRadioButton53, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq14RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq14RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq14RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq14RadioBtn.setText(" D. Pact of Biak-na-Bato");
+        q14Panel.add(Dq14RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton54.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton54.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton54.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton54.setText(" C. Battle of Manila Bay");
-        q14Panel.add(jRadioButton54, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq14RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq14RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq14RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq14RadioBtn.setText(" C. Battle of Manila Bay");
+        q14Panel.add(Cq14RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton55.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton55.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton55.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton55.setText(" B. Cavite Mutiny");
-        q14Panel.add(jRadioButton55, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq14RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq14RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq14RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq14RadioBtn.setText(" B. Cavite Mutiny");
+        q14Panel.add(Bq14RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton56.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton56.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton56.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton56.setText(" A.  Cry of Pugad Lawin");
-        q14Panel.add(jRadioButton56, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq14RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq14RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq14RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq14RadioBtn.setText(" A.  Cry of Pugad Lawin");
+        q14Panel.add(Aq14RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel16.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -1129,29 +1342,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q15Panel.add(next15Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton57.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton57.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton57.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton57.setText(" D. Treaty of Versailles");
-        q15Panel.add(jRadioButton57, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq15RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq15RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq15RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq15RadioBtn.setText(" D. Treaty of Versailles");
+        q15Panel.add(Dq15RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton58.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton58.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton58.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton58.setText(" C.  Pact of Biak-na-Bato");
-        q15Panel.add(jRadioButton58, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq15RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq15RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq15RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq15RadioBtn.setText(" C.  Pact of Biak-na-Bato");
+        q15Panel.add(Cq15RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton59.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton59.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton59.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton59.setText(" B. Treaty of Tordesillas");
-        q15Panel.add(jRadioButton59, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq15RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq15RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq15RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq15RadioBtn.setText(" B. Treaty of Tordesillas");
+        q15Panel.add(Bq15RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton60.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton60.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton60.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton60.setText(" A. Treaty of Paris (1898)");
-        q15Panel.add(jRadioButton60, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq15RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq15RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq15RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq15RadioBtn.setText(" A. Treaty of Paris (1898)");
+        q15Panel.add(Aq15RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel17.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -1179,29 +1392,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q16Panel.add(next16Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton61.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton61.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton61.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton61.setText(" D. Ilustrados");
-        q16Panel.add(jRadioButton61, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq16RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq16RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq16RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq16RadioBtn.setText(" D. Ilustrados");
+        q16Panel.add(Dq16RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton62.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton62.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton62.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton62.setText(" C. Katipunan (KKK)");
-        q16Panel.add(jRadioButton62, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq16RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq16RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq16RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq16RadioBtn.setText(" C. Katipunan (KKK)");
+        q16Panel.add(Cq16RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton63.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton63.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton63.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton63.setText(" B. Propaganda Movement");
-        q16Panel.add(jRadioButton63, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq16RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq16RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq16RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq16RadioBtn.setText(" B. Propaganda Movement");
+        q16Panel.add(Bq16RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton64.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton64.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton64.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton64.setText(" A. La Liga Filipina");
-        q16Panel.add(jRadioButton64, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq16RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq16RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq16RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq16RadioBtn.setText(" A. La Liga Filipina");
+        q16Panel.add(Aq16RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel18.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -1229,29 +1442,29 @@ public class QuizUI extends javax.swing.JFrame {
         });
         q17Panel.add(next17Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 740, -1, -1));
 
-        jRadioButton65.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton65.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton65.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton65.setText(" D. Calamba, Laguna");
-        q17Panel.add(jRadioButton65, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
+        Dq17RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Dq17RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Dq17RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Dq17RadioBtn.setText(" D. Calamba, Laguna");
+        q17Panel.add(Dq17RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
-        jRadioButton66.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton66.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton66.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton66.setText(" C. Kawit, Cavite");
-        q17Panel.add(jRadioButton66, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
+        Cq17RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Cq17RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Cq17RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Cq17RadioBtn.setText(" C. Kawit, Cavite");
+        q17Panel.add(Cq17RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
-        jRadioButton67.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton67.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton67.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton67.setText(" B. Malolos, Bulacan");
-        q17Panel.add(jRadioButton67, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
+        Bq17RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Bq17RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Bq17RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Bq17RadioBtn.setText(" B. Malolos, Bulacan");
+        q17Panel.add(Bq17RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
-        jRadioButton68.setBackground(new java.awt.Color(53, 48, 128));
-        jRadioButton68.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jRadioButton68.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton68.setText(" A. Manila");
-        q17Panel.add(jRadioButton68, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
+        Aq17RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
+        Aq17RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        Aq17RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Aq17RadioBtn.setText(" A. Manila");
+        q17Panel.add(Aq17RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 70));
 
         jLabel19.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -1636,13 +1849,13 @@ public class QuizUI extends javax.swing.JFrame {
         titleLbl.setText("Placeholder");
         mainPanel.add(titleLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 95, -1, -1));
 
-        timer.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        timer.setForeground(new java.awt.Color(255, 255, 255));
-        timer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/timer-button.png"))); // NOI18N
-        timer.setText("00:00");
-        timer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        timer.setIconTextGap(0);
-        mainPanel.add(timer, new org.netbeans.lib.awtextra.AbsoluteConstraints(1786, 110, -1, -1));
+        timerLbl.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        timerLbl.setForeground(new java.awt.Color(255, 255, 255));
+        timerLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/timer-button.png"))); // NOI18N
+        timerLbl.setText("00:00");
+        timerLbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        timerLbl.setIconTextGap(0);
+        mainPanel.add(timerLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(1786, 110, -1, -1));
 
         getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 1080));
 
@@ -1835,6 +2048,74 @@ public class QuizUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Aq10RadioBtn;
+    private javax.swing.JRadioButton Aq11RadioBtn;
+    private javax.swing.JRadioButton Aq12RadioBtn;
+    private javax.swing.JRadioButton Aq13RadioBtn;
+    private javax.swing.JRadioButton Aq14RadioBtn;
+    private javax.swing.JRadioButton Aq15RadioBtn;
+    private javax.swing.JRadioButton Aq16RadioBtn;
+    private javax.swing.JRadioButton Aq17RadioBtn;
+    private javax.swing.JRadioButton Aq1RadioBtn;
+    private javax.swing.JRadioButton Aq2RadioBtn;
+    private javax.swing.JRadioButton Aq3RadioBtn;
+    private javax.swing.JRadioButton Aq4RadioBtn;
+    private javax.swing.JRadioButton Aq5RadioBtn;
+    private javax.swing.JRadioButton Aq6RadioBtn;
+    private javax.swing.JRadioButton Aq7RadioBtn;
+    private javax.swing.JRadioButton Aq8RadioBtn;
+    private javax.swing.JRadioButton Aq9RadioBtn;
+    private javax.swing.JRadioButton Bq10RadioBtn;
+    private javax.swing.JRadioButton Bq11RadioBtn;
+    private javax.swing.JRadioButton Bq12RadioBtn;
+    private javax.swing.JRadioButton Bq13RadioBtn;
+    private javax.swing.JRadioButton Bq14RadioBtn;
+    private javax.swing.JRadioButton Bq15RadioBtn;
+    private javax.swing.JRadioButton Bq16RadioBtn;
+    private javax.swing.JRadioButton Bq17RadioBtn;
+    private javax.swing.JRadioButton Bq1RadioBtn;
+    private javax.swing.JRadioButton Bq2RadioBtn;
+    private javax.swing.JRadioButton Bq3RadioBtn;
+    private javax.swing.JRadioButton Bq4RadioBtn;
+    private javax.swing.JRadioButton Bq5RadioBtn;
+    private javax.swing.JRadioButton Bq6RadioBtn;
+    private javax.swing.JRadioButton Bq7RadioBtn;
+    private javax.swing.JRadioButton Bq8RadioBtn;
+    private javax.swing.JRadioButton Bq9RadioBtn;
+    private javax.swing.JRadioButton Cq10RadioBtn;
+    private javax.swing.JRadioButton Cq11RadioBtn;
+    private javax.swing.JRadioButton Cq12RadioBtn;
+    private javax.swing.JRadioButton Cq13RadioBtn;
+    private javax.swing.JRadioButton Cq14RadioBtn;
+    private javax.swing.JRadioButton Cq15RadioBtn;
+    private javax.swing.JRadioButton Cq16RadioBtn;
+    private javax.swing.JRadioButton Cq17RadioBtn;
+    private javax.swing.JRadioButton Cq1RadioBtn;
+    private javax.swing.JRadioButton Cq2RadioBtn;
+    private javax.swing.JRadioButton Cq3RadioBtn;
+    private javax.swing.JRadioButton Cq4RadioBtn;
+    private javax.swing.JRadioButton Cq5RadioBtn;
+    private javax.swing.JRadioButton Cq6RadioBtn;
+    private javax.swing.JRadioButton Cq7RadioBtn;
+    private javax.swing.JRadioButton Cq8RadioBtn;
+    private javax.swing.JRadioButton Cq9RadioBtn;
+    private javax.swing.JRadioButton Dq10RadioBtn;
+    private javax.swing.JRadioButton Dq11RadioBtn;
+    private javax.swing.JRadioButton Dq12RadioBtn;
+    private javax.swing.JRadioButton Dq13RadioBtn;
+    private javax.swing.JRadioButton Dq14RadioBtn;
+    private javax.swing.JRadioButton Dq15RadioBtn;
+    private javax.swing.JRadioButton Dq16RadioBtn;
+    private javax.swing.JRadioButton Dq17RadioBtn;
+    private javax.swing.JRadioButton Dq1RadioBtn;
+    private javax.swing.JRadioButton Dq2RadioBtn;
+    private javax.swing.JRadioButton Dq3RadioBtn;
+    private javax.swing.JRadioButton Dq4RadioBtn;
+    private javax.swing.JRadioButton Dq5RadioBtn;
+    private javax.swing.JRadioButton Dq6RadioBtn;
+    private javax.swing.JRadioButton Dq7RadioBtn;
+    private javax.swing.JRadioButton Dq8RadioBtn;
+    private javax.swing.JRadioButton Dq9RadioBtn;
     private javax.swing.JLabel backBtn1;
     private javax.swing.JLabel closeBtn;
     private javax.swing.JTabbedPane contentsTabbedPane;
@@ -1884,74 +2165,6 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton10;
-    private javax.swing.JRadioButton jRadioButton11;
-    private javax.swing.JRadioButton jRadioButton12;
-    private javax.swing.JRadioButton jRadioButton13;
-    private javax.swing.JRadioButton jRadioButton14;
-    private javax.swing.JRadioButton jRadioButton15;
-    private javax.swing.JRadioButton jRadioButton16;
-    private javax.swing.JRadioButton jRadioButton17;
-    private javax.swing.JRadioButton jRadioButton18;
-    private javax.swing.JRadioButton jRadioButton19;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton20;
-    private javax.swing.JRadioButton jRadioButton21;
-    private javax.swing.JRadioButton jRadioButton22;
-    private javax.swing.JRadioButton jRadioButton23;
-    private javax.swing.JRadioButton jRadioButton24;
-    private javax.swing.JRadioButton jRadioButton25;
-    private javax.swing.JRadioButton jRadioButton26;
-    private javax.swing.JRadioButton jRadioButton27;
-    private javax.swing.JRadioButton jRadioButton28;
-    private javax.swing.JRadioButton jRadioButton29;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton30;
-    private javax.swing.JRadioButton jRadioButton31;
-    private javax.swing.JRadioButton jRadioButton32;
-    private javax.swing.JRadioButton jRadioButton33;
-    private javax.swing.JRadioButton jRadioButton34;
-    private javax.swing.JRadioButton jRadioButton35;
-    private javax.swing.JRadioButton jRadioButton36;
-    private javax.swing.JRadioButton jRadioButton37;
-    private javax.swing.JRadioButton jRadioButton38;
-    private javax.swing.JRadioButton jRadioButton39;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton40;
-    private javax.swing.JRadioButton jRadioButton41;
-    private javax.swing.JRadioButton jRadioButton42;
-    private javax.swing.JRadioButton jRadioButton43;
-    private javax.swing.JRadioButton jRadioButton44;
-    private javax.swing.JRadioButton jRadioButton45;
-    private javax.swing.JRadioButton jRadioButton46;
-    private javax.swing.JRadioButton jRadioButton47;
-    private javax.swing.JRadioButton jRadioButton48;
-    private javax.swing.JRadioButton jRadioButton49;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton50;
-    private javax.swing.JRadioButton jRadioButton51;
-    private javax.swing.JRadioButton jRadioButton52;
-    private javax.swing.JRadioButton jRadioButton53;
-    private javax.swing.JRadioButton jRadioButton54;
-    private javax.swing.JRadioButton jRadioButton55;
-    private javax.swing.JRadioButton jRadioButton56;
-    private javax.swing.JRadioButton jRadioButton57;
-    private javax.swing.JRadioButton jRadioButton58;
-    private javax.swing.JRadioButton jRadioButton59;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton60;
-    private javax.swing.JRadioButton jRadioButton61;
-    private javax.swing.JRadioButton jRadioButton62;
-    private javax.swing.JRadioButton jRadioButton63;
-    private javax.swing.JRadioButton jRadioButton64;
-    private javax.swing.JRadioButton jRadioButton65;
-    private javax.swing.JRadioButton jRadioButton66;
-    private javax.swing.JRadioButton jRadioButton67;
-    private javax.swing.JRadioButton jRadioButton68;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton8;
-    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel mainPanel;
@@ -2033,7 +2246,7 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JLabel scoreLbl1;
     private javax.swing.JLabel startQuizBtn;
     private javax.swing.JPanel startquizPanel;
-    private javax.swing.JLabel timer;
+    private javax.swing.JLabel timerLbl;
     private javax.swing.JLabel titleLbl;
     // End of variables declaration//GEN-END:variables
 }
