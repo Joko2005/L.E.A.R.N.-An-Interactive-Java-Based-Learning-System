@@ -9,6 +9,10 @@ import datavisualization.charts;
 import quiz.QuizUI;
 
 import javax.swing.JFrame;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.Timer;
+
 
 
 /**
@@ -27,9 +31,19 @@ public class AdminUI extends javax.swing.JFrame {
         setUndecorated(true);
         initComponents();
         this.setVisible(true);
-        
+        startDateTime();
         
     }
+    
+    private void startDateTime() {
+    DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy | hh:mm a");
+
+    Timer timer = new Timer(1000, e -> {
+        jLabel3.setText(LocalDateTime.now().format(formatter));
+    });
+    timer.start();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -250,9 +264,9 @@ public class AdminUI extends javax.swing.JFrame {
                 .addComponent(btnSbDataVis, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnSbCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
+                .addGap(361, 361, 361)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addGap(41, 41, 41))
         );
 
         pnlSidebar.add(pnlSidebarOptions, java.awt.BorderLayout.CENTER);
@@ -271,7 +285,7 @@ public class AdminUI extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(178, 177, 223));
-        jLabel3.setText("Date and Time Placeholder");
+        jLabel3.setText("Loading date & time…");
 
         btnMinimize.setBorder(null);
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
@@ -364,7 +378,7 @@ public class AdminUI extends javax.swing.JFrame {
         btnChatbot.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnChatbot.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnChatbot.setHoverColor2(new java.awt.Color(244, 105, 220));
-        jPanel1.add(btnChatbot, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 850, 200, 40));
+        jPanel1.add(btnChatbot, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 870, 200, 40));
 
         btnDataVis.setText("VIEW DATA");
         btnDataVis.setColor1(new java.awt.Color(109, 31, 239));
@@ -378,7 +392,7 @@ public class AdminUI extends javax.swing.JFrame {
                 btnDataVisActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDataVis, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 850, 200, 40));
+        jPanel1.add(btnDataVis, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 870, 200, 40));
 
         btnCredits.setText("VIEW QUIZ");
         btnCredits.setColor1(new java.awt.Color(109, 31, 239));
@@ -392,7 +406,7 @@ public class AdminUI extends javax.swing.JFrame {
                 btnCreditsActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCredits, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 390, 210, 40));
+        jPanel1.add(btnCredits, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 410, 210, 40));
 
         btnQuiz.setText("START QUIZ");
         btnQuiz.setColor1(new java.awt.Color(109, 31, 239));
@@ -406,19 +420,19 @@ public class AdminUI extends javax.swing.JFrame {
                 btnQuizActionPerformed(evt);
             }
         });
-        jPanel1.add(btnQuiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 200, 40));
+        jPanel1.add(btnQuiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 200, 40));
 
         CreditPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminCreditsPanel.png"))); // NOI18N
-        jPanel1.add(CreditPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 130, -1, -1));
+        jPanel1.add(CreditPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 150, -1, -1));
 
         QuizPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminQuizPanel.png"))); // NOI18N
-        jPanel1.add(QuizPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 129, -1, -1));
+        jPanel1.add(QuizPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         DataVisPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminDataVisPanel.png"))); // NOI18N
-        jPanel1.add(DataVisPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, -1, -1));
+        jPanel1.add(DataVisPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
 
         ChatbotPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminChatBotPanel.png"))); // NOI18N
-        jPanel1.add(ChatbotPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 500, -1, -1));
+        jPanel1.add(ChatbotPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, -1, -1));
 
         pnlPlaceholder.add(jPanel1, java.awt.BorderLayout.CENTER);
 
