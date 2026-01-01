@@ -4,6 +4,7 @@
  */
 package credits.ui;
 
+import commons.UIUtils;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -49,8 +50,8 @@ public class CreditsUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnBack = new commons.RoundButton();
-        btnBack1 = new commons.RoundButton();
-        btnBack2 = new commons.RoundButton();
+        btnMinimize = new commons.RoundButton();
+        btnExit = new commons.RoundButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -84,30 +85,40 @@ public class CreditsUI extends javax.swing.JFrame {
         btnBack.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         btnBack.setRadius(10);
 
-        btnBack1.setBorder(null);
-        btnBack1.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack1.setText("–");
-        btnBack1.setBorderColor(new java.awt.Color(75, 74, 151));
-        btnBack1.setBorderPainted(false);
-        btnBack1.setColor(new java.awt.Color(75, 74, 151));
-        btnBack1.setColorClick(new java.awt.Color(48, 43, 116));
-        btnBack1.setColorOver(new java.awt.Color(48, 43, 116));
-        btnBack1.setFocusable(false);
-        btnBack1.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
-        btnBack1.setRadius(10);
+        btnMinimize.setBorder(null);
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setText("–");
+        btnMinimize.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setBorderPainted(false);
+        btnMinimize.setColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setColorClick(new java.awt.Color(48, 43, 116));
+        btnMinimize.setColorOver(new java.awt.Color(48, 43, 116));
+        btnMinimize.setFocusable(false);
+        btnMinimize.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnMinimize.setRadius(10);
+        btnMinimize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinimizeActionPerformed(evt);
+            }
+        });
 
-        btnBack2.setBackground(new java.awt.Color(219, 60, 172));
-        btnBack2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnBack2.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack2.setText("x");
-        btnBack2.setBorderColor(new java.awt.Color(219, 60, 172));
-        btnBack2.setBorderPainted(false);
-        btnBack2.setColor(new java.awt.Color(219, 60, 172));
-        btnBack2.setColorClick(new java.awt.Color(153, 62, 145));
-        btnBack2.setColorOver(new java.awt.Color(153, 62, 145));
-        btnBack2.setFocusable(false);
-        btnBack2.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
-        btnBack2.setRadius(10);
+        btnExit.setBackground(new java.awt.Color(219, 60, 172));
+        btnExit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setText("x");
+        btnExit.setBorderColor(new java.awt.Color(219, 60, 172));
+        btnExit.setBorderPainted(false);
+        btnExit.setColor(new java.awt.Color(219, 60, 172));
+        btnExit.setColorClick(new java.awt.Color(153, 62, 145));
+        btnExit.setColorOver(new java.awt.Color(153, 62, 145));
+        btnExit.setFocusable(false);
+        btnExit.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnExit.setRadius(10);
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -121,9 +132,9 @@ public class CreditsUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1437, Short.MAX_VALUE)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBack1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
         HeaderLayout.setVerticalGroup(
@@ -139,8 +150,8 @@ public class CreditsUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBack1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -193,6 +204,14 @@ public class CreditsUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnMinimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizeActionPerformed
+        setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,8 +225,8 @@ public class CreditsUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Header;
     private commons.RoundButton btnBack;
-    private commons.RoundButton btnBack1;
-    private commons.RoundButton btnBack2;
+    private commons.RoundButton btnExit;
+    private commons.RoundButton btnMinimize;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
