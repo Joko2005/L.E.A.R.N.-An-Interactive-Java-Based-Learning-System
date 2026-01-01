@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class UIUtils {
 
-    private UIUtils() {
+    public UIUtils() {
         // Prevent instantiation
     }
 
@@ -40,6 +40,28 @@ public class UIUtils {
                 JOptionPane.QUESTION_MESSAGE
         );
         return result == JOptionPane.YES_OPTION;
+    }
+    
+    public static void minimizeFrame(JFrame frame){
+        frame.setState(JFrame.ICONIFIED);
+    }
+    
+    public static void closeFrame(JFrame frame, String msg, String title, int icon){
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                msg,
+                title,
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if(result == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }
+    
+    public static void goBack(JFrame frame){
+        // bumalik sa dashboard
     }
 }
 
