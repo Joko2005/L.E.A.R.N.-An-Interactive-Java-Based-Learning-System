@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 public class QuizUI extends javax.swing.JFrame {
     
@@ -47,6 +48,8 @@ public class QuizUI extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
+    // ============================================================================================================================
+    
     private void QuizInstructions(){
         instructionsLbl.setText("<html>" +
             "<div style='width: 700px; font-size: 14px; color: #C3C9D9; line-height: 1.6;'>" +
@@ -78,22 +81,69 @@ public class QuizUI extends javax.swing.JFrame {
         IntializeQuestions();
     }
     
-    private String Recommendation(double percentage) {
-        if (percentage >= 90) {
-            return "Outstanding performance! You have demonstrated exceptional understanding of the material.  " +
+    private void Evaluate(JRadioButton answer, JPanel addThis){
+        boolean isCorrect = CheckIfAnswerIsCorrect(answer);
+        AddScore(isCorrect);
+        MessaageBox(isCorrect);
+        Tabs(addThis);
+    }
+    
+    private void Summary(){
+        int score = Score;
+        double percentage = (score * 100.0) / 17;
+        String remark = Remark(percentage);
+        String recommendation = Recommendation(percentage);
+        
+        scoreLbl.setText(score + "/17");
+        percentageLbl.setText(String.format("%.2f%%", percentage));
+        remarkLbl.setText(remark);
+        recommendationLbl.setText(recommendation);
+    }
+    
+    private String Remark(double percent) {
+        String remark;
+
+        if (percent >= 88.24) { // 15-17 correct = 88.24%-100%
+            remark = "Excellent";
+        }
+        else if (percent >= 70.59) { // 12-14 correct = 70.59%-82.35%
+            remark = "Very Good";
+        }
+        else if (percent >= 52.94) { // 9-11 correct = 52.94%-64.71%
+            remark = "Fair";
+        }
+        else { // 0-8 correct = 0%-47.06%
+            remark = "Failed";
+        }
+
+        return remark; 
+    }
+
+    private String Recommendation(double percent) {
+        String recommended;
+        
+        if (percent >= 88.24) { // Excellent:  15-17 correct
+            recommended = "Outstanding performance! You have demonstrated exceptional understanding of the material.  " +
                    "Consider exploring advanced topics or mentoring others to reinforce your knowledge.";
-        } else if (percentage >= 75) {
-            return "Great job! You have a solid grasp of the concepts. " +
+        } 
+        else if (percent >= 70.59) { // Very Good: 12-14 correct
+            recommended = "Great job! You have a solid grasp of the concepts. " +
                    "Review the questions you missed to strengthen your understanding further.";
-        } else if (percentage >= 60) {
-            return "You passed, but there's room for improvement. " +
+        } 
+        else if (percent >= 52.94) { // Fair: 9-11 correct
+            recommended = "You passed, but there's room for improvement.  " +
                    "Focus on reviewing the topics where you struggled and consider retaking the quiz after additional study.";
-        } else {
-            return "You did not pass this time. Don't be discouraged! " +
+        } 
+        else { // Failed: 0-8 correct
+            recommended = "You did not pass this time. Don't be discouraged! " +
                    "Review all the material thoroughly, especially the questions you got wrong. " +
                    "Take your time to understand each concept before retaking the quiz.";
         }
+        
+        return recommended;
     }
+    
+    // ============================================================================================================================
     
     private void Tabs(JPanel addThis){
         contentsTabbedPane.remove(startquizPanel);
@@ -140,25 +190,6 @@ public class QuizUI extends javax.swing.JFrame {
     ButtonGroup q15 = new ButtonGroup();
     ButtonGroup q16 = new ButtonGroup();
     ButtonGroup q17 = new ButtonGroup();
-    private void IntializeQuestions(){
-        Question1();
-        Question2();
-        Question3();
-        Question4();
-        Question5();
-        Question6();
-        Question7();
-        Question8();
-        Question9();
-        Question10();
-        Question11();
-        Question12();
-        Question13();
-        Question14();
-        Question15();
-        Question16();
-        Question17();
-    }
     private void Question1(){
         q1.add(Aq1RadioBtn);
         q1.add(Bq1RadioBtn);
@@ -260,6 +291,76 @@ public class QuizUI extends javax.swing.JFrame {
         q17.add(Bq17RadioBtn);
         q17.add(Cq17RadioBtn);
         q17.add(Dq17RadioBtn);
+    }
+    private void IntializeQuestions(){
+        Question1();
+        Question2();
+        Question3();
+        Question4();
+        Question5();
+        Question6();
+        Question7();
+        Question8();
+        Question9();
+        Question10();
+        Question11();
+        Question12();
+        Question13();
+        Question14();
+        Question15();
+        Question16();
+        Question17();
+    }
+    private void DeselectAll(){
+        q1.clearSelection();
+        q2.clearSelection();
+        q3.clearSelection();
+        q4.clearSelection();
+        q5.clearSelection();
+        q6.clearSelection();
+        q7.clearSelection();
+        q8.clearSelection();
+        q9.clearSelection();
+        q10.clearSelection();
+        q11.clearSelection();
+        q12.clearSelection();
+        q13.clearSelection();
+        q14.clearSelection();
+        q15.clearSelection();
+        q16.clearSelection();
+        q17.clearSelection();
+    }
+    
+    // ============================================================================================================================
+    
+    /* FOR EVALUATION OF ANSWERS */
+    
+    private boolean CheckIfAnswerIsCorrect(JRadioButton answer){
+        boolean isCorrect = false;
+        if(answer.isSelected()){
+            isCorrect = true;
+        }
+        return isCorrect;
+    }
+    
+    private int Score = 0;
+    private void AddScore(boolean isCorrect){
+        if(isCorrect){
+            Score++;
+        }
+    }
+    
+    private void ResetScore(){
+        Score = 0;
+    }
+    
+    private void MessaageBox(boolean isCorrect){
+        if(isCorrect){
+            JOptionPane.showMessageDialog(null, "Correct", "Evaluation", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Incorrect", "Evaluation", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     // ============================================================================================================================
@@ -492,9 +593,9 @@ public class QuizUI extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         percentageLbl = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        remarkLbl1 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         remarkLbl = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        recommendationLbl = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         q17AnsLbl = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -612,6 +713,9 @@ public class QuizUI extends javax.swing.JFrame {
         startQuizBtn.setText("START QUIZ");
         startQuizBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         startQuizBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                startQuizBtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 startQuizBtnMouseEntered(evt);
             }
@@ -633,6 +737,9 @@ public class QuizUI extends javax.swing.JFrame {
         next1Btn.setText("NEXT");
         next1Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next1Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next1BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next1BtnMouseEntered(evt);
             }
@@ -683,6 +790,9 @@ public class QuizUI extends javax.swing.JFrame {
         next2Btn.setText("NEXT");
         next2Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next2Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next2BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next2BtnMouseEntered(evt);
             }
@@ -733,6 +843,9 @@ public class QuizUI extends javax.swing.JFrame {
         next3Btn.setText("NEXT");
         next3Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next3Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next3BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next3BtnMouseEntered(evt);
             }
@@ -783,6 +896,9 @@ public class QuizUI extends javax.swing.JFrame {
         next4Btn.setText("NEXT");
         next4Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next4Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next4BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next4BtnMouseEntered(evt);
             }
@@ -833,6 +949,9 @@ public class QuizUI extends javax.swing.JFrame {
         next5Btn.setText("NEXT");
         next5Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next5Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next5BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next5BtnMouseEntered(evt);
             }
@@ -883,6 +1002,9 @@ public class QuizUI extends javax.swing.JFrame {
         next6Btn.setText("NEXT");
         next6Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next6Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next6BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next6BtnMouseEntered(evt);
             }
@@ -895,7 +1017,7 @@ public class QuizUI extends javax.swing.JFrame {
         Dq6RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
         Dq6RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         Dq6RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
-        Dq6RadioBtn.setText(" D. Tribute");
+        Dq6RadioBtn.setText(" D. Polo y Servicio");
         q6Panel.add(Dq6RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
         Cq6RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
@@ -907,7 +1029,7 @@ public class QuizUI extends javax.swing.JFrame {
         Bq6RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
         Bq6RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         Bq6RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
-        Bq6RadioBtn.setText(" B. Polo y Servicio");
+        Bq6RadioBtn.setText(" B. Tribute");
         q6Panel.add(Bq6RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
         Aq6RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
@@ -933,6 +1055,9 @@ public class QuizUI extends javax.swing.JFrame {
         next7Btn.setText("NEXT");
         next7Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next7Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next7BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next7BtnMouseEntered(evt);
             }
@@ -957,7 +1082,7 @@ public class QuizUI extends javax.swing.JFrame {
         Bq7RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
         Bq7RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         Bq7RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
-        Bq7RadioBtn.setText(" B. Encomenderos");
+        Bq7RadioBtn.setText(" B. Friars");
         q7Panel.add(Bq7RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
         Aq7RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
@@ -983,6 +1108,9 @@ public class QuizUI extends javax.swing.JFrame {
         next8Btn.setText("NEXT");
         next8Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next8Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next8BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next8BtnMouseEntered(evt);
             }
@@ -1033,6 +1161,9 @@ public class QuizUI extends javax.swing.JFrame {
         next9Btn.setText("NEXT");
         next9Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next9Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next9BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next9BtnMouseEntered(evt);
             }
@@ -1083,6 +1214,9 @@ public class QuizUI extends javax.swing.JFrame {
         next10Btn.setText("NEXT");
         next10Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next10Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next10BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next10BtnMouseEntered(evt);
             }
@@ -1133,6 +1267,9 @@ public class QuizUI extends javax.swing.JFrame {
         next11Btn.setText("NEXT");
         next11Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next11Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next11BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next11BtnMouseEntered(evt);
             }
@@ -1183,6 +1320,9 @@ public class QuizUI extends javax.swing.JFrame {
         next12Btn.setText("NEXT");
         next12Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next12Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next12BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next12BtnMouseEntered(evt);
             }
@@ -1233,6 +1373,9 @@ public class QuizUI extends javax.swing.JFrame {
         next13Btn.setText("NEXT");
         next13Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next13Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next13BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next13BtnMouseEntered(evt);
             }
@@ -1245,7 +1388,7 @@ public class QuizUI extends javax.swing.JFrame {
         Dq13RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
         Dq13RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         Dq13RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
-        Dq13RadioBtn.setText(" D. 1898");
+        Dq13RadioBtn.setText(" D. 1896");
         q13Panel.add(Dq13RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, 70));
 
         Cq13RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
@@ -1257,7 +1400,7 @@ public class QuizUI extends javax.swing.JFrame {
         Bq13RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
         Bq13RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         Bq13RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
-        Bq13RadioBtn.setText(" B. 1896");
+        Bq13RadioBtn.setText(" B. 1898");
         q13Panel.add(Bq13RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
         Aq13RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
@@ -1283,6 +1426,9 @@ public class QuizUI extends javax.swing.JFrame {
         next14Btn.setText("NEXT");
         next14Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next14Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next14BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next14BtnMouseEntered(evt);
             }
@@ -1301,13 +1447,13 @@ public class QuizUI extends javax.swing.JFrame {
         Cq14RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
         Cq14RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         Cq14RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
-        Cq14RadioBtn.setText(" C. Battle of Manila Bay");
+        Cq14RadioBtn.setText(" C. Cavite Mutiny");
         q14Panel.add(Cq14RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, 70));
 
         Bq14RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
         Bq14RadioBtn.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         Bq14RadioBtn.setForeground(new java.awt.Color(255, 255, 255));
-        Bq14RadioBtn.setText(" B. Cavite Mutiny");
+        Bq14RadioBtn.setText(" B. Battle of Manila Bay");
         q14Panel.add(Bq14RadioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 70));
 
         Aq14RadioBtn.setBackground(new java.awt.Color(53, 48, 128));
@@ -1333,6 +1479,9 @@ public class QuizUI extends javax.swing.JFrame {
         next15Btn.setText("NEXT");
         next15Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next15Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next15BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next15BtnMouseEntered(evt);
             }
@@ -1383,6 +1532,9 @@ public class QuizUI extends javax.swing.JFrame {
         next16Btn.setText("NEXT");
         next16Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next16Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next16BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next16BtnMouseEntered(evt);
             }
@@ -1433,6 +1585,9 @@ public class QuizUI extends javax.swing.JFrame {
         next17Btn.setText("NEXT");
         next17Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         next17Btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                next17BtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 next17BtnMouseEntered(evt);
             }
@@ -1541,22 +1696,22 @@ public class QuizUI extends javax.swing.JFrame {
         jLabel23.setText("Remark:");
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        remarkLbl1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
-        remarkLbl1.setForeground(new java.awt.Color(255, 255, 255));
-        remarkLbl1.setText("remark here");
-        jPanel1.add(remarkLbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, -1));
+        remarkLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
+        remarkLbl.setForeground(new java.awt.Color(255, 255, 255));
+        remarkLbl.setText("remark here");
+        jPanel1.add(remarkLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, -1));
 
         jLabel20.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Recommendation:");
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
-        remarkLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
-        remarkLbl.setForeground(new java.awt.Color(255, 255, 255));
-        remarkLbl.setText("placeholder");
-        remarkLbl.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        remarkLbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel1.add(remarkLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 340, 360));
+        recommendationLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
+        recommendationLbl.setForeground(new java.awt.Color(255, 255, 255));
+        recommendationLbl.setText("placeholder");
+        recommendationLbl.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        recommendationLbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel1.add(recommendationLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 340, 360));
 
         resultPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 360, 560));
 
@@ -2022,6 +2177,83 @@ public class QuizUI extends javax.swing.JFrame {
         MouseExited(goToDashboardBtn);
     }//GEN-LAST:event_goToDashboardBtnMouseExited
 
+// ============================================================================================================================
+    
+    private void startQuizBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startQuizBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startQuizBtnMouseClicked
+
+    private void next1BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next1BtnMouseClicked
+        Evaluate(Bq1RadioBtn , q2Panel);
+    }//GEN-LAST:event_next1BtnMouseClicked
+
+    private void next2BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next2BtnMouseClicked
+        Evaluate(Bq2RadioBtn , q3Panel);
+    }//GEN-LAST:event_next2BtnMouseClicked
+
+    private void next3BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next3BtnMouseClicked
+        Evaluate(Bq3RadioBtn , q4Panel); // HERE HER EHERE HERE
+    }//GEN-LAST:event_next3BtnMouseClicked
+
+    private void next4BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next4BtnMouseClicked
+        Evaluate(Cq4RadioBtn , q5Panel);
+    }//GEN-LAST:event_next4BtnMouseClicked
+
+    private void next5BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next5BtnMouseClicked
+        Evaluate(Bq5RadioBtn , q6Panel);
+    }//GEN-LAST:event_next5BtnMouseClicked
+
+    private void next6BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next6BtnMouseClicked
+        Evaluate(Dq6RadioBtn , q7Panel);
+    }//GEN-LAST:event_next6BtnMouseClicked
+
+    private void next7BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next7BtnMouseClicked
+        Evaluate(Aq7RadioBtn , q8Panel);
+    }//GEN-LAST:event_next7BtnMouseClicked
+
+    private void next8BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next8BtnMouseClicked
+        Evaluate(Dq8RadioBtn , q9Panel);
+    }//GEN-LAST:event_next8BtnMouseClicked
+
+    private void next9BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next9BtnMouseClicked
+        Evaluate(Aq9RadioBtn , q10Panel);
+    }//GEN-LAST:event_next9BtnMouseClicked
+
+    private void next10BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next10BtnMouseClicked
+        Evaluate(Cq10RadioBtn , q11Panel);
+    }//GEN-LAST:event_next10BtnMouseClicked
+
+    private void next11BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next11BtnMouseClicked
+        Evaluate(Bq11RadioBtn , q12Panel);
+    }//GEN-LAST:event_next11BtnMouseClicked
+
+    private void next12BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next12BtnMouseClicked
+        Evaluate(Bq12RadioBtn , q13Panel);
+    }//GEN-LAST:event_next12BtnMouseClicked
+
+    private void next13BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next13BtnMouseClicked
+        Evaluate(Dq13RadioBtn , q14Panel);
+    }//GEN-LAST:event_next13BtnMouseClicked
+
+    private void next14BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next14BtnMouseClicked
+        Evaluate(Cq14RadioBtn , q15Panel);
+    }//GEN-LAST:event_next14BtnMouseClicked
+
+    private void next15BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next15BtnMouseClicked
+        Evaluate(Aq15RadioBtn , q16Panel);
+    }//GEN-LAST:event_next15BtnMouseClicked
+
+    private void next16BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next16BtnMouseClicked
+        Evaluate(Cq16RadioBtn , q17Panel);
+    }//GEN-LAST:event_next16BtnMouseClicked
+
+    private void next17BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_next17BtnMouseClicked
+        Summary();
+        Evaluate(Cq17RadioBtn , resultPanel);
+    }//GEN-LAST:event_next17BtnMouseClicked
+
+// ============================================================================================================================    
+    
     /**
      * @param args the command line arguments
      */
@@ -2238,8 +2470,8 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JLabel q9AnsLbl;
     private javax.swing.JLabel q9EvalLbl;
     private javax.swing.JPanel q9Panel;
+    private javax.swing.JLabel recommendationLbl;
     private javax.swing.JLabel remarkLbl;
-    private javax.swing.JLabel remarkLbl1;
     private javax.swing.JPanel resultPanel;
     private javax.swing.JLabel retakeQuizBtn;
     private javax.swing.JLabel scoreLbl;
