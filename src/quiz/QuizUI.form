@@ -291,7 +291,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+                <Component class="javax.swing.JRadioButton" name="Dq1RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -310,7 +310,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+                <Component class="javax.swing.JRadioButton" name="Aq1RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -329,7 +329,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+                <Component class="javax.swing.JRadioButton" name="Bq1RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -348,7 +348,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton4">
+                <Component class="javax.swing.JRadioButton" name="Cq1RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -412,7 +412,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton5">
+                <Component class="javax.swing.JRadioButton" name="Dq2RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -431,7 +431,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton6">
+                <Component class="javax.swing.JRadioButton" name="Cq2RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -450,7 +450,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton7">
+                <Component class="javax.swing.JRadioButton" name="Bq2RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -469,7 +469,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton8">
+                <Component class="javax.swing.JRadioButton" name="Aq2RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -549,7 +549,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton9">
+                <Component class="javax.swing.JRadioButton" name="Dq3RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -568,7 +568,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton10">
+                <Component class="javax.swing.JRadioButton" name="Cq3RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -587,7 +587,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton11">
+                <Component class="javax.swing.JRadioButton" name="Bq3RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -606,7 +606,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton12">
+                <Component class="javax.swing.JRadioButton" name="Aq3RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -686,7 +686,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton13">
+                <Component class="javax.swing.JRadioButton" name="Dq4RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -705,7 +705,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton14">
+                <Component class="javax.swing.JRadioButton" name="Cq4RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -724,7 +724,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton15">
+                <Component class="javax.swing.JRadioButton" name="Bq4RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -743,7 +743,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton16">
+                <Component class="javax.swing.JRadioButton" name="Aq4RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -823,7 +823,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton17">
+                <Component class="javax.swing.JRadioButton" name="Dq5RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -842,7 +842,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton18">
+                <Component class="javax.swing.JRadioButton" name="Cq5RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -861,7 +861,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton19">
+                <Component class="javax.swing.JRadioButton" name="Bq5RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -880,7 +880,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton20">
+                <Component class="javax.swing.JRadioButton" name="Aq5RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -960,7 +960,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton21">
+                <Component class="javax.swing.JRadioButton" name="Dq6RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -979,7 +979,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton22">
+                <Component class="javax.swing.JRadioButton" name="Cq6RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -998,7 +998,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton23">
+                <Component class="javax.swing.JRadioButton" name="Bq6RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1017,7 +1017,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton24">
+                <Component class="javax.swing.JRadioButton" name="Aq6RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1097,7 +1097,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton25">
+                <Component class="javax.swing.JRadioButton" name="Dq7RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1116,7 +1116,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton26">
+                <Component class="javax.swing.JRadioButton" name="Cq7RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1135,7 +1135,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton27">
+                <Component class="javax.swing.JRadioButton" name="Bq7RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1154,7 +1154,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton28">
+                <Component class="javax.swing.JRadioButton" name="Aq7RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1234,7 +1234,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton29">
+                <Component class="javax.swing.JRadioButton" name="Dq8RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1256,7 +1256,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton30">
+                <Component class="javax.swing.JRadioButton" name="Cq8RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1278,7 +1278,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton31">
+                <Component class="javax.swing.JRadioButton" name="Bq8RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1300,7 +1300,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton32">
+                <Component class="javax.swing.JRadioButton" name="Aq8RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1383,7 +1383,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton33">
+                <Component class="javax.swing.JRadioButton" name="Dq9RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1402,7 +1402,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton34">
+                <Component class="javax.swing.JRadioButton" name="Cq9RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1421,7 +1421,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton35">
+                <Component class="javax.swing.JRadioButton" name="Bq9RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1440,7 +1440,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton36">
+                <Component class="javax.swing.JRadioButton" name="Aq9RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1520,7 +1520,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton37">
+                <Component class="javax.swing.JRadioButton" name="Dq10RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1539,7 +1539,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton38">
+                <Component class="javax.swing.JRadioButton" name="Cq10RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1558,7 +1558,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton39">
+                <Component class="javax.swing.JRadioButton" name="Bq10RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1577,7 +1577,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton40">
+                <Component class="javax.swing.JRadioButton" name="Aq10RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1657,7 +1657,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton41">
+                <Component class="javax.swing.JRadioButton" name="Dq11RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1676,7 +1676,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton42">
+                <Component class="javax.swing.JRadioButton" name="Cq11RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1695,7 +1695,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton43">
+                <Component class="javax.swing.JRadioButton" name="Bq11RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1714,7 +1714,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton44">
+                <Component class="javax.swing.JRadioButton" name="Aq11RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1794,7 +1794,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton45">
+                <Component class="javax.swing.JRadioButton" name="Dq12RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1813,7 +1813,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton46">
+                <Component class="javax.swing.JRadioButton" name="Cq12RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1832,7 +1832,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton47">
+                <Component class="javax.swing.JRadioButton" name="Bq12RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1851,7 +1851,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton48">
+                <Component class="javax.swing.JRadioButton" name="Aq12RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1931,7 +1931,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton49">
+                <Component class="javax.swing.JRadioButton" name="Dq13RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1950,7 +1950,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton50">
+                <Component class="javax.swing.JRadioButton" name="Cq13RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1969,7 +1969,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton51">
+                <Component class="javax.swing.JRadioButton" name="Bq13RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -1988,7 +1988,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton52">
+                <Component class="javax.swing.JRadioButton" name="Aq13RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2068,7 +2068,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton53">
+                <Component class="javax.swing.JRadioButton" name="Dq14RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2087,7 +2087,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton54">
+                <Component class="javax.swing.JRadioButton" name="Cq14RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2106,7 +2106,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton55">
+                <Component class="javax.swing.JRadioButton" name="Bq14RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2125,7 +2125,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton56">
+                <Component class="javax.swing.JRadioButton" name="Aq14RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2205,7 +2205,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton57">
+                <Component class="javax.swing.JRadioButton" name="Dq15RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2224,7 +2224,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton58">
+                <Component class="javax.swing.JRadioButton" name="Cq15RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2243,7 +2243,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton59">
+                <Component class="javax.swing.JRadioButton" name="Bq15RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2262,7 +2262,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton60">
+                <Component class="javax.swing.JRadioButton" name="Aq15RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2342,7 +2342,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton61">
+                <Component class="javax.swing.JRadioButton" name="Dq16RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2361,7 +2361,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton62">
+                <Component class="javax.swing.JRadioButton" name="Cq16RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2380,7 +2380,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton63">
+                <Component class="javax.swing.JRadioButton" name="Bq16RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2399,7 +2399,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton64">
+                <Component class="javax.swing.JRadioButton" name="Aq16RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2479,7 +2479,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton65">
+                <Component class="javax.swing.JRadioButton" name="Dq17RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2498,7 +2498,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton66">
+                <Component class="javax.swing.JRadioButton" name="Cq17RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2517,7 +2517,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton67">
+                <Component class="javax.swing.JRadioButton" name="Bq17RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -2536,7 +2536,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton68">
+                <Component class="javax.swing.JRadioButton" name="Aq17RadioBtn">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="80" green="30" red="35" type="rgb"/>
@@ -3728,7 +3728,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="timer">
+        <Component class="javax.swing.JLabel" name="timerLbl">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="24" style="1"/>
