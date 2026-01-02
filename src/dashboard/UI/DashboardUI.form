@@ -157,12 +157,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel2">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/dashboard/icons/AdminUserProfile.png"/>
-                </Property>
-              </Properties>
+            <Component class="javax.swing.JLabel" name="ProfilePic">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="70" y="31" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnSbDashboard">
               <Properties>
@@ -193,6 +193,11 @@
                 <Property name="paddingRight" type="int" value="20"/>
                 <Property name="radius" type="int" value="20"/>
               </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="233" width="262" height="61"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnSbTakeQuiz">
               <Properties>
@@ -226,6 +231,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSbTakeQuizActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="296" width="262" height="61"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnSbChatbot">
               <Properties>
@@ -292,6 +302,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSbDataVisActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="418" width="262" height="61"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnSbCredits">
               <Properties>
@@ -325,6 +340,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSbCreditsActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="479" width="262" height="61"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnLogout">
               <Properties>
@@ -355,6 +375,11 @@
                 <Property name="paddingRight" type="int" value="20"/>
                 <Property name="radius" type="int" value="20"/>
               </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="901" width="262" height="61"/>
+                </Constraint>
+              </Constraints>
             </Component>
           </SubComponents>
         </Container>
