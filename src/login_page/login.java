@@ -4,8 +4,9 @@
  */
 package login_page;
 
-import dashboard.admin.UI.AdminUI;
-import java.awt.BorderLayout;
+
+import dashboard.UI.DashboardUI;
+import dashboard.roles.UserRoles;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
@@ -259,7 +260,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnContinueAsGuestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinueAsGuestMouseClicked
-        DashboardUI frm = new DashboardUI("Guest");
+        DashboardUI frm = new DashboardUI(UserRoles.GUEST);
         
         this.rootPane.setVisible(false);
         frm.setVisible(true);

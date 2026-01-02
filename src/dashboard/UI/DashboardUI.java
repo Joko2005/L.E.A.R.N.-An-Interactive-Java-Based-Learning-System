@@ -10,6 +10,7 @@ import dashboard.roles.UserRoles;
 import datavisualization.charts;
 import quiz.QuizUI;
 import static commons.UIPositionUtil.*;
+import chatbot.Chatbot1;
 
 
 import javax.swing.JFrame;
@@ -32,6 +33,7 @@ public class DashboardUI extends javax.swing.JFrame {
     QuizUI Quizframe = new QuizUI();
     charts DataVisframe = new charts();
     CreditsUI Creditsframe = new CreditsUI(this);
+    Chatbot1 ChatbotFrame = new Chatbot1(this);
     
     public DashboardUI(UserRoles role) {
         setUndecorated(true);
@@ -264,6 +266,11 @@ public class DashboardUI extends javax.swing.JFrame {
         btnSbChatbot.setPaddingLeft(23);
         btnSbChatbot.setPaddingRight(20);
         btnSbChatbot.setRadius(20);
+        btnSbChatbot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSbChatbotActionPerformed(evt);
+            }
+        });
 
         btnSbDataVis.setForeground(new java.awt.Color(255, 255, 255));
         btnSbDataVis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconDataVis.png"))); // NOI18N
@@ -464,6 +471,11 @@ public class DashboardUI extends javax.swing.JFrame {
         btnChatbot.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnChatbot.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnChatbot.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnChatbot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChatbotActionPerformed(evt);
+            }
+        });
         pnlBody.add(btnChatbot, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 870, 200, 40));
 
         btnDataVis.setText("VIEW DATA");
@@ -573,6 +585,14 @@ public class DashboardUI extends javax.swing.JFrame {
         DataVisframe.setVisible(true);
         
     }//GEN-LAST:event_btnDataVisActionPerformed
+
+    private void btnSbChatbotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbChatbotActionPerformed
+        ChatbotFrame.setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSbChatbotActionPerformed
+
+    private void btnChatbotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatbotActionPerformed
+        ChatbotFrame.setVisible(true); // TODO add your handling code here:
+    }//GEN-LAST:event_btnChatbotActionPerformed
 
     /**
      * @param args the command line arguments

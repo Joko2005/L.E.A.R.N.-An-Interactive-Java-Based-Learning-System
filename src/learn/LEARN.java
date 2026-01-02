@@ -4,7 +4,8 @@
  */
 package learn;
 
-import dashboard.admin.UI.AdminUI;
+import dashboard.UI.DashboardUI;
+import dashboard.roles.UserRoles;
 
 /**
  *
@@ -17,8 +18,8 @@ public class LEARN {
      */
     public static void main(String[] args) {
         
-        AdminUI frm = new AdminUI();
-        frm.setVisible(true);
+      DashboardUI dashboard = new DashboardUI(UserRoles.ADMIN);
+      dashboard.setVisible(true);
     }
     
 }

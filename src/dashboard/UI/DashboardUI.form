@@ -256,6 +256,9 @@
                 <Property name="paddingRight" type="int" value="20"/>
                 <Property name="radius" type="int" value="20"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSbChatbotActionPerformed"/>
+              </Events>
             </Component>
             <Component class="commons.RoundButton" name="btnSbDataVis">
               <Properties>
@@ -590,6 +593,9 @@
                   <Color blue="dc" green="69" red="f4" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChatbotActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="620" y="870" width="200" height="40"/>

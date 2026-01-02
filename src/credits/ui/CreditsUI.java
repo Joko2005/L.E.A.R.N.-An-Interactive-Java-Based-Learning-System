@@ -4,13 +4,7 @@
  */
 package credits.ui;
 
-import commons.UIUtils;
-import dashboard.UI.DashboardUI;
-import java.awt.Dimension;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -57,14 +51,17 @@ public class CreditsUI extends javax.swing.JFrame {
 
         Header.setBackground(new java.awt.Color(45, 45, 114));
         Header.setPreferredSize(new java.awt.Dimension(1920, 77));
+        Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CREDITS");
+        Header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 10, 183, -1));
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(178, 177, 223));
         jLabel3.setText("Team and Instructor");
+        Header.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 46, 183, -1));
 
         btnBack.setBorder(null);
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
@@ -83,6 +80,7 @@ public class CreditsUI extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
+        Header.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(1653, 18, 136, 39));
 
         btnMinimize.setBorder(null);
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
@@ -101,6 +99,7 @@ public class CreditsUI extends javax.swing.JFrame {
                 btnMinimizeActionPerformed(evt);
             }
         });
+        Header.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(1801, 18, 40, 39));
 
         btnExit.setBackground(new java.awt.Color(219, 60, 172));
         btnExit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -120,41 +119,7 @@ public class CreditsUI extends javax.swing.JFrame {
                 btnExitActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
-        Header.setLayout(HeaderLayout);
-        HeaderLayout.setHorizontalGroup(
-            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HeaderLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1437, Short.MAX_VALUE)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
-        );
-        HeaderLayout.setVerticalGroup(
-            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HeaderLayout.createSequentialGroup()
-                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(HeaderLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3))
-                    .addGroup(HeaderLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+        Header.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1853, 18, 40, 39));
 
         getContentPane().add(Header, java.awt.BorderLayout.NORTH);
 
