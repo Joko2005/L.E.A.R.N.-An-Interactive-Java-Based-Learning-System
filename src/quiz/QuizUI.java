@@ -4,10 +4,18 @@ import commons.NavigationUtil;
 import commons.UIUtils;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -15,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.table.DefaultTableModel;
 
 public class QuizUI extends javax.swing.JFrame {
     
@@ -101,6 +110,10 @@ public class QuizUI extends javax.swing.JFrame {
         return isCorrect;
     }
     
+    private String getCurrentUsername() {
+        return login_page.login.getLoggedInUsername();
+    }
+    
     private void Result(){
         int score = Score;
         double percentage = (score * 100.0) / 17;
@@ -111,6 +124,24 @@ public class QuizUI extends javax.swing.JFrame {
         percentageLbl.setText(String.format("%.2f%%", percentage));
         remarkLbl.setText(remark);
         recommendationLbl.setText(recommendation);
+        
+        // Get username from login class
+        String username = getCurrentUsername();
+        
+        // Save or update result
+        saveOrUpdateQuizResult(username, score, percentage, remark);
+        
+        // Load all results to table
+        loadQuizResultsToTable();
+        
+         // Set font size for table headers (column names)
+        jTable1.getTableHeader().setFont(new Font("Montserrat", Font.BOLD, 20));
+
+        // Set font size for table cells (data)
+        jTable1.setFont(new Font("Montserrat", Font. PLAIN, 20));
+
+        // Set row height to accommodate larger font
+        jTable1.setRowHeight(30);
     }
     
     private String Remark(double percent) {
@@ -506,6 +537,81 @@ public class QuizUI extends javax.swing.JFrame {
     }
     
     boolean currentlyTakingQuiz = false; // this will be used for the close button whenver the user is currently taking quiz
+    
+// ============================================================================================================================
+    
+    /* FILE OPERATIONS */
+
+    private static final String DATA_FILE = "src/quiz/quiz_results.txt";
+
+    // Save or update quiz result
+    private void saveOrUpdateQuizResult(String username, int score, double percentage, String remark) {
+        List<String> lines = new ArrayList<>();
+        boolean userFound = false;
+
+        // Read all existing data
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE))) {
+            String line;
+            while ((line = reader. readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts[0].equals(username)) {
+                    // Update existing user's data with 2 decimal places
+                    line = username + "," + score + "," + String.format("%.2f", percentage) + "," + remark;
+                    userFound = true;
+                }
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            // File doesn't exist yet, that's okay
+        }
+
+        // If user not found, add new entry with 2 decimal places
+        if (! userFound) {
+            String newData = username + "," + score + "," + String.format("%.2f", percentage) + "," + remark;
+            lines. add(newData);
+        }
+
+        // Write all data back to file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE))) {
+            for (String line : lines) {
+                writer. write(line);
+                writer.newLine();
+            }
+            System.out.println("Quiz result saved/updated successfully!");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, 
+                "Error saving data: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Load all quiz results into JTable
+    private void loadQuizResultsToTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        // Clear existing data
+        model.setRowCount(0);
+
+        // Read from file and populate table
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts. length == 4) {
+                    String username = parts[0];
+                    String score = parts[1] + "/17";
+                    String percentage = parts[2] + "%";
+                    String remark = parts[3];
+
+                    model.addRow(new Object[]{username, score, percentage, remark});
+                }
+            }
+        } catch (IOException e) {
+            // File doesn't exist or is empty
+            System.out.println("No quiz results found yet.");
+        }
+    }
     
     // ============================================================================================================================
     
@@ -2586,6 +2692,7 @@ public class QuizUI extends javax.swing.JFrame {
 
         resultPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 630, 560));
 
+        jTable1.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
