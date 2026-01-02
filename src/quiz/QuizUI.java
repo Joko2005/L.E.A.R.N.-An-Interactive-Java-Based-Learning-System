@@ -1,6 +1,8 @@
 package quiz;
 
+import commons.NavigationUtil;
 import commons.UIUtils;
+import dashboard.UI.DashboardUI;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
@@ -18,9 +20,11 @@ import javax.swing.JRadioButton;
 public class QuizUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(QuizUI.class.getName());
-   
-    public QuizUI() {
+    private JFrame parent;
+    
+    public QuizUI(JFrame parent) {
         setUndecorated(true);  
+        this.parent = parent;
         initComponents();
         
         // Hide tabs
@@ -2763,7 +2767,7 @@ public class QuizUI extends javax.swing.JFrame {
 
     private void goToDashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToDashboardBtnActionPerformed
         ResetAll();
-        // tapos dito yung balik sa dashboard
+        NavigationUtil.switchFrame(this, parent);
     }//GEN-LAST:event_goToDashboardBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -2778,9 +2782,10 @@ public class QuizUI extends javax.swing.JFrame {
             
             if(result == JOptionPane.YES_OPTION){
                 ResetAll();
-                // dito yung babalik sa dashboard
+                NavigationUtil.switchFrame(this, parent);
             }
         }
+        NavigationUtil.switchFrame(this, parent);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void minimizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeBtnActionPerformed
@@ -2821,7 +2826,7 @@ public class QuizUI extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new QuizUI().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new QuizUI().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
