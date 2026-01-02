@@ -149,7 +149,6 @@ public class DashboardUI extends javax.swing.JFrame {
         Logo = new javax.swing.JLabel();
         LogoName = new javax.swing.JLabel();
         pnlSidebarOptions = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         btnSbDashboard = new commons.RoundButton();
         btnSbTakeQuiz = new commons.RoundButton();
         btnSbChatbot = new commons.RoundButton();
@@ -340,7 +339,6 @@ public class DashboardUI extends javax.swing.JFrame {
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSidebarOptionsLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(jLabel2)
                 .addGap(69, 69, 69))
             .addComponent(btnSbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -353,7 +351,6 @@ public class DashboardUI extends javax.swing.JFrame {
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel2)
                 .addGap(41, 41, 41)
                 .addComponent(btnSbDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
