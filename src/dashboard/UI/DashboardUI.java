@@ -42,10 +42,14 @@ public class DashboardUI extends javax.swing.JFrame {
         startDateTime();
         
         pnlBody.setLayout(null); // VERY IMPORTANT
+        pnlSidebarOptions.setLayout(null); // VERY IMPORTANT
         applyRoleConfig();
         
         pnlBody.revalidate();
         pnlBody.repaint();
+        
+        pnlSidebarOptions.revalidate();
+        pnlSidebarOptions.repaint();
     }
     
     private void applyRoleConfig() {
@@ -58,52 +62,51 @@ public class DashboardUI extends javax.swing.JFrame {
         switch (role) {
 
             case ADMIN:
-                showAt(QuizCard, 40, 150, 1054, 347);
-                setCardIcon(QuizCard, "/dashboard/icons/AdminQuizCard.png");
+                setupCard(QuizCard, "/dashboard/icons/AdminQuizCard.png", 40, 150, 1054, 347);                  
+                setupCard(ChatbotCard, "/dashboard/icons/AdminChatbotCard.png", 580, 520, 1054, 443);
+                setupCard(DataVisCard, "/dashboard/icons/AdminDataVisCard.png", 40, 520, 509, 443);
+                setupCard(CreditCard, "/dashboard/icons/AdminCreditsCard.png", 1120, 150, 509, 345);
+                setupCard(ProfilePic, "/dashboard/icons/AdminUserProfile.png", 70, 31, 123, 161);
                 
-                
-                showAt(ChatbotCard, 580, 520, 1054, 443);
-                setCardIcon(ChatbotCard, "/dashboard/icons/AdminChatbotCard.png");
-
-                showAt(DataVisCard, 40, 520, 509, 443);
-                setCardIcon(DataVisCard, "/dashboard/icons/AdminDataVisCard.png");
-
-                showAt(CreditCard, 1120, 150, 509, 345);
-                setCardIcon(CreditCard, "/dashboard/icons/AdminCreditsCard.png");
+                Title.setText("Welcome Joko!");
                 break;
 
             case USER:
-                showAt(QuizCard, 40, 120, 1598, 373);
-                setCardIcon(QuizCard, "/dashboard/icons/UserQuizCard.png");
-                UIPositionUtil.move(btnQuiz, 740, 340);
+                setupCard(QuizCard, "/dashboard/icons/UserQuizCard.png", 40, 120, 1598, 373);            
+                setupCard(ChatbotCard, "/dashboard/icons/UserChatbotCard.png", 40, 520, 1054, 443);
+                setupCard(CreditCard, "/dashboard/icons/UserCreditsCard.png", 1120, 520, 509, 443);
                 
-                showAt(ChatbotCard, 40, 520, 1054, 443);
-                setCardIcon(ChatbotCard, "/dashboard/icons/UserChatbotCard.png");
+                UIPositionUtil.move(btnQuiz, 740, 340);
                 UIPositionUtil.move(btnChatbot, 80, 870);
-
-                showAt(CreditCard, 1120, 520, 509, 443);
-                setCardIcon(CreditCard, "/dashboard/icons/UserCreditsCard.png");
                 UIPositionUtil.move(btnCredits, 1270, 850);
                 
                 btnDataVis.setVisible(false);
+                
+                setupCard(ProfilePic, "/dashboard/icons/UserProfile.png", 45, 31, 172, 161);
+                
+                Title.setText("Welcome Luisa!");
                 break;
 
             case GUEST:
-                showAt(DataVisCard, 40, 150, 782, 835);
-                setCardIcon(DataVisCard, "/dashboard/icons/GuestDataVisCard.png");
+                setupCard(DataVisCard, "/dashboard/icons/GuestDataVisCard.png", 40, 150, 782, 835);
+                setupCard(CreditCard, "/dashboard/icons/GuestCreditsCard.png", 850, 150, 781, 835);
+                
                 UIPositionUtil.move(btnDataVis, 330, 780);
-
-                showAt(CreditCard, 850, 150, 781, 835);
-                setCardIcon(CreditCard, "/dashboard/icons/GuestCreditsCard.png");
                 UIPositionUtil.move(btnCredits, 1135, 770);
                 
                 btnQuiz.setVisible(false);
                 btnChatbot.setVisible(false);
+                
+                setupCard(ProfilePic, "/dashboard/icons/GuestProfile.png", 70, 31, 123, 161);
+                
+                Title.setText("Welcome Pat!");
                 break;
         }
 
         pnlBody.revalidate();
         pnlBody.repaint();
+        pnlSidebarOptions.revalidate();
+        pnlSidebarOptions.repaint();
     }
 
     
@@ -132,7 +135,7 @@ public class DashboardUI extends javax.swing.JFrame {
         Logo = new javax.swing.JLabel();
         LogoName = new javax.swing.JLabel();
         pnlSidebarOptions = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        ProfilePic = new javax.swing.JLabel();
         btnSbChatbot = new commons.RoundButton();
         btnSbDashboard = new commons.RoundButton();
         btnSbTakeQuiz = new commons.RoundButton();
@@ -200,8 +203,8 @@ public class DashboardUI extends javax.swing.JFrame {
         pnlSidebar.add(pnlSidebarHeader, java.awt.BorderLayout.NORTH);
 
         pnlSidebarOptions.setBackground(new java.awt.Color(28, 32, 77));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminUserProfile.png"))); // NOI18N
+        pnlSidebarOptions.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlSidebarOptions.add(ProfilePic, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 31, -1, -1));
 
         btnSbChatbot.setForeground(new java.awt.Color(255, 255, 255));
         btnSbChatbot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconChatbot.png"))); // NOI18N
@@ -217,6 +220,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnSbChatbot.setPaddingLeft(23);
         btnSbChatbot.setPaddingRight(20);
         btnSbChatbot.setRadius(20);
+        pnlSidebarOptions.add(btnSbChatbot, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 357, 262, 61));
 
         btnSbDashboard.setForeground(new java.awt.Color(255, 255, 255));
         btnSbDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconDashboard.png"))); // NOI18N
@@ -232,6 +236,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnSbDashboard.setPaddingLeft(23);
         btnSbDashboard.setPaddingRight(20);
         btnSbDashboard.setRadius(20);
+        pnlSidebarOptions.add(btnSbDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 233, 262, 61));
 
         btnSbTakeQuiz.setForeground(new java.awt.Color(255, 255, 255));
         btnSbTakeQuiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconTakeQuiz.png"))); // NOI18N
@@ -252,6 +257,7 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbTakeQuizActionPerformed(evt);
             }
         });
+        pnlSidebarOptions.add(btnSbTakeQuiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, 262, 61));
 
         btnSbDataVis.setForeground(new java.awt.Color(255, 255, 255));
         btnSbDataVis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconDataVis.png"))); // NOI18N
@@ -272,6 +278,7 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbDataVisActionPerformed(evt);
             }
         });
+        pnlSidebarOptions.add(btnSbDataVis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 418, 262, 61));
 
         btnSbCredits.setForeground(new java.awt.Color(255, 255, 255));
         btnSbCredits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconCredits.png"))); // NOI18N
@@ -292,6 +299,7 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbCreditsActionPerformed(evt);
             }
         });
+        pnlSidebarOptions.add(btnSbCredits, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 479, 262, 61));
 
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconLogout.png"))); // NOI18N
@@ -307,41 +315,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnLogout.setPaddingLeft(23);
         btnLogout.setPaddingRight(20);
         btnLogout.setRadius(20);
-
-        javax.swing.GroupLayout pnlSidebarOptionsLayout = new javax.swing.GroupLayout(pnlSidebarOptions);
-        pnlSidebarOptions.setLayout(pnlSidebarOptionsLayout);
-        pnlSidebarOptionsLayout.setHorizontalGroup(
-            pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSidebarOptionsLayout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(69, 69, 69))
-            .addComponent(btnSbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbChatbot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbDataVis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbCredits, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        pnlSidebarOptionsLayout.setVerticalGroup(
-            pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel2)
-                .addGap(41, 41, 41)
-                .addComponent(btnSbDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE)
-                .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnSbChatbot, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnSbDataVis, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnSbCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(361, 361, 361)
-                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
-        );
+        pnlSidebarOptions.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 901, 262, 61));
 
         pnlSidebar.add(pnlSidebarOptions, java.awt.BorderLayout.CENTER);
 
@@ -594,6 +568,7 @@ public class DashboardUI extends javax.swing.JFrame {
     private javax.swing.JPanel Header;
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel LogoName;
+    private javax.swing.JLabel ProfilePic;
     private javax.swing.JLabel QuizCard;
     private javax.swing.JLabel Subtitle;
     private javax.swing.JLabel Title;
@@ -610,7 +585,6 @@ public class DashboardUI extends javax.swing.JFrame {
     private commons.RoundButton btnSbDataVis;
     private commons.RoundButton btnSbTakeQuiz;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel pnlBody;

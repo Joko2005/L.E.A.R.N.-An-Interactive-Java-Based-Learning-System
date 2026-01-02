@@ -68,46 +68,33 @@ public class UIPositionUtil {
     /**
      * Set and auto-scale icon to label size
      * @param label Target JLabel
-     * @param resourcePath Path inside resources (e.g. "/images/cards/take_quiz.png")
+     * @param resourcePath Path inside resources (e.g. "/dashboard/icons/take_quiz.png")
      */
-    public static void setCardIcon(JLabel label, String resourcePath) {
-
+    public static void setCardIcon(JLabel label, String resourcePath, int width, int height) {
         URL location = UIPositionUtil.class.getResource(resourcePath);
 
         if (location == null) {
-            System.err.println("❌ Image not found: " + resourcePath);
+            System.err.println("Image not found: " + resourcePath);
             return;
         }
 
         ImageIcon icon = new ImageIcon(location);
 
+        // FIX: Use the passed width/height instead of label.getWidth()
         Image scaled = icon.getImage().getScaledInstance(
-                label.getWidth(),
-                label.getHeight(),
+                width,
+                height,
                 Image.SCALE_SMOOTH
         );
 
         label.setIcon(new ImageIcon(scaled));
     }
-
-    /**
-     * Change icon and resize label first
-     */
-    public static void setCardIcon(
-            JLabel label,
-            String resourcePath,
-            int width,
-            int height
-    ) {
-        label.setSize(width, height);
-        setCardIcon(label, resourcePath);
+    
+    public static void setupCard(JLabel label, String path, int x, int y, int w, int h) {
+        label.setIcon(null);        
+        showAt(label, x, y, w, h);        // Set the label's position and size
+        setCardIcon(label, path, w, h);   // Scale the image to that exact size
     }
 
-    /**
-     * Clear icon (optional)
-     */
-    public static void clearIcon(JLabel label) {
-        label.setIcon(null);
-    }
 }
 
