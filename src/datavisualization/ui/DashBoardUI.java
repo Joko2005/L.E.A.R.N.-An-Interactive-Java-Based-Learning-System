@@ -436,7 +436,7 @@ private static class BodyCellRenderer extends javax.swing.table.DefaultTableCell
         setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         setBackground(new java.awt.Color(53, 48, 128));
         setForeground(new java.awt.Color(230, 235, 245));
-        setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, fontSize));
+        setFont(new java.awt.Font("Montserrat", java.awt.Font.PLAIN, fontSize));
         setBorder(new javax.swing.border.CompoundBorder(
                 javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, grid),
                 javax.swing.BorderFactory.createEmptyBorder(6, 8, 6, 8)
@@ -469,7 +469,7 @@ private javax.swing.JPanel metricBox(String label, String value, java.awt.Color 
 
     javax.swing.JLabel lab = new javax.swing.JLabel(label, javax.swing.SwingConstants.CENTER);
     lab.setForeground(new java.awt.Color(220, 220, 240));
-    lab.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 24));
+    lab.setFont(new java.awt.Font("Montserrat", java.awt.Font.PLAIN, 24));
     lab.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0));
     p.add(lab, java.awt.BorderLayout.NORTH);
 
@@ -480,7 +480,7 @@ private javax.swing.JPanel metricBox(String label, String value, java.awt.Color 
 
     javax.swing.JLabel val = new javax.swing.JLabel(value);
     val.setForeground(java.awt.Color.WHITE);
-    val.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 18));
+    val.setFont(new java.awt.Font("Montserrat", java.awt.Font.BOLD, 18));
     box.add(val);
 
     javax.swing.JPanel holder = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
