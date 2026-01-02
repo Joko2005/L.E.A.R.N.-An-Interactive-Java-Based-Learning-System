@@ -228,7 +228,7 @@ public static JFreeChart createSalesPieChart(DefaultPieDataset dataset) {
         meterPlot.addInterval(new MeterInterval("High", new Range(80, 100), new Color(231, 76, 60),  stroke, new Color(231,76,60)));
         meterPlot.setDialBackgroundPaint(TRANSPARENT);
 
-        JFreeChart chart = new JFreeChart(null, new Font("Segoe UI", Font.BOLD, 14), meterPlot, false);
+        JFreeChart chart = new JFreeChart(null, new Font("Montserrat", Font.BOLD, 14), meterPlot, false);
         chart.setBackgroundPaint(TRANSPARENT);
         return chart;
     }
