@@ -761,7 +761,6 @@ public class QuizUI extends javax.swing.JFrame {
         next1Btn117 = new javax.swing.JLabel();
         next17Btn = new commons.GradientButton();
         resultPanel = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         scoreLbl = new javax.swing.JLabel();
@@ -771,6 +770,7 @@ public class QuizUI extends javax.swing.JFrame {
         remarkLbl = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         recommendationLbl = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         q17AnsLbl = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -809,7 +809,6 @@ public class QuizUI extends javax.swing.JFrame {
         q16AnsLbl = new javax.swing.JLabel();
         q1EvalLbl = new javax.swing.JLabel();
         q2EvalLbl = new javax.swing.JLabel();
-        scoreLbl1 = new javax.swing.JLabel();
         q3EvalLbl = new javax.swing.JLabel();
         q4EvalLbl = new javax.swing.JLabel();
         q5EvalLbl = new javax.swing.JLabel();
@@ -828,6 +827,11 @@ public class QuizUI extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         goToDashboardBtn = new commons.GradientButton();
         retakeQuizBtn = new commons.GradientButton();
+        leftSideBorder = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
         titleLbl = new javax.swing.JLabel();
         timerLbl = new javax.swing.JLabel();
 
@@ -2272,12 +2276,7 @@ public class QuizUI extends javax.swing.JFrame {
         resultPanel.setBackground(new java.awt.Color(53, 48, 128));
         resultPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel21.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("RESULT");
-        resultPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 50, -1, -1));
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(53, 48, 128));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel24.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
@@ -2319,295 +2318,294 @@ public class QuizUI extends javax.swing.JFrame {
         recommendationLbl.setForeground(new java.awt.Color(255, 255, 255));
         recommendationLbl.setText("placeholder");
         recommendationLbl.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        recommendationLbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel1.add(recommendationLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 340, 360));
 
-        resultPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 360, 560));
+        resultPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 360, 560));
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 255));
+        jLabel21.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("QUIZ TAKERS");
+        resultPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 30, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(53, 48, 128));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         q17AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q17AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q17AnsLbl.setText("q17 ans");
-        jPanel3.add(q17AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 530, -1, -1));
+        jPanel3.add(q17AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, -1, -1));
 
         jLabel27.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("Question 2: ");
-        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("Question 3: ");
-        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
+        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
 
         jLabel29.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("Question 4: ");
-        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
 
         jLabel30.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setText("Question 5: ");
-        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, -1, -1));
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
 
         jLabel31.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setText("Question 6: ");
-        jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
+        jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
 
         jLabel32.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
         jLabel32.setText("Question 7: ");
-        jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
+        jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
         jLabel33.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
         jLabel33.setText("Question 8: ");
-        jPanel3.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+        jPanel3.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
 
         jLabel34.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Question 9: ");
-        jPanel3.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
+        jPanel3.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, -1));
 
         jLabel35.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setText("Question 10: ");
-        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, -1, -1));
+        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
 
         jLabel36.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("Question 11: ");
-        jPanel3.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, -1));
+        jPanel3.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
         jLabel37.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(255, 255, 255));
         jLabel37.setText("Question 12: ");
-        jPanel3.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, -1, -1));
+        jPanel3.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
 
         jLabel38.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(255, 255, 255));
         jLabel38.setText("Question 13: ");
-        jPanel3.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
+        jPanel3.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, -1, -1));
 
         jLabel39.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(255, 255, 255));
         jLabel39.setText("Question 14: ");
-        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
+        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, -1));
 
         jLabel40.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("Question 15: ");
-        jPanel3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, -1, -1));
+        jPanel3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
 
         jLabel41.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(255, 255, 255));
         jLabel41.setText("Question 16: ");
-        jPanel3.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, -1, -1));
+        jPanel3.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, -1));
 
         jLabel42.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(255, 255, 255));
         jLabel42.setText("Question 17: ");
-        jPanel3.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 530, -1, -1));
+        jPanel3.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, -1));
 
         q17EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q17EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q17EvalLbl.setText("???");
-        jPanel3.add(q17EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 530, -1, -1));
+        jPanel3.add(q17EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 490, -1, -1));
 
         jLabel44.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(255, 255, 255));
         jLabel44.setText("Question 1: ");
-        jPanel3.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
+        jPanel3.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         q1AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q1AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q1AnsLbl.setText("q1 ans");
-        jPanel3.add(q1AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
+        jPanel3.add(q1AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
         q2AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q2AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q2AnsLbl.setText("q2 ans");
-        jPanel3.add(q2AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, -1));
+        jPanel3.add(q2AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
 
         q3AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q3AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q3AnsLbl.setText("q3 ans");
-        jPanel3.add(q3AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
+        jPanel3.add(q3AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
 
         q4AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q4AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q4AnsLbl.setText("q4 ans");
-        jPanel3.add(q4AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jPanel3.add(q4AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, -1, -1));
 
         q5AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q5AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q5AnsLbl.setText("q5 ans");
-        jPanel3.add(q5AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
+        jPanel3.add(q5AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
 
         q6AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q6AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q6AnsLbl.setText("q6 ans");
-        jPanel3.add(q6AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
+        jPanel3.add(q6AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, -1, -1));
 
         q7AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q7AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q7AnsLbl.setText("q7 ans");
-        jPanel3.add(q7AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+        jPanel3.add(q7AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, -1));
 
         q8AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q8AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q8AnsLbl.setText("q8 ans");
-        jPanel3.add(q8AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+        jPanel3.add(q8AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
 
         q9AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q9AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q9AnsLbl.setText("q9 ans");
-        jPanel3.add(q9AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, -1, -1));
+        jPanel3.add(q9AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, -1, -1));
 
         q10AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q10AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q10AnsLbl.setText("q10 ans");
-        jPanel3.add(q10AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, -1, -1));
+        jPanel3.add(q10AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, -1, -1));
 
         q11AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q11AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q11AnsLbl.setText("q11 ans");
-        jPanel3.add(q11AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
+        jPanel3.add(q11AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, -1, -1));
 
         q12AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q12AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q12AnsLbl.setText("q12 ans");
-        jPanel3.add(q12AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, -1, -1));
+        jPanel3.add(q12AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, -1, -1));
 
         q13AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q13AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q13AnsLbl.setText("q13 ans");
-        jPanel3.add(q13AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, -1, -1));
+        jPanel3.add(q13AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, -1, -1));
 
         q14AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q14AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q14AnsLbl.setText("q14 ans");
-        jPanel3.add(q14AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, -1, -1));
+        jPanel3.add(q14AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, -1));
 
         q15AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q15AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q15AnsLbl.setText("q15 ans");
-        jPanel3.add(q15AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 470, -1, -1));
+        jPanel3.add(q15AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, -1, -1));
 
         q16AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q16AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q16AnsLbl.setText("q16 ans");
-        jPanel3.add(q16AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, -1, -1));
+        jPanel3.add(q16AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, -1, -1));
 
         q1EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q1EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q1EvalLbl.setText("???");
-        jPanel3.add(q1EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, -1, -1));
+        jPanel3.add(q1EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, -1, -1));
 
         q2EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q2EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q2EvalLbl.setText("???");
-        jPanel3.add(q2EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, -1, -1));
-
-        scoreLbl1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
-        scoreLbl1.setForeground(new java.awt.Color(255, 255, 255));
-        scoreLbl1.setText("SUMMARY");
-        jPanel3.add(scoreLbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, -1, -1));
+        jPanel3.add(q2EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
         q3EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q3EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q3EvalLbl.setText("???");
-        jPanel3.add(q3EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
+        jPanel3.add(q3EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, -1, -1));
 
         q4EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q4EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q4EvalLbl.setText("???");
-        jPanel3.add(q4EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, -1, -1));
+        jPanel3.add(q4EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, -1));
 
         q5EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q5EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q5EvalLbl.setText("???");
-        jPanel3.add(q5EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, -1, -1));
+        jPanel3.add(q5EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, -1, -1));
 
         q6EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q6EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q6EvalLbl.setText("???");
-        jPanel3.add(q6EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
+        jPanel3.add(q6EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
 
         q7EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q7EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q7EvalLbl.setText("???");
-        jPanel3.add(q7EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, -1, -1));
+        jPanel3.add(q7EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
 
         q8EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q8EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q8EvalLbl.setText("???");
-        jPanel3.add(q8EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, -1, -1));
+        jPanel3.add(q8EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, -1, -1));
 
         q9EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q9EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q9EvalLbl.setText("???");
-        jPanel3.add(q9EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, -1, -1));
+        jPanel3.add(q9EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
 
         q10EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q10EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q10EvalLbl.setText("???");
-        jPanel3.add(q10EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, -1, -1));
+        jPanel3.add(q10EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, -1, -1));
 
         q11EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q11EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q11EvalLbl.setText("???");
-        jPanel3.add(q11EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, -1));
+        jPanel3.add(q11EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
 
         q12EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q12EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q12EvalLbl.setText("???");
-        jPanel3.add(q12EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, -1, -1));
+        jPanel3.add(q12EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, -1, -1));
 
         q13EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q13EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q13EvalLbl.setText("???");
-        jPanel3.add(q13EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, -1, -1));
+        jPanel3.add(q13EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, -1));
 
         q14EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q14EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q14EvalLbl.setText("???");
-        jPanel3.add(q14EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 440, -1, -1));
+        jPanel3.add(q14EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, -1, -1));
 
         q15EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q15EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q15EvalLbl.setText("???");
-        jPanel3.add(q15EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 470, -1, -1));
+        jPanel3.add(q15EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 430, -1, -1));
 
         q16EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q16EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q16EvalLbl.setText("???");
-        jPanel3.add(q16EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 500, -1, -1));
+        jPanel3.add(q16EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
 
-        resultPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 630, 560));
+        resultPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 630, 560));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Name", "Score", "Percentage", "Remark"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        resultPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 140, 480, 560));
+        resultPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 120, 480, 560));
 
         goToDashboardBtn.setText("GO TO DASHBOARD");
         goToDashboardBtn.setColor1(new java.awt.Color(109, 31, 239));
         goToDashboardBtn.setColor2(new java.awt.Color(234, 46, 201));
-        goToDashboardBtn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        goToDashboardBtn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
         goToDashboardBtn.setHoverColor1(new java.awt.Color(158, 100, 255));
         goToDashboardBtn.setHoverColor2(new java.awt.Color(244, 105, 220));
         goToDashboardBtn.addActionListener(this::goToDashboardBtnActionPerformed);
@@ -2621,6 +2619,25 @@ public class QuizUI extends javax.swing.JFrame {
         retakeQuizBtn.setHoverColor2(new java.awt.Color(244, 105, 220));
         retakeQuizBtn.addActionListener(this::retakeQuizBtnActionPerformed);
         resultPanel.add(retakeQuizBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 770, 250, 46));
+
+        leftSideBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/left-side-border.png"))); // NOI18N
+        resultPanel.add(leftSideBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/middel-border.png"))); // NOI18N
+        resultPanel.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("RESULT");
+        resultPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+
+        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/right-side-border.png"))); // NOI18N
+        resultPanel.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 100, -1, -1));
+
+        jLabel45.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel45.setText("SUMMARY");
+        resultPanel.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 30, -1, -1));
 
         contentsTabbedPane.addTab("Result", resultPanel);
 
@@ -2920,6 +2937,8 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -2938,7 +2957,9 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2949,6 +2970,7 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel leftSideBorder;
     private javax.swing.JPanel mainPanel;
     private commons.RoundButton minimizeBtn;
     private commons.GradientButton next10Btn;
@@ -3110,7 +3132,6 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JPanel resultPanel;
     private commons.GradientButton retakeQuizBtn;
     private javax.swing.JLabel scoreLbl;
-    private javax.swing.JLabel scoreLbl1;
     private commons.GradientButton startQuizBtn;
     private javax.swing.JPanel startquizPanel;
     private javax.swing.JLabel timerLbl;
