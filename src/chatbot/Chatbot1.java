@@ -1,20 +1,9 @@
 package chatbot;
 
-import commons.UIUtils;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -23,16 +12,15 @@ import javax.swing.text.StyledDocument;
 public class Chatbot1 extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Chatbot1.class.getName());
-   
-    public Chatbot1() {
+    private JFrame parent;
+    
+    public Chatbot1(JFrame parent) {
         setUndecorated(true);  
         initComponents();
         FullScreen();
-        
+        this.parent = parent;       
         ChatAreaPanel.setEditable(false);
         
-        
-  
     }
     
     private void FullScreen(){
@@ -74,23 +62,7 @@ public class Chatbot1 extends javax.swing.JFrame {
     label.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 }
 
-    // ============================================================================================================================
-    
-    /* FOR EVENTS */
-    
-    private void MouseEntered(JLabel label){
-        label.setOpaque(true);
-        label.setBackground(new Color(179, 250, 160));
-        label.setCursor(new Cursor(Cursor. HAND_CURSOR));
-    }
-    
-    private void MouseExited(JLabel label){
-        label.setOpaque(false);
-        label.repaint();
-        label.setBackground(new Color(242,242,242));
-        label.setCursor(new Cursor(Cursor. DEFAULT_CURSOR));
-        
-    }
+
     
     // ============================================================================================================================
 
@@ -101,10 +73,10 @@ public class Chatbot1 extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         ChatHeader = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        closeBtn = new javax.swing.JLabel();
-        minimizeBtn = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        backBtn = new javax.swing.JLabel();
+        btnExit = new commons.RoundButton();
+        btnMinimize = new commons.RoundButton();
+        btnBack = new commons.RoundButton();
         Cpanel = new javax.swing.JPanel();
         btnResetConvo = new commons.GradientButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -132,7 +104,6 @@ public class Chatbot1 extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         mainPanel.setBackground(new java.awt.Color(14, 22, 48));
-        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ChatHeader.setBackground(new java.awt.Color(53, 48, 128));
         ChatHeader.setMaximumSize(new java.awt.Dimension(32767, 77));
@@ -145,60 +116,56 @@ public class Chatbot1 extends javax.swing.JFrame {
         jLabel2.setText("Healthy Lifestyle Chat");
         ChatHeader.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 200, -1));
 
-        closeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/close-button.png"))); // NOI18N
-        closeBtn.setIconTextGap(0);
-        closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                closeBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                closeBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                closeBtnMouseExited(evt);
-            }
-        });
-        ChatHeader.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1860, 20, -1, -1));
-
-        minimizeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        minimizeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/minimize-button.png"))); // NOI18N
-        minimizeBtn.setIconTextGap(0);
-        minimizeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseExited(evt);
-            }
-        });
-        ChatHeader.add(minimizeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1810, 20, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(230, 238, 248));
         jLabel4.setText("SIMPLE CHATBOT");
         ChatHeader.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        backBtn.setForeground(new java.awt.Color(255, 255, 255));
-        backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/back-button.png"))); // NOI18N
-        backBtn.setIconTextGap(0);
-        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                backBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                backBtnMouseExited(evt);
-            }
-        });
-        ChatHeader.add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 20, -1, -1));
+        btnExit.setBackground(new java.awt.Color(219, 60, 172));
+        btnExit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setText("x");
+        btnExit.setBorderColor(new java.awt.Color(219, 60, 172));
+        btnExit.setBorderEnabled(false);
+        btnExit.setBorderPainted(false);
+        btnExit.setColor(new java.awt.Color(219, 60, 172));
+        btnExit.setColorClick(new java.awt.Color(153, 62, 145));
+        btnExit.setColorOver(new java.awt.Color(153, 62, 145));
+        btnExit.setFocusable(false);
+        btnExit.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnExit.setRadius(10);
+        btnExit.addActionListener(this::btnExitActionPerformed);
+        ChatHeader.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1853, 18, 40, 39));
 
-        mainPanel.add(ChatHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, -1));
+        btnMinimize.setBorder(null);
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setText("–");
+        btnMinimize.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setBorderEnabled(false);
+        btnMinimize.setBorderPainted(false);
+        btnMinimize.setColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setColorClick(new java.awt.Color(48, 43, 116));
+        btnMinimize.setColorOver(new java.awt.Color(48, 43, 116));
+        btnMinimize.setFocusable(false);
+        btnMinimize.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnMinimize.setRadius(10);
+        btnMinimize.addActionListener(this::btnMinimizeActionPerformed);
+        ChatHeader.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(1801, 18, 40, 39));
+
+        btnBack.setBorder(null);
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("BACK");
+        btnBack.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnBack.setBorderEnabled(false);
+        btnBack.setBorderPainted(false);
+        btnBack.setColor(new java.awt.Color(75, 74, 151));
+        btnBack.setColorClick(new java.awt.Color(48, 43, 116));
+        btnBack.setColorOver(new java.awt.Color(48, 43, 116));
+        btnBack.setFocusable(false);
+        btnBack.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        btnBack.setRadius(10);
+        btnBack.addActionListener(this::btnBackActionPerformed);
+        ChatHeader.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(1653, 18, 136, 39));
 
         Cpanel.setBackground(new java.awt.Color(14, 22, 48));
         Cpanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -229,8 +196,6 @@ public class Chatbot1 extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chatbot/ChatbotImages/chatbot (2).png"))); // NOI18N
         Cpanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 970));
-
-        mainPanel.add(Cpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 1200, 950));
 
         BtnPanel.setBackground(new java.awt.Color(14, 22, 48));
         BtnPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 23));
@@ -406,49 +371,33 @@ public class Chatbot1 extends javax.swing.JFrame {
         });
         BtnPanel.add(Q12btn);
 
-        mainPanel.add(BtnPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 100, 640, 950));
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ChatHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 1920, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(Cpanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(BtnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addComponent(ChatHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Cpanel, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 1080));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-// ============================================================================================================================        
     
-    private void closeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseEntered
-        MouseEntered(closeBtn);
-    }//GEN-LAST:event_closeBtnMouseEntered
-
-    private void closeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseExited
-        MouseExited(closeBtn);
-    }//GEN-LAST:event_closeBtnMouseExited
-
-    private void minimizeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseEntered
-        MouseEntered(minimizeBtn);
-    }//GEN-LAST:event_minimizeBtnMouseEntered
-
-    private void minimizeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseExited
-        MouseExited(minimizeBtn);
-    }//GEN-LAST:event_minimizeBtnMouseExited
-
-    private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
-        MouseEntered(backBtn);
-    }//GEN-LAST:event_backBtnMouseEntered
-
-    private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
-        MouseExited(backBtn);
-    }//GEN-LAST:event_backBtnMouseExited
-
-    
-    private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
-        UIUtils.minimizeFrame(this);
-    }//GEN-LAST:event_minimizeBtnMouseClicked
-
-    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
-        // GO BACK TO DASBOARD
-        // NOT YET DONE
-    }//GEN-LAST:event_backBtnMouseClicked
-
     private void btnResetConvoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetConvoActionPerformed
     
     ChatAreaPanel.setText("");
@@ -465,10 +414,6 @@ public class Chatbot1 extends javax.swing.JFrame {
     }
     
     }//GEN-LAST:event_btnResetConvoActionPerformed
-
-    private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
-       UIUtils.closeFrame(this, "Are you sure you want to exit? Your conversation will be lost.", "Warning", JOptionPane.WARNING_MESSAGE); 
-    }//GEN-LAST:event_closeBtnMouseClicked
 
     private void Q1btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Q1btnMouseClicked
     handleLabelClick(
@@ -566,6 +511,19 @@ public class Chatbot1 extends javax.swing.JFrame {
     );        // TODO add your handling code here:
     }//GEN-LAST:event_Q12btnMouseClicked
 
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnMinimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizeActionPerformed
+        setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        parent.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
 // ============================================================================================================================    
     
     /**
@@ -590,7 +548,7 @@ public class Chatbot1 extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Chatbot1().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new Chatbot1().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -611,14 +569,14 @@ public class Chatbot1 extends javax.swing.JFrame {
     private javax.swing.JLabel Q7btn;
     private javax.swing.JLabel Q8btn;
     private javax.swing.JLabel Q9btn;
-    private javax.swing.JLabel backBtn;
+    private commons.RoundButton btnBack;
+    private commons.RoundButton btnExit;
+    private commons.RoundButton btnMinimize;
     private commons.GradientButton btnResetConvo;
-    private javax.swing.JLabel closeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel minimizeBtn;
     // End of variables declaration//GEN-END:variables
 }
