@@ -189,6 +189,7 @@ public class Chatbot1 extends javax.swing.JFrame {
 
         ChatAreaPanel.setBackground(new java.awt.Color(53, 48, 128));
         ChatAreaPanel.setBorder(null);
+        ChatAreaPanel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         ChatAreaPanel.setFocusable(false);
         ChatAreaPanel.setHighlighter(null);
         ChatAreaPanel.setInheritsPopupMenu(true);
