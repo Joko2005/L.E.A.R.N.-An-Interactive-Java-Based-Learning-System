@@ -259,7 +259,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnContinueAsGuestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinueAsGuestMouseClicked
-        AdminUI frm = new AdminUI("Guest");
+        DashboardUI frm = new DashboardUI("Guest");
         
         this.rootPane.setVisible(false);
         frm.setVisible(true);
