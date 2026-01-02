@@ -4,6 +4,7 @@
  */
 package login_page;
 
+import java.awt.BorderLayout;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
@@ -33,23 +34,6 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        BackgroundPanel bg = new BackgroundPanel();
-        
-        // Papalitan itong layout na to, bawal daw sya gamitin ng dalawang beses
-        bg.setLayout(backgroundPanel.getLayout());
-        bg.setBounds(backgroundPanel.getBounds());
-        
-        while (backgroundPanel.getComponentCount() > 0) {
-            bg.add(backgroundPanel.getComponent(0));
-        }
-
-        getContentPane().remove(backgroundPanel);
-        getContentPane().add(bg);
-
-        backgroundPanel = bg;
-
-        revalidate();
-        repaint();
     }
 
     /**
@@ -61,32 +45,26 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backgroundPanel = new javax.swing.JPanel();
-        btnMinimize = new commons.RoundButton();
         btnExit = new commons.RoundButton();
+        btnMinimize = new commons.RoundButton();
+        btnLogin = new commons.GradientButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        LogoName = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JTextField();
+        WelcomeBack = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        rbShowPassword = new javax.swing.JRadioButton();
+        login_panel = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
         setSize(new java.awt.Dimension(1920, 1080));
-
-        backgroundPanel.setPreferredSize(new java.awt.Dimension(1920, 1080));
-
-        btnMinimize.setBorder(null);
-        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
-        btnMinimize.setText("–");
-        btnMinimize.setBorderColor(new java.awt.Color(75, 74, 151));
-        btnMinimize.setBorderPainted(false);
-        btnMinimize.setColor(new java.awt.Color(75, 74, 151));
-        btnMinimize.setColorClick(new java.awt.Color(48, 43, 116));
-        btnMinimize.setColorOver(new java.awt.Color(48, 43, 116));
-        btnMinimize.setFocusable(false);
-        btnMinimize.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
-        btnMinimize.setRadius(10);
-        btnMinimize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMinimizeActionPerformed(evt);
-            }
-        });
+        getContentPane().setLayout(null);
 
         btnExit.setBackground(new java.awt.Color(219, 60, 172));
         btnExit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -105,42 +83,139 @@ public class login extends javax.swing.JFrame {
                 btnExitActionPerformed(evt);
             }
         });
+        getContentPane().add(btnExit);
+        btnExit.setBounds(1853, 23, 40, 39);
 
-        javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
-        backgroundPanel.setLayout(backgroundPanelLayout);
-        backgroundPanelLayout.setHorizontalGroup(
-            backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgroundPanelLayout.createSequentialGroup()
-                .addContainerGap(1801, Short.MAX_VALUE)
-                .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
-        );
-        backgroundPanelLayout.setVerticalGroup(
-            backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgroundPanelLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(1023, Short.MAX_VALUE))
-        );
+        btnMinimize.setBorder(null);
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setText("–");
+        btnMinimize.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setBorderPainted(false);
+        btnMinimize.setColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setColorClick(new java.awt.Color(48, 43, 116));
+        btnMinimize.setColorOver(new java.awt.Color(48, 43, 116));
+        btnMinimize.setFocusable(false);
+        btnMinimize.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnMinimize.setRadius(10);
+        btnMinimize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinimizeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMinimize);
+        btnMinimize.setBounds(1801, 23, 40, 39);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
+        btnLogin.setText("LOGIN");
+        btnLogin.setColor1(new java.awt.Color(109, 31, 239));
+        btnLogin.setColor2(new java.awt.Color(234, 46, 201));
+        btnLogin.setFocusable(false);
+        btnLogin.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        btnLogin.setHoverColor1(new java.awt.Color(158, 100, 255));
+        btnLogin.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLogin);
+        btnLogin.setBounds(730, 690, 450, 45);
+
+        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(243, 233, 253));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("3 attempts remaining before program will close");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(730, 830, 460, 23);
+
+        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(243, 233, 253));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Continue as Guest");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(800, 760, 310, 23);
+
+        jLabel1.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(243, 233, 253));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/Vector.png"))); // NOI18N
+        jLabel1.setText("<html>Password is required, must be at least 8 characters long<br>and include: Uppercase, Lowercase, Number </html>");
+        jLabel1.setIconTextGap(10);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(730, 590, 450, 50);
+
+        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(243, 233, 253));
+        jLabel4.setLabelFor(txtUsername);
+        jLabel4.setText("Username");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(730, 370, 110, 16);
+
+        LogoName.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
+        LogoName.setForeground(new java.awt.Color(255, 255, 255));
+        LogoName.setText("LEARN");
+        getContentPane().add(LogoName);
+        LogoName.setBounds(930, 220, 86, 30);
+
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/LEARNLogo.png"))); // NOI18N
+        getContentPane().add(Logo);
+        Logo.setBounds(880, 210, 48, 47);
+
+        jLabel5.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(243, 233, 253));
+        jLabel5.setLabelFor(txtPassword);
+        jLabel5.setText("Password");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(730, 470, 110, 16);
+
+        txtPassword.setBackground(new java.awt.Color(28, 32, 77));
+        txtPassword.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(243, 233, 253));
+        txtPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(182, 181, 228), 1, true));
+        txtPassword.setCaretColor(new java.awt.Color(182, 181, 228));
+        getContentPane().add(txtPassword);
+        txtPassword.setBounds(730, 510, 460, 30);
+
+        WelcomeBack.setFont(new java.awt.Font("Montserrat", 1, 30)); // NOI18N
+        WelcomeBack.setForeground(new java.awt.Color(255, 255, 255));
+        WelcomeBack.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        WelcomeBack.setText("Welcome Back!");
+        WelcomeBack.setToolTipText("");
+        WelcomeBack.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(WelcomeBack);
+        WelcomeBack.setBounds(780, 270, 340, 80);
+
+        txtUsername.setBackground(new java.awt.Color(28, 32, 77));
+        txtUsername.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        txtUsername.setForeground(new java.awt.Color(243, 233, 253));
+        txtUsername.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(182, 181, 228), 1, true));
+        txtUsername.setCaretColor(new java.awt.Color(182, 181, 228));
+        getContentPane().add(txtUsername);
+        txtUsername.setBounds(730, 410, 460, 30);
+
+        rbShowPassword.setBackground(new java.awt.Color(28, 32, 77));
+        rbShowPassword.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
+        rbShowPassword.setForeground(new java.awt.Color(243, 233, 253));
+        rbShowPassword.setText("Show Password");
+        rbShowPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/State=Unselected.png"))); // NOI18N
+        rbShowPassword.setIconTextGap(5);
+        rbShowPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbShowPasswordMouseClicked(evt);
+            }
+        });
+        getContentPane().add(rbShowPassword);
+        rbShowPassword.setBounds(720, 550, 240, 30);
+
+        login_panel.setForeground(new java.awt.Color(28, 32, 77));
+        login_panel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/login_panel.png"))); // NOI18N
+        login_panel.setToolTipText("");
+        login_panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(login_panel);
+        login_panel.setBounds(680, 190, 559, 686);
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/bg.png"))); // NOI18N
+        getContentPane().add(background);
+        background.setBounds(0, 0, 1920, 1080);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -152,6 +227,21 @@ public class login extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void rbShowPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbShowPasswordMouseClicked
+        if(rbShowPassword.isSelected())
+        {
+            rbShowPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/State=Selected.png")));
+        }
+        else
+        {
+            rbShowPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/State=Unselected.png")));
+        }
+    }//GEN-LAST:event_rbShowPasswordMouseClicked
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,8 +269,21 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JLabel Logo;
+    private javax.swing.JLabel LogoName;
+    private javax.swing.JLabel WelcomeBack;
+    private javax.swing.JLabel background;
     private commons.RoundButton btnExit;
+    private commons.GradientButton btnLogin;
     private commons.RoundButton btnMinimize;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel login_panel;
+    private javax.swing.JRadioButton rbShowPassword;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
