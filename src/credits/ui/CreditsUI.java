@@ -5,6 +5,7 @@
 package credits.ui;
 
 import commons.UIUtils;
+import dashboard.admin.UI.AdminUI;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -19,22 +20,14 @@ public class CreditsUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CreditsUI.class.getName());
 
-    /**
-     * Creates new form creditsUI
-     */
-    public CreditsUI() {
+    private JFrame parent; // Pass the previous frame
+    
+    public CreditsUI(JFrame parent) {
         setUndecorated(true);
+        this.parent = parent;
         initComponents();
         setSize(1920, 1080);
         
-
-        GraphicsDevice gd = GraphicsEnvironment
-                .getLocalGraphicsEnvironment()
-                .getDefaultScreenDevice();
-
-        gd.setFullScreenWindow(this);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -77,18 +70,25 @@ public class CreditsUI extends javax.swing.JFrame {
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("BACK");
         btnBack.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnBack.setBorderEnabled(false);
         btnBack.setBorderPainted(false);
         btnBack.setColor(new java.awt.Color(75, 74, 151));
         btnBack.setColorClick(new java.awt.Color(48, 43, 116));
         btnBack.setColorOver(new java.awt.Color(48, 43, 116));
         btnBack.setFocusable(false);
-        btnBack.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnBack.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnBack.setRadius(10);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnMinimize.setBorder(null);
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
         btnMinimize.setText("–");
         btnMinimize.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setBorderEnabled(false);
         btnMinimize.setBorderPainted(false);
         btnMinimize.setColor(new java.awt.Color(75, 74, 151));
         btnMinimize.setColorClick(new java.awt.Color(48, 43, 116));
@@ -107,6 +107,7 @@ public class CreditsUI extends javax.swing.JFrame {
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
         btnExit.setText("x");
         btnExit.setBorderColor(new java.awt.Color(219, 60, 172));
+        btnExit.setBorderEnabled(false);
         btnExit.setBorderPainted(false);
         btnExit.setColor(new java.awt.Color(219, 60, 172));
         btnExit.setColorClick(new java.awt.Color(153, 62, 145));
@@ -212,14 +213,16 @@ public class CreditsUI extends javax.swing.JFrame {
         setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_btnMinimizeActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        parent.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         
-        
-        
-        java.awt.EventQueue.invokeLater(() -> new CreditsUI().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
