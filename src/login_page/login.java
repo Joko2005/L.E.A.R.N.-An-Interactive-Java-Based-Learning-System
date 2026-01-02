@@ -27,6 +27,20 @@ public class login extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
+    
+    // ADD THIS:  Static variable to store logged-in username
+    private static String loggedInUsername = "Guest";
+    
+    // ADD THIS: Static getter method
+    public static String getLoggedInUsername() {
+        return loggedInUsername;
+    }
+    
+    // ADD THIS: Static setter method
+    public static void setLoggedInUsername(String username) {
+        loggedInUsername = username;
+    }
+    
     public login() {
         setUndecorated(true);
         initComponents();
@@ -264,14 +278,14 @@ public class login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
         DBConnection context = new DBConnection();
-        
+    
         String usernameInput = txtUsername.getText();
         String passwordInput = Arrays.toString(txtPassword.getPassword());
-        
+
         User user = singleOrDefault(context.Users, 
                 n -> (n.name.equals(usernameInput))
                     || (n.password.equals(passwordInput)));
-        
+
         if(user == null) 
         {
             if(Attempts == 1)
@@ -281,14 +295,19 @@ public class login extends javax.swing.JFrame {
             System.out.println("Wrong Credentials");
             Attempts--;
             lblAttempts.setText(Attempts + " attempts remaining before program will close");
-        } //Display wrong
+        } 
         else
         {
+            // ADD THIS: Store the logged-in username
+            login.setLoggedInUsername(user.name); // or usernameInput
+
             NavigationUtil.switchFrame(this, new DashboardUI(user.role));
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnContinueAsGuestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinueAsGuestMouseClicked
+        login.setLoggedInUsername("Guest");
+        
         DashboardUI frm = new DashboardUI(UserRoles.GUEST);
         
         this.setVisible(false);
