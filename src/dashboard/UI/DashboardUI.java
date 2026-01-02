@@ -38,10 +38,11 @@ public class DashboardUI extends javax.swing.JFrame {
         this.role = role;
         
         initComponents();
+        setupPermissionBasedDashboard();
         this.setVisible(true);
         startDateTime();
     }
-    private void setupPermissionBasedDashboard(UserRoles role)
+    private void setupPermissionBasedDashboard()
     {
         switch(role)
         {
@@ -537,7 +538,6 @@ public class DashboardUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
-<<<<<<< Updated upstream:src/dashboard/UI/DashboardUI.java
     private void btnSbTakeQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbTakeQuizActionPerformed
         btnSbTakeQuiz.addActionListener(e -> {
         if (role == UserRoles.GUEST) {
@@ -551,8 +551,6 @@ public class DashboardUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSbTakeQuizActionPerformed
 
-=======
->>>>>>> Stashed changes:src/dashboard/admin/UI/AdminUI.java
     private void btnSbDataVisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbDataVisActionPerformed
         DataVisframe.setVisible(true);
     }//GEN-LAST:event_btnSbDataVisActionPerformed
@@ -575,10 +573,6 @@ public class DashboardUI extends javax.swing.JFrame {
         DataVisframe.setVisible(true);
         
     }//GEN-LAST:event_btnDataVisActionPerformed
-
-    private void btnSbTakeQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbTakeQuizActionPerformed
-        Quizframe.setVisible(true);
-    }//GEN-LAST:event_btnSbTakeQuizActionPerformed
 
     /**
      * @param args the command line arguments
