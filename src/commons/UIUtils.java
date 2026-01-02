@@ -52,7 +52,7 @@ public class UIUtils {
                 msg,
                 title,
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
+                icon
         );
         
         if(result == JOptionPane.YES_OPTION){
