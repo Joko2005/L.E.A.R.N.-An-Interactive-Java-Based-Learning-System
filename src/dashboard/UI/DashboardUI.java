@@ -2,15 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package dashboard.admin.UI;
+package dashboard.UI;
 
+import commons.UIPositionUtil;
 import credits.ui.CreditsUI;
+import dashboard.roles.UserRoles;
 import datavisualization.charts;
 import quiz.QuizUI;
+import static commons.UIPositionUtil.*;
+
 
 import javax.swing.JFrame;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 
@@ -19,31 +24,99 @@ import javax.swing.Timer;
  *
  * @author Joko
  */
-public class AdminUI extends javax.swing.JFrame {
+public class DashboardUI extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminUI.class.getName());
-
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardUI.class.getName());
+    private UserRoles role;
+    
     QuizUI Quizframe = new QuizUI();
     charts DataVisframe = new charts();
     CreditsUI Creditsframe = new CreditsUI(this);
     
-    public AdminUI() {
+    public DashboardUI(UserRoles role) {
         setUndecorated(true);
+        this.role = role;
+        
         initComponents();
         this.setVisible(true);
         startDateTime();
         
+        pnlBody.setLayout(null); // VERY IMPORTANT
+        applyRoleConfig();
+        
+        pnlBody.revalidate();
+        pnlBody.repaint();
     }
     
-    private void startDateTime() {
-    DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy | hh:mm a");
+    private void applyRoleConfig() {
 
-    Timer timer = new Timer(1000, e -> {
-        jLabel3.setText(LocalDateTime.now().format(formatter));
-    });
-    timer.start();
-}
+        QuizCard.setVisible(false);
+        CreditCard.setVisible(false);
+        DataVisCard.setVisible(false);
+        ChatbotCard.setVisible(false);
+
+        switch (role) {
+
+            case ADMIN:
+                showAt(QuizCard, 40, 150, 1054, 347);
+                setCardIcon(QuizCard, "/dashboard/icons/AdminQuizCard.png");
+                
+                
+                showAt(ChatbotCard, 580, 520, 1054, 443);
+                setCardIcon(ChatbotCard, "/dashboard/icons/AdminChatbotCard.png");
+
+                showAt(DataVisCard, 40, 520, 509, 443);
+                setCardIcon(DataVisCard, "/dashboard/icons/AdminDataVisCard.png");
+
+                showAt(CreditCard, 1120, 150, 509, 345);
+                setCardIcon(CreditCard, "/dashboard/icons/AdminCreditsCard.png");
+                break;
+
+            case USER:
+                showAt(QuizCard, 40, 120, 1598, 373);
+                setCardIcon(QuizCard, "/dashboard/icons/UserQuizCard.png");
+                UIPositionUtil.move(btnQuiz, 740, 340);
+                
+                showAt(ChatbotCard, 40, 520, 1054, 443);
+                setCardIcon(ChatbotCard, "/dashboard/icons/UserChatbotCard.png");
+                UIPositionUtil.move(btnChatbot, 80, 870);
+
+                showAt(CreditCard, 1120, 520, 509, 443);
+                setCardIcon(CreditCard, "/dashboard/icons/UserCreditsCard.png");
+                UIPositionUtil.move(btnCredits, 1270, 850);
+                
+                btnDataVis.setVisible(false);
+                break;
+
+            case GUEST:
+                showAt(DataVisCard, 40, 150, 782, 835);
+                setCardIcon(DataVisCard, "/dashboard/icons/GuestDataVisCard.png");
+                UIPositionUtil.move(btnDataVis, 330, 780);
+
+                showAt(CreditCard, 850, 150, 781, 835);
+                setCardIcon(CreditCard, "/dashboard/icons/GuestCreditsCard.png");
+                UIPositionUtil.move(btnCredits, 1135, 770);
+                
+                btnQuiz.setVisible(false);
+                btnChatbot.setVisible(false);
+                break;
+        }
+
+        pnlBody.revalidate();
+        pnlBody.repaint();
+    }
+
+    
+    
+    private void startDateTime() {
+        DateTimeFormatter formatter =
+        DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy | hh:mm a");
+
+        Timer timer = new Timer(1000, e -> {
+            jLabel3.setText(LocalDateTime.now().format(formatter));
+        });
+        timer.start();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,17 +145,18 @@ public class AdminUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnMinimize = new commons.RoundButton();
         btnExit = new commons.RoundButton();
-        jPanel1 = new javax.swing.JPanel();
+        pnlBody = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         Subtitle = new javax.swing.JLabel();
         btnChatbot = new commons.GradientButton();
         btnDataVis = new commons.GradientButton();
         btnCredits = new commons.GradientButton();
         btnQuiz = new commons.GradientButton();
-        CreditPane = new javax.swing.JLabel();
-        QuizPane = new javax.swing.JLabel();
-        DataVisPane = new javax.swing.JLabel();
-        ChatbotPane = new javax.swing.JLabel();
+        CreditCard = new javax.swing.JLabel();
+        QuizCard = new javax.swing.JLabel();
+        DataVisCard = new javax.swing.JLabel();
+        ChatbotCard = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -358,18 +432,18 @@ public class AdminUI extends javax.swing.JFrame {
 
         pnlPlaceholder.add(Header, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setBackground(new java.awt.Color(14, 22, 48));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlBody.setBackground(new java.awt.Color(14, 22, 48));
+        pnlBody.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Title.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setText("Welcome Joko!");
-        jPanel1.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 23, 314, -1));
+        pnlBody.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 23, 314, -1));
 
         Subtitle.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         Subtitle.setForeground(new java.awt.Color(182, 181, 228));
         Subtitle.setText("Learn something new today.");
-        jPanel1.add(Subtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 73, 479, -1));
+        pnlBody.add(Subtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 73, 479, -1));
 
         btnChatbot.setText("CHAT NOW");
         btnChatbot.setColor1(new java.awt.Color(109, 31, 239));
@@ -378,7 +452,7 @@ public class AdminUI extends javax.swing.JFrame {
         btnChatbot.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnChatbot.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnChatbot.setHoverColor2(new java.awt.Color(244, 105, 220));
-        jPanel1.add(btnChatbot, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 870, 200, 40));
+        pnlBody.add(btnChatbot, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 870, 200, 40));
 
         btnDataVis.setText("VIEW DATA");
         btnDataVis.setColor1(new java.awt.Color(109, 31, 239));
@@ -392,9 +466,9 @@ public class AdminUI extends javax.swing.JFrame {
                 btnDataVisActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDataVis, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 870, 200, 40));
+        pnlBody.add(btnDataVis, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 870, 200, 40));
 
-        btnCredits.setText("VIEW QUIZ");
+        btnCredits.setText("VIEW CREDITS");
         btnCredits.setColor1(new java.awt.Color(109, 31, 239));
         btnCredits.setColor2(new java.awt.Color(234, 46, 201));
         btnCredits.setFocusable(false);
@@ -406,7 +480,7 @@ public class AdminUI extends javax.swing.JFrame {
                 btnCreditsActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCredits, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 410, 210, 40));
+        pnlBody.add(btnCredits, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 410, 210, 40));
 
         btnQuiz.setText("START QUIZ");
         btnQuiz.setColor1(new java.awt.Color(109, 31, 239));
@@ -420,21 +494,24 @@ public class AdminUI extends javax.swing.JFrame {
                 btnQuizActionPerformed(evt);
             }
         });
-        jPanel1.add(btnQuiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 200, 40));
+        pnlBody.add(btnQuiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 200, 40));
 
-        CreditPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminCreditsPanel.png"))); // NOI18N
-        jPanel1.add(CreditPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 150, -1, -1));
+        CreditCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminCreditsCard.png"))); // NOI18N
+        CreditCard.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlBody.add(CreditCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 150, -1, -1));
 
-        QuizPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminQuizPanel.png"))); // NOI18N
-        jPanel1.add(QuizPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+        QuizCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminQuizCard.png"))); // NOI18N
+        QuizCard.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlBody.add(QuizCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
-        DataVisPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminDataVisPanel.png"))); // NOI18N
-        jPanel1.add(DataVisPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
+        DataVisCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminDataVisCard.png"))); // NOI18N
+        pnlBody.add(DataVisCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
 
-        ChatbotPane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminChatBotPanel.png"))); // NOI18N
-        jPanel1.add(ChatbotPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, -1, -1));
+        ChatbotCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminChatbotCard.png"))); // NOI18N
+        pnlBody.add(ChatbotCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, -1, -1));
+        pnlBody.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
 
-        pnlPlaceholder.add(jPanel1, java.awt.BorderLayout.CENTER);
+        pnlPlaceholder.add(pnlBody, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pnlPlaceholder, java.awt.BorderLayout.CENTER);
 
@@ -450,7 +527,16 @@ public class AdminUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSbTakeQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbTakeQuizActionPerformed
+        btnSbTakeQuiz.addActionListener(e -> {
+        if (role == UserRoles.GUEST) {
+            JOptionPane.showMessageDialog(this,
+                "Please login to access quizzes.");
+            return;
+        }
         Quizframe.setVisible(true);
+});
+        
+        
     }//GEN-LAST:event_btnSbTakeQuizActionPerformed
 
     private void btnSbDataVisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbDataVisActionPerformed
@@ -498,17 +584,17 @@ public class AdminUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AdminUI().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new DashboardUI().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ChatbotPane;
-    private javax.swing.JLabel CreditPane;
-    private javax.swing.JLabel DataVisPane;
+    private javax.swing.JLabel ChatbotCard;
+    private javax.swing.JLabel CreditCard;
+    private javax.swing.JLabel DataVisCard;
     private javax.swing.JPanel Header;
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel LogoName;
-    private javax.swing.JLabel QuizPane;
+    private javax.swing.JLabel QuizCard;
     private javax.swing.JLabel Subtitle;
     private javax.swing.JLabel Title;
     private commons.GradientButton btnChatbot;
@@ -526,7 +612,8 @@ public class AdminUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlPlaceholder;
     private javax.swing.JPanel pnlSidebar;
     private javax.swing.JPanel pnlSidebarHeader;

@@ -5,7 +5,7 @@
 package credits.ui;
 
 import commons.UIUtils;
-import dashboard.admin.UI.AdminUI;
+import dashboard.UI.DashboardUI;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
