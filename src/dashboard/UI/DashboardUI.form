@@ -122,14 +122,14 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="70" pref="193" max="32767" attributes="0"/>
+                      <EmptySpace min="70" max="32767" attributes="0"/>
                       <Component id="ProfilePic" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                   </Group>
                   <Component id="btnSbDashboard" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnSbTakeQuiz" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnSbChatbot" alignment="1" max="32767" attributes="0"/>
-                  <Component id="btnSbDataVis" alignment="1" pref="262" max="32767" attributes="0"/>
+                  <Component id="btnSbDataVis" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnSbCredits" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnLogout" alignment="1" max="32767" attributes="0"/>
               </Group>
@@ -554,7 +554,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="38" y="23" width="314" height="-1"/>
+                  <AbsoluteConstraints x="38" y="23" width="560" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -740,7 +740,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="580" y="520" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="575" y="520" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

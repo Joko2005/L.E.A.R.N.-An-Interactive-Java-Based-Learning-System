@@ -2,7 +2,6 @@ package quiz;
 
 import commons.NavigationUtil;
 import commons.UIUtils;
-import dashboard.UI.DashboardUI;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
@@ -2801,8 +2800,22 @@ public class QuizUI extends javax.swing.JFrame {
                 ResetAll();
                 NavigationUtil.switchFrame(this, parent);
             }
+            
         }
-        NavigationUtil.switchFrame(this, parent);
+        else {
+            int result = JOptionPane.showConfirmDialog(
+                null,
+                "Are you sure you want to exit?",
+                "Warning",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+            
+            if(result == JOptionPane.YES_OPTION){
+                ResetAll();
+                NavigationUtil.switchFrame(this, parent);
+            }
+        }
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void minimizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeBtnActionPerformed

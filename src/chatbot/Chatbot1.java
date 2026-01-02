@@ -1,5 +1,6 @@
 package chatbot;
 
+import commons.NavigationUtil;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JFrame;
@@ -521,8 +522,7 @@ public class Chatbot1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinimizeActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        parent.setVisible(true);
-        this.dispose();
+        NavigationUtil.switchFrame(this, parent);
     }//GEN-LAST:event_btnBackActionPerformed
 
 // ============================================================================================================================    

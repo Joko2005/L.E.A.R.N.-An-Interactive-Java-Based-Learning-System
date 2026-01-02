@@ -4,10 +4,7 @@
  */
 package dashboard.roles;
 
-/**
- *
- * @author Joko
- */
+
 public enum UserRoles {
     ADMIN,
     USER,

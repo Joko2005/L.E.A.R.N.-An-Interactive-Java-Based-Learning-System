@@ -1,5 +1,6 @@
 package datavisualization.ui;
 
+import commons.NavigationUtil;
 import javax.swing.JFrame;
 import java.awt.*;
 import javax.swing.*;
@@ -8,14 +9,15 @@ import org.jfree.chart.ChartPanel;
 import datavisualization.charts.ChartFactoryUtil;
 import datavisualization.data.SampleData;
 
-public class DashBoardUI extends javax.swing.JFrame {
+public class DataVisUI extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashBoardUI.class.getName());
-   
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DataVisUI.class.getName());
+    private JFrame parent;
     private static final Color CARD_BG = Color.decode("#353080");
     
-    public DashBoardUI() {
-        setUndecorated(true);  
+    public DataVisUI(JFrame parent) {
+        setUndecorated(true); 
+        this.parent = parent;
         initComponents();
         FullScreen();
         
@@ -40,10 +42,10 @@ public class DashBoardUI extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        closeBtn = new javax.swing.JLabel();
-        minimizeBtn = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        backBtn = new javax.swing.JLabel();
+        btnBack = new commons.RoundButton();
+        btnMinimize = new commons.RoundButton();
+        btnExit = new commons.RoundButton();
         pnlInventory = new javax.swing.JPanel();
         pnlKpi = new javax.swing.JPanel();
         pnlRecs = new javax.swing.JPanel();
@@ -70,60 +72,58 @@ public class DashBoardUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(166, 176, 200));
         jLabel2.setText("Inventory and Sales Monitoring");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 200, -1));
-
-        closeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/close-button.png"))); // NOI18N
-        closeBtn.setIconTextGap(0);
-        closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                closeBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                closeBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                closeBtnMouseExited(evt);
-            }
-        });
-        jPanel2.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1860, 20, -1, -1));
-
-        minimizeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        minimizeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/minimize-button.png"))); // NOI18N
-        minimizeBtn.setIconTextGap(0);
-        minimizeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseExited(evt);
-            }
-        });
-        jPanel2.add(minimizeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1810, 20, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 320, -1));
 
         jLabel4.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(230, 238, 248));
         jLabel4.setText("DATA VISUALIZATION");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        backBtn.setForeground(new java.awt.Color(255, 255, 255));
-        backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/back-button.png"))); // NOI18N
-        backBtn.setIconTextGap(0);
-        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                backBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                backBtnMouseExited(evt);
-            }
-        });
-        jPanel2.add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 20, -1, -1));
+        btnBack.setBorder(null);
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("BACK");
+        btnBack.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnBack.setBorderEnabled(false);
+        btnBack.setBorderPainted(false);
+        btnBack.setColor(new java.awt.Color(75, 74, 151));
+        btnBack.setColorClick(new java.awt.Color(48, 43, 116));
+        btnBack.setColorOver(new java.awt.Color(48, 43, 116));
+        btnBack.setFocusable(false);
+        btnBack.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        btnBack.setRadius(10);
+        btnBack.addActionListener(this::btnBackActionPerformed);
+        jPanel2.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(1653, 18, 136, 39));
+
+        btnMinimize.setBorder(null);
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setText("–");
+        btnMinimize.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setBorderEnabled(false);
+        btnMinimize.setBorderPainted(false);
+        btnMinimize.setColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setColorClick(new java.awt.Color(48, 43, 116));
+        btnMinimize.setColorOver(new java.awt.Color(48, 43, 116));
+        btnMinimize.setFocusable(false);
+        btnMinimize.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnMinimize.setRadius(10);
+        btnMinimize.addActionListener(this::btnMinimizeActionPerformed);
+        jPanel2.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(1801, 18, 40, 39));
+
+        btnExit.setBackground(new java.awt.Color(219, 60, 172));
+        btnExit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setText("x");
+        btnExit.setBorderColor(new java.awt.Color(219, 60, 172));
+        btnExit.setBorderEnabled(false);
+        btnExit.setBorderPainted(false);
+        btnExit.setColor(new java.awt.Color(219, 60, 172));
+        btnExit.setColorClick(new java.awt.Color(153, 62, 145));
+        btnExit.setColorOver(new java.awt.Color(153, 62, 145));
+        btnExit.setFocusable(false);
+        btnExit.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        btnExit.setRadius(10);
+        btnExit.addActionListener(this::btnExitActionPerformed);
+        jPanel2.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1853, 18, 40, 39));
 
         mainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, -1));
 
@@ -168,37 +168,17 @@ public class DashBoardUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-// ============================================================================================================================        
-    
-    private void closeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseEntered
-    }//GEN-LAST:event_closeBtnMouseEntered
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        NavigationUtil.switchFrame(this, parent);
+    }//GEN-LAST:event_btnBackActionPerformed
 
-    private void closeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseExited
-    }//GEN-LAST:event_closeBtnMouseExited
+    private void btnMinimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizeActionPerformed
+        setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeActionPerformed
 
-    private void minimizeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseEntered
-    }//GEN-LAST:event_minimizeBtnMouseEntered
-
-    private void minimizeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseExited
-    }//GEN-LAST:event_minimizeBtnMouseExited
-
-    private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
-    }//GEN-LAST:event_backBtnMouseEntered
-
-    private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
-
-    }//GEN-LAST:event_backBtnMouseExited
-
-    private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
-    }//GEN-LAST:event_closeBtnMouseClicked
-
-    private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
-
-    }//GEN-LAST:event_minimizeBtnMouseClicked
-
-    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
-
-    }//GEN-LAST:event_backBtnMouseClicked
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
     
 // ============================================================================================================================    
     
@@ -223,7 +203,7 @@ public class DashBoardUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-        java.awt.EventQueue.invokeLater(() -> new DashBoardUI().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new DataVisUI().setVisible(true));
     }
 
 private static final java.awt.Font CARD_TITLE_FONT = new java.awt.Font("Montserrat", java.awt.Font.BOLD, 20);    
@@ -555,13 +535,13 @@ private static class RoundedPanel extends javax.swing.JPanel {
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel backBtn;
-    private javax.swing.JLabel closeBtn;
+    private commons.RoundButton btnBack;
+    private commons.RoundButton btnExit;
+    private commons.RoundButton btnMinimize;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel minimizeBtn;
     private javax.swing.JPanel pnlInventory;
     private javax.swing.JPanel pnlKpi;
     private javax.swing.JPanel pnlLow;

@@ -5,6 +5,7 @@
 package login_page;
 
 
+import commons.NavigationUtil;
 import dashboard.UI.DashboardUI;
 import dashboard.roles.UserRoles;
 import java.awt.GraphicsDevice;
@@ -72,13 +73,13 @@ public class login extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(null);
 
-        btnExit.setBackground(new java.awt.Color(219, 60, 172));
         btnExit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
         btnExit.setText("x");
         btnExit.setBorderColor(new java.awt.Color(219, 60, 172));
+        btnExit.setBorderEnabled(false);
         btnExit.setBorderPainted(false);
-        btnExit.setColor(new java.awt.Color(219, 60, 172));
+        btnExit.setColor(new java.awt.Color(219, 27, 140));
         btnExit.setColorClick(new java.awt.Color(153, 62, 145));
         btnExit.setColorOver(new java.awt.Color(153, 62, 145));
         btnExit.setFocusable(false);
@@ -90,12 +91,13 @@ public class login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnExit);
-        btnExit.setBounds(1853, 23, 40, 39);
+        btnExit.setBounds(1853, 23, 40, 40);
 
         btnMinimize.setBorder(null);
         btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
         btnMinimize.setText("–");
         btnMinimize.setBorderColor(new java.awt.Color(75, 74, 151));
+        btnMinimize.setBorderEnabled(false);
         btnMinimize.setBorderPainted(false);
         btnMinimize.setColor(new java.awt.Color(75, 74, 151));
         btnMinimize.setColorClick(new java.awt.Color(48, 43, 116));
@@ -282,10 +284,7 @@ public class login extends javax.swing.JFrame {
         } //Display wrong
         else
         {
-            DashboardUI frm = new DashboardUI(user.role);
-            
-            this.setVisible(false);
-            frm.setVisible(true);
+            NavigationUtil.switchFrame(this, new DashboardUI(user.role));
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
