@@ -4,6 +4,7 @@
  */
 package login_page;
 
+import dashboard.admin.UI.AdminUI;
 import java.awt.BorderLayout;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -33,6 +34,7 @@ public class login extends javax.swing.JFrame {
         gd.setFullScreenWindow(this);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        txtPassword.setInputVerifier(new PasswordVerifier());
         
     }
 
@@ -48,14 +50,14 @@ public class login extends javax.swing.JFrame {
         btnExit = new commons.RoundButton();
         btnMinimize = new commons.RoundButton();
         btnLogin = new commons.GradientButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        lblAttempts = new javax.swing.JLabel();
+        btnContinueAsGuest = new javax.swing.JLabel();
+        lblPasswordNote = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
         LogoName = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
         WelcomeBack = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         rbShowPassword = new javax.swing.JRadioButton();
@@ -120,35 +122,50 @@ public class login extends javax.swing.JFrame {
         getContentPane().add(btnLogin);
         btnLogin.setBounds(730, 690, 450, 45);
 
-        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(243, 233, 253));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("3 attempts remaining before program will close");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(730, 830, 460, 23);
+        txtPassword.setBackground(new java.awt.Color(28, 32, 77));
+        txtPassword.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(243, 233, 253));
+        txtPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(182, 181, 228), 1, true));
+        txtPassword.setEchoChar('*');
+        txtPassword.setFocusCycleRoot(true);
+        txtPassword.setFocusTraversalPolicy(null);
+        getContentPane().add(txtPassword);
+        txtPassword.setBounds(730, 500, 460, 30);
 
-        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(243, 233, 253));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Continue as Guest");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(800, 760, 310, 23);
+        lblAttempts.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        lblAttempts.setForeground(new java.awt.Color(243, 233, 253));
+        lblAttempts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAttempts.setText("3 attempts remaining before program will close");
+        getContentPane().add(lblAttempts);
+        lblAttempts.setBounds(730, 830, 460, 23);
 
-        jLabel1.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(243, 233, 253));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/Vector.png"))); // NOI18N
-        jLabel1.setText("<html>Password is required, must be at least 8 characters long<br>and include: Uppercase, Lowercase, Number </html>");
-        jLabel1.setIconTextGap(10);
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(730, 590, 450, 50);
+        btnContinueAsGuest.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        btnContinueAsGuest.setForeground(new java.awt.Color(243, 233, 253));
+        btnContinueAsGuest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnContinueAsGuest.setText("Continue as Guest");
+        btnContinueAsGuest.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnContinueAsGuest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnContinueAsGuestMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnContinueAsGuest);
+        btnContinueAsGuest.setBounds(800, 760, 310, 23);
 
-        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(243, 233, 253));
-        jLabel4.setLabelFor(txtUsername);
-        jLabel4.setText("Username");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(730, 370, 110, 16);
+        lblPasswordNote.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
+        lblPasswordNote.setForeground(new java.awt.Color(243, 233, 253));
+        lblPasswordNote.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/Vector.png"))); // NOI18N
+        lblPasswordNote.setText("<html>Password is required, must be at least 8 characters long<br>and include: Uppercase, Lowercase, Number </html>");
+        lblPasswordNote.setIconTextGap(10);
+        getContentPane().add(lblPasswordNote);
+        lblPasswordNote.setBounds(730, 590, 450, 50);
+
+        lblUsername.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(243, 233, 253));
+        lblUsername.setLabelFor(txtUsername);
+        lblUsername.setText("Username");
+        getContentPane().add(lblUsername);
+        lblUsername.setBounds(730, 370, 110, 16);
 
         LogoName.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
         LogoName.setForeground(new java.awt.Color(255, 255, 255));
@@ -160,20 +177,12 @@ public class login extends javax.swing.JFrame {
         getContentPane().add(Logo);
         Logo.setBounds(880, 210, 48, 47);
 
-        jLabel5.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(243, 233, 253));
-        jLabel5.setLabelFor(txtPassword);
-        jLabel5.setText("Password");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(730, 470, 110, 16);
-
-        txtPassword.setBackground(new java.awt.Color(28, 32, 77));
-        txtPassword.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        txtPassword.setForeground(new java.awt.Color(243, 233, 253));
-        txtPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(182, 181, 228), 1, true));
-        txtPassword.setCaretColor(new java.awt.Color(182, 181, 228));
-        getContentPane().add(txtPassword);
-        txtPassword.setBounds(730, 510, 460, 30);
+        lblPassword.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(243, 233, 253));
+        lblPassword.setLabelFor(txtPassword);
+        lblPassword.setText("Password");
+        getContentPane().add(lblPassword);
+        lblPassword.setBounds(730, 470, 110, 16);
 
         WelcomeBack.setFont(new java.awt.Font("Montserrat", 1, 30)); // NOI18N
         WelcomeBack.setForeground(new java.awt.Color(255, 255, 255));
@@ -232,16 +241,29 @@ public class login extends javax.swing.JFrame {
         if(rbShowPassword.isSelected())
         {
             rbShowPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/State=Selected.png")));
+            
+            txtPassword.setEchoChar((char)0);
         }
         else
         {
             rbShowPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/State=Unselected.png")));
+            
+            txtPassword.setEchoChar('*');
         }
+        
+        repaint();
     }//GEN-LAST:event_rbShowPasswordMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnContinueAsGuestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinueAsGuestMouseClicked
+        AdminUI frm = new AdminUI("Guest");
+        
+        this.rootPane.setVisible(false);
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnContinueAsGuestMouseClicked
 
     /**
      * @param args the command line arguments
@@ -273,17 +295,17 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel LogoName;
     private javax.swing.JLabel WelcomeBack;
     private javax.swing.JLabel background;
+    private javax.swing.JLabel btnContinueAsGuest;
     private commons.RoundButton btnExit;
     private commons.GradientButton btnLogin;
     private commons.RoundButton btnMinimize;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblAttempts;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPasswordNote;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel login_panel;
     private javax.swing.JRadioButton rbShowPassword;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
