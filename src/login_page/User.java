@@ -4,6 +4,8 @@
  */
 package login_page;
 
+import dashboard.roles.UserRoles;
+
 /**
  *
  * @author sirpa
@@ -11,16 +13,18 @@ package login_page;
 public class User {
     public String name;
     public String password;
+    public UserRoles role;
     
     public User()
     {
         
     }
     
-    public User(String name, String password)
+    public User(String name, String password, UserRoles role)
     {
         this.name = name;
         this.password = password;
+        this.role = role;
     }
     
 }

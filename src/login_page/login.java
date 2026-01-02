@@ -9,6 +9,9 @@ import dashboard.UI.DashboardUI;
 import dashboard.roles.UserRoles;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JFrame;
 
 
@@ -19,7 +22,7 @@ import javax.swing.JFrame;
 public class login extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(login.class.getName());
-
+    private int Attempts = 3;
     /**
      * Creates new form login
      */
@@ -36,7 +39,7 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         txtPassword.setInputVerifier(new PasswordVerifier());
-        
+        lblAttempts.setText(Attempts + " attempts remaining before program will close");
     }
 
     /**
@@ -256,13 +259,39 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_rbShowPasswordMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+
+        DBConnection context = new DBConnection();
         
+        String usernameInput = txtUsername.getText();
+        String passwordInput = Arrays.toString(txtPassword.getPassword());
+        
+        User user = singleOrDefault(context.Users, 
+                n -> (n.name.equals(usernameInput))
+                    || (n.password.equals(passwordInput)));
+        
+        if(user == null) 
+        {
+            if(Attempts == 1)
+            {
+                System.exit(0);
+            }
+            System.out.println("Wrong Credentials");
+            Attempts--;
+            lblAttempts.setText(Attempts + " attempts remaining before program will close");
+        } //Display wrong
+        else
+        {
+            DashboardUI frm = new DashboardUI(user.role);
+            
+            this.setVisible(false);
+            frm.setVisible(true);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnContinueAsGuestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinueAsGuestMouseClicked
         DashboardUI frm = new DashboardUI(UserRoles.GUEST);
         
-        this.rootPane.setVisible(false);
+        this.setVisible(false);
         frm.setVisible(true);
     }//GEN-LAST:event_btnContinueAsGuestMouseClicked
 
@@ -290,7 +319,20 @@ public class login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new login().setVisible(true));
     }
+    
+    public static <T> T singleOrDefault(List<T> source, java.util.function.Predicate<T> predicate) {
+        List<T> filteredList = source.stream()
+                                     .filter(predicate)
+                                     .collect(Collectors.toList());
 
+        if (filteredList.isEmpty()) {
+            return null; // Default value for reference types
+        } else if (filteredList.size() == 1) {
+            return filteredList.get(0);
+        } else {
+            throw new IllegalStateException("Sequence contains more than one matching element");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel LogoName;
