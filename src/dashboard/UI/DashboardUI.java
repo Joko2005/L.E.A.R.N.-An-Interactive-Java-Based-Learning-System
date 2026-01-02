@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import login_page.login;
 
 
 
@@ -34,6 +35,7 @@ public class DashboardUI extends javax.swing.JFrame {
     charts DataVisframe = new charts();
     CreditsUI Creditsframe = new CreditsUI(this);
     Chatbot1 ChatbotFrame = new Chatbot1(this);
+    login LoginFrame = new login();
     
     public DashboardUI(UserRoles role) {
         setUndecorated(true);
@@ -41,29 +43,41 @@ public class DashboardUI extends javax.swing.JFrame {
         
         initComponents();
         setupPermissionBasedDashboard();
+        applyRoleConfig();
         this.setVisible(true);
         startDateTime();
-    }
-    private void setupPermissionBasedDashboard()
-    {
-        switch(role)
-        {
-            case GUEST:
-                pnlSidebarOptions.remove(btnSbTakeQuiz);
-            case USER:
-                pnlSidebarOptions.remove(btnSbDataVis);
-                break;
-        }
-        
+     
         pnlBody.setLayout(null); // VERY IMPORTANT
         pnlSidebarOptions.setLayout(null); // VERY IMPORTANT
         applyRoleConfig();
         
-        pnlBody.revalidate();
-        pnlBody.repaint();
-        
+    }
+    private void setupPermissionBasedDashboard() {
+           // Reset first
+        btnSbDashboard.setVisible(true);
+        btnSbTakeQuiz.setVisible(true);
+        btnSbChatbot.setVisible(true);
+        btnSbCredits.setVisible(true);
+        btnSbDataVis.setVisible(true);
+
+        switch (role) {
+            case GUEST:
+                btnSbTakeQuiz.setVisible(false);
+                btnSbDataVis.setVisible(false);
+                break;
+
+            case USER:
+                btnSbDataVis.setVisible(false);
+                break;
+
+            case ADMIN:
+                // All visible
+                break;
+        }
+
         pnlSidebarOptions.revalidate();
         pnlSidebarOptions.repaint();
+
     }
     
     private void applyRoleConfig() {
@@ -149,6 +163,7 @@ public class DashboardUI extends javax.swing.JFrame {
         Logo = new javax.swing.JLabel();
         LogoName = new javax.swing.JLabel();
         pnlSidebarOptions = new javax.swing.JPanel();
+        ProfilePic = new javax.swing.JLabel();
         btnSbDashboard = new commons.RoundButton();
         btnSbTakeQuiz = new commons.RoundButton();
         btnSbChatbot = new commons.RoundButton();
@@ -216,8 +231,6 @@ public class DashboardUI extends javax.swing.JFrame {
         pnlSidebar.add(pnlSidebarHeader, java.awt.BorderLayout.NORTH);
 
         pnlSidebarOptions.setBackground(new java.awt.Color(28, 32, 77));
-        pnlSidebarOptions.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnlSidebarOptions.add(ProfilePic, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 31, -1, -1));
 
         btnSbDashboard.setForeground(new java.awt.Color(255, 255, 255));
         btnSbDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconDashboard.png"))); // NOI18N
@@ -233,7 +246,11 @@ public class DashboardUI extends javax.swing.JFrame {
         btnSbDashboard.setPaddingLeft(23);
         btnSbDashboard.setPaddingRight(20);
         btnSbDashboard.setRadius(20);
-        pnlSidebarOptions.add(btnSbDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 233, 262, 61));
+        btnSbDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSbDashboardActionPerformed(evt);
+            }
+        });
 
         btnSbTakeQuiz.setForeground(new java.awt.Color(255, 255, 255));
         btnSbTakeQuiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconTakeQuiz.png"))); // NOI18N
@@ -254,7 +271,6 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbTakeQuizActionPerformed(evt);
             }
         });
-        pnlSidebarOptions.add(btnSbTakeQuiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, 262, 61));
 
         btnSbChatbot.setForeground(new java.awt.Color(255, 255, 255));
         btnSbChatbot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconChatbot.png"))); // NOI18N
@@ -295,7 +311,6 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbDataVisActionPerformed(evt);
             }
         });
-        pnlSidebarOptions.add(btnSbDataVis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 418, 262, 61));
 
         btnSbCredits.setForeground(new java.awt.Color(255, 255, 255));
         btnSbCredits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconCredits.png"))); // NOI18N
@@ -316,7 +331,6 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbCreditsActionPerformed(evt);
             }
         });
-        pnlSidebarOptions.add(btnSbCredits, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 479, 262, 61));
 
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconLogout.png"))); // NOI18N
@@ -332,18 +346,24 @@ public class DashboardUI extends javax.swing.JFrame {
         btnLogout.setPaddingLeft(23);
         btnLogout.setPaddingRight(20);
         btnLogout.setRadius(20);
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlSidebarOptionsLayout = new javax.swing.GroupLayout(pnlSidebarOptions);
         pnlSidebarOptions.setLayout(pnlSidebarOptionsLayout);
         pnlSidebarOptionsLayout.setHorizontalGroup(
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSidebarOptionsLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(70, 193, Short.MAX_VALUE)
+                .addComponent(ProfilePic)
                 .addGap(69, 69, 69))
             .addComponent(btnSbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnSbChatbot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbDataVis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSbDataVis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
             .addComponent(btnSbCredits, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -351,6 +371,7 @@ public class DashboardUI extends javax.swing.JFrame {
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
+                .addComponent(ProfilePic)
                 .addGap(41, 41, 41)
                 .addComponent(btnSbDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -361,9 +382,9 @@ public class DashboardUI extends javax.swing.JFrame {
                 .addComponent(btnSbDataVis, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnSbCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(361, 361, 361)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 518, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(45, 45, 45))
         );
 
         pnlSidebar.add(pnlSidebarOptions, java.awt.BorderLayout.CENTER);
@@ -475,6 +496,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnChatbot.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnChatbot.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnChatbot.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnChatbot.setSizeSpeed(1000.0F);
         btnChatbot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChatbotActionPerformed(evt);
@@ -489,6 +511,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnDataVis.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnDataVis.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnDataVis.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnDataVis.setSizeSpeed(1000.0F);
         btnDataVis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDataVisActionPerformed(evt);
@@ -503,6 +526,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnCredits.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnCredits.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnCredits.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnCredits.setSizeSpeed(1000.0F);
         btnCredits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreditsActionPerformed(evt);
@@ -517,6 +541,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnQuiz.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnQuiz.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnQuiz.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnQuiz.setSizeSpeed(1000.0F);
         btnQuiz.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuizActionPerformed(evt);
@@ -591,12 +616,23 @@ public class DashboardUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDataVisActionPerformed
 
     private void btnSbChatbotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbChatbotActionPerformed
-        ChatbotFrame.setVisible(true);        // TODO add your handling code here:
+        ChatbotFrame.setVisible(true);
+        this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btnSbChatbotActionPerformed
 
     private void btnChatbotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatbotActionPerformed
-        ChatbotFrame.setVisible(true); // TODO add your handling code here:
+        ChatbotFrame.setVisible(true);
+        this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_btnChatbotActionPerformed
+
+    private void btnSbDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbDashboardActionPerformed
+        
+    }//GEN-LAST:event_btnSbDashboardActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        LoginFrame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments

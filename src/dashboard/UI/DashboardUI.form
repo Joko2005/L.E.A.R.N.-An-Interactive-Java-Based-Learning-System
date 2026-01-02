@@ -122,14 +122,14 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="70" pref="193" max="32767" attributes="0"/>
+                      <Component id="ProfilePic" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                   </Group>
                   <Component id="btnSbDashboard" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnSbTakeQuiz" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnSbChatbot" alignment="1" max="32767" attributes="0"/>
-                  <Component id="btnSbDataVis" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btnSbDataVis" alignment="1" pref="262" max="32767" attributes="0"/>
                   <Component id="btnSbCredits" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnLogout" alignment="1" max="32767" attributes="0"/>
               </Group>
@@ -138,7 +138,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="ProfilePic" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="btnSbDashboard" min="-2" pref="61" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -149,20 +149,15 @@
                       <Component id="btnSbDataVis" min="-2" pref="61" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="btnSbCredits" min="-2" pref="61" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="361" max="-2" attributes="0"/>
+                      <EmptySpace pref="518" max="32767" attributes="0"/>
                       <Component id="btnLogout" min="-2" pref="61" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="ProfilePic">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="70" y="31" width="-1" height="-1"/>
-                </Constraint>
-              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnSbDashboard">
               <Properties>
@@ -193,11 +188,9 @@
                 <Property name="paddingRight" type="int" value="20"/>
                 <Property name="radius" type="int" value="20"/>
               </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="233" width="262" height="61"/>
-                </Constraint>
-              </Constraints>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSbDashboardActionPerformed"/>
+              </Events>
             </Component>
             <Component class="commons.RoundButton" name="btnSbTakeQuiz">
               <Properties>
@@ -231,11 +224,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSbTakeQuizActionPerformed"/>
               </Events>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="296" width="262" height="61"/>
-                </Constraint>
-              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnSbChatbot">
               <Properties>
@@ -302,11 +290,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSbDataVisActionPerformed"/>
               </Events>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="418" width="262" height="61"/>
-                </Constraint>
-              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnSbCredits">
               <Properties>
@@ -340,11 +323,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSbCreditsActionPerformed"/>
               </Events>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="479" width="262" height="61"/>
-                </Constraint>
-              </Constraints>
             </Component>
             <Component class="commons.RoundButton" name="btnLogout">
               <Properties>
@@ -375,11 +353,9 @@
                 <Property name="paddingRight" type="int" value="20"/>
                 <Property name="radius" type="int" value="20"/>
               </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="901" width="262" height="61"/>
-                </Constraint>
-              </Constraints>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -617,6 +593,7 @@
                 <Property name="hoverColor2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="69" red="f4" type="rgb"/>
                 </Property>
+                <Property name="sizeSpeed" type="float" value="1000.0"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChatbotActionPerformed"/>
@@ -646,6 +623,7 @@
                 <Property name="hoverColor2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="69" red="f4" type="rgb"/>
                 </Property>
+                <Property name="sizeSpeed" type="float" value="1000.0"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDataVisActionPerformed"/>
@@ -675,6 +653,7 @@
                 <Property name="hoverColor2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="69" red="f4" type="rgb"/>
                 </Property>
+                <Property name="sizeSpeed" type="float" value="1000.0"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreditsActionPerformed"/>
@@ -704,6 +683,7 @@
                 <Property name="hoverColor2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="dc" green="69" red="f4" type="rgb"/>
                 </Property>
+                <Property name="sizeSpeed" type="float" value="1000.0"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuizActionPerformed"/>

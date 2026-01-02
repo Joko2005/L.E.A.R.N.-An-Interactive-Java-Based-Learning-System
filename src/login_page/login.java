@@ -118,6 +118,7 @@ public class login extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnLogin.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnLogin.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnLogin.setSizeSpeed(1000.0F);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
