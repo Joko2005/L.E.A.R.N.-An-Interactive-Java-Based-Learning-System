@@ -5,7 +5,8 @@
 package learn;
 
 /*import dashboard.admin.UI.AdminUI;*/
-import datavisualization.ui.DashBoardUI;
+//import datavisualization.ui.DashBoardUI;
+import login_page.login;
 
 
 /**
@@ -22,8 +23,11 @@ public class LEARN {
         /*AdminUI frm = new AdminUI();
         frm.setVisible(true);*/
         
-        DashBoardUI dshbrdui = new DashBoardUI();
-        dshbrdui.setVisible(true);
+//        DashBoardUI dshbrdui = new DashBoardUI();
+//        dshbrdui.setVisible(true);
+
+        login frm = new login();
+        frm.setVisible(true);
     }
     
 }
