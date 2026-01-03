@@ -28,7 +28,7 @@ public class DBConnection {
             new User("Joko", "Joko1234", UserRoles.USER, "/dashboard/icons/ProfileJoko.png"),
             new User("Adie", "Adie1234", UserRoles.USER, "/dashboard/icons/ProfileAddie.png"),
             new User("Yanni", "Yanni1234", UserRoles.USER, "/dashboard/icons/ProfileYanni.png"),
-            new User("Nigga", "Nigga1234", UserRoles.USER, "/dashboard/icons/ProfileWincel.png")
+            new User("Wincel", "Wincel1234", UserRoles.USER, "/dashboard/icons/ProfileWincel.png")
             
             // Or use default role-based profiles (just pass 3 parameters):
             // new User("Admin", "Admin1234", UserRoles.ADMIN),
