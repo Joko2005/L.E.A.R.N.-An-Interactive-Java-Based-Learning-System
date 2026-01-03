@@ -6,14 +6,16 @@ package login_page;
 
 
 import commons.NavigationUtil;
+import commons.UIUtils;
 import dashboard.UI.DashboardUI;
 import dashboard.roles.UserRoles;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 
 /**
@@ -53,8 +55,8 @@ public class login extends javax.swing.JFrame {
         gd.setFullScreenWindow(this);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        txtPassword.setInputVerifier(new PasswordVerifier());
         lblAttempts.setText(Attempts + " attempts remaining before program will close");
+        lblPasswordNote.setVisible(false);
     }
 
     /**
@@ -177,6 +179,7 @@ public class login extends javax.swing.JFrame {
         lblPasswordNote.setForeground(new java.awt.Color(243, 233, 253));
         lblPasswordNote.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login_page/Images/Vector.png"))); // NOI18N
         lblPasswordNote.setText("<html>Password is required, must be at least 8 characters long<br>and include: Uppercase, Lowercase, Number </html>");
+        lblPasswordNote.setFocusable(false);
         lblPasswordNote.setIconTextGap(10);
         getContentPane().add(lblPasswordNote);
         lblPasswordNote.setBounds(730, 590, 450, 50);
@@ -274,20 +277,46 @@ public class login extends javax.swing.JFrame {
         
         repaint();
     }//GEN-LAST:event_rbShowPasswordMouseClicked
-
+    private boolean isPasswordValid(String password)
+    {
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+        
+         return   password.matches(regex);
+        
+    }
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-        DBConnection context = new DBConnection();
-    
+        
         String usernameInput = txtUsername.getText();
-        String passwordInput = Arrays.toString(txtPassword.getPassword());
-
+        String passwordInput = new String(txtPassword.getPassword());
+        
+        if(usernameInput == null || usernameInput.length() < 1) 
+        {
+            UIUtils.showMessage(this, "Username field cannot be empty", "Empty Field", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if(passwordInput == null || passwordInput.length() < 1) 
+        {
+            UIUtils.showMessage(this, "Password field cannot be empty", "Empty Field", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if(!isPasswordValid(passwordInput))
+        {
+            lblPasswordNote.setVisible(true);
+            return;
+        }
+        
+        
+        DBConnection context = new DBConnection();
+        System.out.println("password : " + passwordInput);
         User user = singleOrDefault(context.Users, 
                 n -> (n.name.equals(usernameInput))
-                    || (n.password.equals(passwordInput)));
-
+                    && (n.password.equals(passwordInput)));
+        
         if(user == null) 
         {
+            lblPasswordNote.setVisible(false);
             if(Attempts == 1)
             {
                 System.exit(0);
@@ -299,6 +328,7 @@ public class login extends javax.swing.JFrame {
         else
         {
             // ADD THIS: Store the logged-in username
+            lblPasswordNote.setVisible(false);
             login.setLoggedInUsername(user.name); // or usernameInput
 
             NavigationUtil.switchFrame(this, new DashboardUI(user.role));
