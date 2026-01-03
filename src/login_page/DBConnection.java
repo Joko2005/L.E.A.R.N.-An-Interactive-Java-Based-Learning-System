@@ -21,7 +21,12 @@ public class DBConnection {
         Users = List.of
         (
             new User("Admin", "Admin1234", UserRoles.ADMIN),
-            new User("User", "User1234", UserRoles.USER)
+            new User("User", "User1234", UserRoles.USER),
+            new User("Patrick", "Patrick1234", UserRoles.USER),
+            new User("Joko", "Joko1234", UserRoles.USER),
+            new User("Adie", "Adie1234", UserRoles.USER),
+            new User("Yanni", "Yanni1234", UserRoles.USER),
+            new User("Nigga", "Nigga1234", UserRoles.USER)
         );
     }
     
