@@ -315,7 +315,7 @@ public class login extends javax.swing.JFrame {
         User user = singleOrDefault(context.Users, 
                 n -> (n.name.equals(usernameInput))
                     && (n.password.equals(passwordInput)));
-        
+
         if(user == null) 
         {
             lblPasswordNote.setVisible(false);
@@ -329,11 +329,10 @@ public class login extends javax.swing.JFrame {
         } 
         else
         {
-            // ADD THIS: Store the logged-in username
             lblPasswordNote.setVisible(false);
-            login.setLoggedInUsername(user.name); // or usernameInput
 
-            NavigationUtil.switchFrame(this, new DashboardUI(user.role));
+            // Pass the entire User object instead of just the role
+            NavigationUtil.switchFrame(this, new DashboardUI(user));
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

@@ -5,7 +5,6 @@
 package login_page;
 
 import dashboard.roles.UserRoles;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,15 +19,21 @@ public class DBConnection {
     {
         Users = List.of
         (
-            new User("Admin", "Admin1234", UserRoles.ADMIN),
-            new User("User", "User1234", UserRoles.USER),
-            new User("Patrick", "Patrick1234", UserRoles.USER),
-            new User("Joko", "Joko1234", UserRoles.USER),
-            new User("Adie", "Adie1234", UserRoles.USER),
-            new User("Yanni", "Yanni1234", UserRoles.USER),
-            new User("Nigga", "Nigga1234", UserRoles.USER)
+            // Admin with custom profile
+            new User("Admin", "Admin1234", UserRoles.ADMIN, "/dashboard/icons/ProfileBoy.png"),
+            
+            // Users with individual profiles
+            new User("User", "User1234", UserRoles.USER, "/dashboard/icons/ProfileGirl.png"),
+            new User("Patrick", "Patrick1234", UserRoles.USER, "/dashboard/icons/ProfilePat.png"),
+            new User("Joko", "Joko1234", UserRoles.USER, "/dashboard/icons/ProfileJoko.png"),
+            new User("Adie", "Adie1234", UserRoles.USER, "/dashboard/icons/ProfileAddie.png"),
+            new User("Yanni", "Yanni1234", UserRoles.USER, "/dashboard/icons/ProfileYanni.png"),
+            new User("Nigga", "Nigga1234", UserRoles.USER, "/dashboard/icons/ProfileWincel.png")
+            
+            // Or use default role-based profiles (just pass 3 parameters):
+            // new User("Admin", "Admin1234", UserRoles.ADMIN),
+            // new User("User", "User1234", UserRoles.USER),
+            // etc.
         );
     }
-    
-    
 }

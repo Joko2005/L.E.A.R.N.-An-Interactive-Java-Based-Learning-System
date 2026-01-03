@@ -12,6 +12,7 @@ import quiz.QuizUI;
 import static commons.UIPositionUtil.*;
 import chatbot.Chatbot1;
 import commons.NavigationUtil;
+import commons.UserProfileUtil;
 import datavisualization.ui.DataVisUI;
 
 
@@ -19,6 +20,7 @@ import javax.swing.JFrame;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.Timer;
+import login_page.User;
 import login_page.login;
 
 
@@ -29,13 +31,32 @@ import login_page.login;
  */
 public class DashboardUI extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardUI.class.getName());
+    private static final java.util.logging.Logger logger = java.util. logging.Logger.getLogger(DashboardUI.class.getName());
     private UserRoles role;
+    private User currentUser;  // NEW: Store the logged-in user
     
+    // NEW: Constructor that accepts User object
+    public DashboardUI(User user) {
+        setUndecorated(true);
+        this.currentUser = user;
+        this.role = user.getRole();
+        
+        initComponents();
+        setupPermissionBasedDashboard();
+        applyRoleConfig();
+        this.setVisible(true);
+        startDateTime();
+     
+        pnlBody.setLayout(null); // VERY IMPORTANT
+        pnlSidebarOptions.setLayout(null); // VERY IMPORTANT
+        applyRoleConfig();
+    }
     
+    // EXISTING:  Constructor that accepts UserRoles (for backward compatibility)
     public DashboardUI(UserRoles role) {
         setUndecorated(true);
         this.role = role;
+        this.currentUser = null;  // No user object
         
         initComponents();
         setupPermissionBasedDashboard();
@@ -48,6 +69,7 @@ public class DashboardUI extends javax.swing.JFrame {
         applyRoleConfig();
         
     }
+    
     private void setupPermissionBasedDashboard() {
            // Reset first
         btnSbDashboard.setVisible(true);
@@ -71,7 +93,7 @@ public class DashboardUI extends javax.swing.JFrame {
                 break;
         }
 
-        pnlSidebarOptions.revalidate();
+        pnlSidebarOptions. revalidate();
         pnlSidebarOptions.repaint();
 
     }
@@ -90,9 +112,14 @@ public class DashboardUI extends javax.swing.JFrame {
                 setupCard(ChatbotCard, "/dashboard/icons/AdminChatbotCard.png", 575, 520, 1054, 443);
                 setupCard(DataVisCard, "/dashboard/icons/AdminDataVisCard.png", 40, 520, 509, 443);
                 setupCard(CreditCard, "/dashboard/icons/AdminCreditsCard.png", 1120, 150, 509, 345);
-                setupCard(ProfilePic, "/dashboard/icons/AdminUserProfile.png", 70, 31, 123, 161);
                 
-                Title.setText("Welcome Joko!");
+                // UPDATED: Use UserProfileUtil if user object exists
+                if (currentUser != null) {
+                    UserProfileUtil.setupCompleteProfileFromUser(ProfilePic, lblUsername, lblRole, lblTitle, currentUser);
+                } else {
+                    setupCard(ProfilePic, "/dashboard/icons/ProfileBoy.png", 86, 50, 91, 91);
+                    lblTitle.setText("Welcome Admin!");
+                }
                 break;
 
             case USER:
@@ -106,9 +133,13 @@ public class DashboardUI extends javax.swing.JFrame {
                 
                 btnDataVis.setVisible(false);
                 
-                setupCard(ProfilePic, "/dashboard/icons/UserProfile.png", 45, 31, 172, 161);
-                
-                Title.setText("Welcome Luisa!");
+                // UPDATED: Use UserProfileUtil if user object exists
+                if (currentUser != null) {
+                    UserProfileUtil.setupCompleteProfileFromUser(ProfilePic, lblUsername, lblRole, lblTitle, currentUser);
+                } else {
+                    setupCard(ProfilePic, "/dashboard/icons/ProfileGirl.png", 86, 50, 91, 91);
+                    lblTitle.setText("Welcome User!");
+                }
                 break;
 
             case GUEST:
@@ -119,11 +150,15 @@ public class DashboardUI extends javax.swing.JFrame {
                 UIPositionUtil.move(btnCredits, 1135, 770);
                 
                 btnQuiz.setVisible(false);
-                btnChatbot.setVisible(false);
+                btnChatbot. setVisible(false);
                 
-                setupCard(ProfilePic, "/dashboard/icons/GuestProfile.png", 70, 31, 148, 161);
-                
-                Title.setText("Welcome our Guest!");
+                // UPDATED: Use UserProfileUtil if user object exists
+                if (currentUser != null) {
+                    UserProfileUtil.setupCompleteProfileFromUser(ProfilePic, lblUsername, lblRole, lblTitle, currentUser);
+                } else {
+                    setupCard(ProfilePic, "/dashboard/icons/ProfileBoy.png", 86, 30, 91, 91);
+                    lblTitle.setText("Welcome our Guest!");
+                }
                 break;
         }
 
@@ -160,6 +195,8 @@ public class DashboardUI extends javax.swing.JFrame {
         LogoName = new javax.swing.JLabel();
         pnlSidebarOptions = new javax.swing.JPanel();
         ProfilePic = new javax.swing.JLabel();
+        lblRole = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
         btnSbDashboard = new commons.RoundButton();
         btnSbTakeQuiz = new commons.RoundButton();
         btnSbChatbot = new commons.RoundButton();
@@ -173,7 +210,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnMinimize = new commons.RoundButton();
         btnExit = new commons.RoundButton();
         pnlBody = new javax.swing.JPanel();
-        Title = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         Subtitle = new javax.swing.JLabel();
         btnChatbot = new commons.GradientButton();
         btnDataVis = new commons.GradientButton();
@@ -227,6 +264,22 @@ public class DashboardUI extends javax.swing.JFrame {
         pnlSidebar.add(pnlSidebarHeader, java.awt.BorderLayout.NORTH);
 
         pnlSidebarOptions.setBackground(new java.awt.Color(28, 32, 77));
+        pnlSidebarOptions.setMaximumSize(new java.awt.Dimension(262, 32767));
+        pnlSidebarOptions.setPreferredSize(new java.awt.Dimension(262, 1003));
+
+        ProfilePic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/ProfileBoy.png"))); // NOI18N
+
+        lblRole.setBackground(new java.awt.Color(39, 41, 89));
+        lblRole.setFont(new java.awt.Font("Montserrat", 0, 15)); // NOI18N
+        lblRole.setForeground(new java.awt.Color(178, 177, 223));
+        lblRole.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRole.setText("Guest");
+        lblRole.setOpaque(true);
+
+        lblUsername.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsername.setText("Guest");
 
         btnSbDashboard.setForeground(new java.awt.Color(255, 255, 255));
         btnSbDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconDashboard.png"))); // NOI18N
@@ -352,23 +405,38 @@ public class DashboardUI extends javax.swing.JFrame {
         pnlSidebarOptions.setLayout(pnlSidebarOptionsLayout);
         pnlSidebarOptionsLayout.setHorizontalGroup(
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSidebarOptionsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ProfilePic)
-                .addGap(69, 69, 69))
-            .addComponent(btnSbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbChatbot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbDataVis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSbCredits, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
+                .addGroup(pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnSbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
+                                    .addGap(54, 54, 54)
+                                    .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
+                                    .addGap(77, 77, 77)
+                                    .addComponent(ProfilePic)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
+                        .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSbChatbot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSbDataVis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSbCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlSidebarOptionsLayout.setVerticalGroup(
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(26, 26, 26)
                 .addComponent(ProfilePic)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblUsername)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
                 .addComponent(btnSbDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,7 +446,7 @@ public class DashboardUI extends javax.swing.JFrame {
                 .addComponent(btnSbDataVis, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnSbCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 518, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
@@ -447,7 +515,7 @@ public class DashboardUI extends javax.swing.JFrame {
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1192, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1662, Short.MAX_VALUE)
                 .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -475,10 +543,10 @@ public class DashboardUI extends javax.swing.JFrame {
         pnlBody.setBackground(new java.awt.Color(14, 22, 48));
         pnlBody.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Title.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
-        Title.setForeground(new java.awt.Color(255, 255, 255));
-        Title.setText("Welcome Joko!");
-        pnlBody.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 23, 560, -1));
+        lblTitle.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setText("Welcome Joko!");
+        pnlBody.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 23, 560, -1));
 
         Subtitle.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         Subtitle.setForeground(new java.awt.Color(182, 181, 228));
@@ -650,7 +718,6 @@ public class DashboardUI extends javax.swing.JFrame {
     private javax.swing.JLabel ProfilePic;
     private javax.swing.JLabel QuizCard;
     private javax.swing.JLabel Subtitle;
-    private javax.swing.JLabel Title;
     private commons.GradientButton btnChatbot;
     private commons.GradientButton btnCredits;
     private commons.GradientButton btnDataVis;
@@ -666,6 +733,9 @@ public class DashboardUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblRole;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlPlaceholder;
     private javax.swing.JPanel pnlSidebar;
