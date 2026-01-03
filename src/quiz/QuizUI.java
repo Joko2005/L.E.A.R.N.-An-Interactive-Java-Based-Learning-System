@@ -2905,6 +2905,7 @@ public class QuizUI extends javax.swing.JFrame {
             
             if(result == JOptionPane.YES_OPTION){
                 ResetAll();
+                stopTimer();
                 NavigationUtil.switchFrame(this, parent);
             }
             
