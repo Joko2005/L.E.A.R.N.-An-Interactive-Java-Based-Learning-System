@@ -312,7 +312,6 @@ L.E.A.R.N.-An-Interactive-Java-Based-Learning-System/
 ## 🐛 Known Issues
 
 - None reported at this time
-- wala ako
 
 ## 📝 Future Enhancements
 
