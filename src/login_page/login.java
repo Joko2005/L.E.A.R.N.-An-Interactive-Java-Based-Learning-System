@@ -132,6 +132,7 @@ public class login extends javax.swing.JFrame {
         btnLogin.setText("LOGIN");
         btnLogin.setColor1(new java.awt.Color(109, 31, 239));
         btnLogin.setColor2(new java.awt.Color(234, 46, 201));
+        btnLogin.setEnabled(false);
         btnLogin.setFocusable(false);
         btnLogin.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnLogin.setHoverColor1(new java.awt.Color(158, 100, 255));
@@ -152,6 +153,11 @@ public class login extends javax.swing.JFrame {
         txtPassword.setEchoChar('*');
         txtPassword.setFocusCycleRoot(true);
         txtPassword.setFocusTraversalPolicy(null);
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
         getContentPane().add(txtPassword);
         txtPassword.setBounds(730, 500, 460, 30);
 
@@ -301,11 +307,7 @@ public class login extends javax.swing.JFrame {
             return;
         }
         
-        if(!isPasswordValid(passwordInput))
-        {
-            lblPasswordNote.setVisible(true);
-            return;
-        }
+        
         
         
         DBConnection context = new DBConnection();
@@ -343,6 +345,22 @@ public class login extends javax.swing.JFrame {
         this.setVisible(false);
         frm.setVisible(true);
     }//GEN-LAST:event_btnContinueAsGuestMouseClicked
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        String passwordInput = new String(txtPassword.getPassword());
+        
+        if(isPasswordValid(passwordInput))
+        {
+            lblPasswordNote.setVisible(false);
+            btnLogin.setEnabled(true);
+        }
+        else
+        {
+            lblPasswordNote.setVisible(true);
+            btnLogin.setEnabled(false);
+        }
+        
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments
