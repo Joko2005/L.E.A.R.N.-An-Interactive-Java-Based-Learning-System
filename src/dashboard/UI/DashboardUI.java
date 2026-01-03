@@ -149,6 +149,7 @@ public class DashboardUI extends javax.swing.JFrame {
         Logo = new javax.swing.JLabel();
         LogoName = new javax.swing.JLabel();
         pnlSidebarOptions = new javax.swing.JPanel();
+        ProfilePic = new javax.swing.JLabel();
         btnSbDashboard = new commons.RoundButton();
         btnSbTakeQuiz = new commons.RoundButton();
         btnSbChatbot = new commons.RoundButton();
@@ -216,8 +217,6 @@ public class DashboardUI extends javax.swing.JFrame {
         pnlSidebar.add(pnlSidebarHeader, java.awt.BorderLayout.NORTH);
 
         pnlSidebarOptions.setBackground(new java.awt.Color(28, 32, 77));
-        pnlSidebarOptions.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnlSidebarOptions.add(ProfilePic, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 31, -1, -1));
 
         btnSbDashboard.setForeground(new java.awt.Color(255, 255, 255));
         btnSbDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconDashboard.png"))); // NOI18N
@@ -233,7 +232,6 @@ public class DashboardUI extends javax.swing.JFrame {
         btnSbDashboard.setPaddingLeft(23);
         btnSbDashboard.setPaddingRight(20);
         btnSbDashboard.setRadius(20);
-        pnlSidebarOptions.add(btnSbDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 233, 262, 61));
 
         btnSbTakeQuiz.setForeground(new java.awt.Color(255, 255, 255));
         btnSbTakeQuiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconTakeQuiz.png"))); // NOI18N
@@ -254,7 +252,6 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbTakeQuizActionPerformed(evt);
             }
         });
-        pnlSidebarOptions.add(btnSbTakeQuiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, 262, 61));
 
         btnSbChatbot.setForeground(new java.awt.Color(255, 255, 255));
         btnSbChatbot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconChatbot.png"))); // NOI18N
@@ -295,7 +292,6 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbDataVisActionPerformed(evt);
             }
         });
-        pnlSidebarOptions.add(btnSbDataVis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 418, 262, 61));
 
         btnSbCredits.setForeground(new java.awt.Color(255, 255, 255));
         btnSbCredits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconCredits.png"))); // NOI18N
@@ -316,7 +312,6 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnSbCreditsActionPerformed(evt);
             }
         });
-        pnlSidebarOptions.add(btnSbCredits, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 479, 262, 61));
 
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconLogout.png"))); // NOI18N
@@ -339,6 +334,7 @@ public class DashboardUI extends javax.swing.JFrame {
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSidebarOptionsLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
+                .addComponent(ProfilePic)
                 .addGap(69, 69, 69))
             .addComponent(btnSbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnSbTakeQuiz, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -351,6 +347,7 @@ public class DashboardUI extends javax.swing.JFrame {
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSidebarOptionsLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
+                .addComponent(ProfilePic)
                 .addGap(41, 41, 41)
                 .addComponent(btnSbDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
