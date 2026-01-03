@@ -31,7 +31,7 @@ public class login extends javax.swing.JFrame {
      */
     
     // ADD THIS:  Static variable to store logged-in username
-    private static String loggedInUsername = "Guest";
+    private static String loggedInUsername = "";
     
     // ADD THIS: Static getter method
     public static String getLoggedInUsername() {
@@ -330,7 +330,7 @@ public class login extends javax.swing.JFrame {
         else
         {
             lblPasswordNote.setVisible(false);
-
+            setLoggedInUsername(usernameInput);
             // Pass the entire User object instead of just the role
             NavigationUtil.switchFrame(this, new DashboardUI(user));
         }
