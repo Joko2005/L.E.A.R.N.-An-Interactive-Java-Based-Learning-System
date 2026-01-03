@@ -7,17 +7,19 @@ package dashboard.UI;
 import commons.UIPositionUtil;
 import credits.ui.CreditsUI;
 import dashboard.roles.UserRoles;
-import datavisualization.charts;
+//import datavisualization.charts;
 import quiz.QuizUI;
 import static commons.UIPositionUtil.*;
 import chatbot.Chatbot1;
+import commons.NavigationUtil;
+import datavisualization.ui.DataVisUI;
 
 
 import javax.swing.JFrame;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import login_page.login;
 
 
 
@@ -30,10 +32,6 @@ public class DashboardUI extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardUI.class.getName());
     private UserRoles role;
     
-    QuizUI Quizframe = new QuizUI();
-    charts DataVisframe = new charts();
-    CreditsUI Creditsframe = new CreditsUI(this);
-    Chatbot1 ChatbotFrame = new Chatbot1(this);
     
     public DashboardUI(UserRoles role) {
         setUndecorated(true);
@@ -41,29 +39,41 @@ public class DashboardUI extends javax.swing.JFrame {
         
         initComponents();
         setupPermissionBasedDashboard();
+        applyRoleConfig();
         this.setVisible(true);
         startDateTime();
-    }
-    private void setupPermissionBasedDashboard()
-    {
-        switch(role)
-        {
-            case GUEST:
-                pnlSidebarOptions.remove(btnSbTakeQuiz);
-            case USER:
-                pnlSidebarOptions.remove(btnSbDataVis);
-                break;
-        }
-        
+     
         pnlBody.setLayout(null); // VERY IMPORTANT
         pnlSidebarOptions.setLayout(null); // VERY IMPORTANT
         applyRoleConfig();
         
-        pnlBody.revalidate();
-        pnlBody.repaint();
-        
+    }
+    private void setupPermissionBasedDashboard() {
+           // Reset first
+        btnSbDashboard.setVisible(true);
+        btnSbTakeQuiz.setVisible(true);
+        btnSbChatbot.setVisible(true);
+        btnSbCredits.setVisible(true);
+        btnSbDataVis.setVisible(true);
+
+        switch (role) {
+            case GUEST:
+                btnSbTakeQuiz.setVisible(false);
+                btnSbChatbot.setVisible(false);
+                break;
+
+            case USER:
+                btnSbDataVis.setVisible(false);
+                break;
+
+            case ADMIN:
+                // All visible
+                break;
+        }
+
         pnlSidebarOptions.revalidate();
         pnlSidebarOptions.repaint();
+
     }
     
     private void applyRoleConfig() {
@@ -77,7 +87,7 @@ public class DashboardUI extends javax.swing.JFrame {
 
             case ADMIN:
                 setupCard(QuizCard, "/dashboard/icons/AdminQuizCard.png", 40, 150, 1054, 347);                  
-                setupCard(ChatbotCard, "/dashboard/icons/AdminChatbotCard.png", 580, 520, 1054, 443);
+                setupCard(ChatbotCard, "/dashboard/icons/AdminChatbotCard.png", 575, 520, 1054, 443);
                 setupCard(DataVisCard, "/dashboard/icons/AdminDataVisCard.png", 40, 520, 509, 443);
                 setupCard(CreditCard, "/dashboard/icons/AdminCreditsCard.png", 1120, 150, 509, 345);
                 setupCard(ProfilePic, "/dashboard/icons/AdminUserProfile.png", 70, 31, 123, 161);
@@ -111,9 +121,9 @@ public class DashboardUI extends javax.swing.JFrame {
                 btnQuiz.setVisible(false);
                 btnChatbot.setVisible(false);
                 
-                setupCard(ProfilePic, "/dashboard/icons/GuestProfile.png", 70, 31, 123, 161);
+                setupCard(ProfilePic, "/dashboard/icons/GuestProfile.png", 70, 31, 148, 161);
                 
-                Title.setText("Welcome Pat!");
+                Title.setText("Welcome our Guest!");
                 break;
         }
 
@@ -232,6 +242,11 @@ public class DashboardUI extends javax.swing.JFrame {
         btnSbDashboard.setPaddingLeft(23);
         btnSbDashboard.setPaddingRight(20);
         btnSbDashboard.setRadius(20);
+        btnSbDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSbDashboardActionPerformed(evt);
+            }
+        });
 
         btnSbTakeQuiz.setForeground(new java.awt.Color(255, 255, 255));
         btnSbTakeQuiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/IconTakeQuiz.png"))); // NOI18N
@@ -327,13 +342,18 @@ public class DashboardUI extends javax.swing.JFrame {
         btnLogout.setPaddingLeft(23);
         btnLogout.setPaddingRight(20);
         btnLogout.setRadius(20);
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlSidebarOptionsLayout = new javax.swing.GroupLayout(pnlSidebarOptions);
         pnlSidebarOptions.setLayout(pnlSidebarOptionsLayout);
         pnlSidebarOptionsLayout.setHorizontalGroup(
             pnlSidebarOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSidebarOptionsLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ProfilePic)
                 .addGap(69, 69, 69))
             .addComponent(btnSbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -358,9 +378,9 @@ public class DashboardUI extends javax.swing.JFrame {
                 .addComponent(btnSbDataVis, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnSbCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(361, 361, 361)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 518, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(45, 45, 45))
         );
 
         pnlSidebar.add(pnlSidebarOptions, java.awt.BorderLayout.CENTER);
@@ -458,7 +478,7 @@ public class DashboardUI extends javax.swing.JFrame {
         Title.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setText("Welcome Joko!");
-        pnlBody.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 23, 314, -1));
+        pnlBody.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 23, 560, -1));
 
         Subtitle.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         Subtitle.setForeground(new java.awt.Color(182, 181, 228));
@@ -472,6 +492,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnChatbot.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnChatbot.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnChatbot.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnChatbot.setSizeSpeed(1000.0F);
         btnChatbot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChatbotActionPerformed(evt);
@@ -486,6 +507,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnDataVis.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnDataVis.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnDataVis.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnDataVis.setSizeSpeed(1000.0F);
         btnDataVis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDataVisActionPerformed(evt);
@@ -500,6 +522,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnCredits.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnCredits.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnCredits.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnCredits.setSizeSpeed(1000.0F);
         btnCredits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreditsActionPerformed(evt);
@@ -514,6 +537,7 @@ public class DashboardUI extends javax.swing.JFrame {
         btnQuiz.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         btnQuiz.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnQuiz.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnQuiz.setSizeSpeed(1000.0F);
         btnQuiz.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuizActionPerformed(evt);
@@ -533,7 +557,7 @@ public class DashboardUI extends javax.swing.JFrame {
         pnlBody.add(DataVisCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
 
         ChatbotCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard/icons/AdminChatbotCard.png"))); // NOI18N
-        pnlBody.add(ChatbotCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, -1, -1));
+        pnlBody.add(ChatbotCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 520, -1, -1));
         pnlBody.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
 
         pnlPlaceholder.add(pnlBody, java.awt.BorderLayout.CENTER);
@@ -552,48 +576,44 @@ public class DashboardUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSbTakeQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbTakeQuizActionPerformed
-        btnSbTakeQuiz.addActionListener(e -> {
-        if (role == UserRoles.GUEST) {
-            JOptionPane.showMessageDialog(this,
-                "Please login to access quizzes.");
-            return;
-        }
-        Quizframe.setVisible(true);
-});
-        
-        
+        NavigationUtil.switchFrame(this, new QuizUI(this));   
     }//GEN-LAST:event_btnSbTakeQuizActionPerformed
 
     private void btnSbDataVisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbDataVisActionPerformed
-        DataVisframe.setVisible(true);
+        NavigationUtil.switchFrame(this, new DataVisUI(this));
     }//GEN-LAST:event_btnSbDataVisActionPerformed
 
     private void btnSbCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbCreditsActionPerformed
-        Creditsframe.setVisible(true);
-        this.setVisible(false);
+        NavigationUtil.switchFrame(this, new CreditsUI(this));         
     }//GEN-LAST:event_btnSbCreditsActionPerformed
 
     private void btnQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuizActionPerformed
-        Quizframe.setVisible(true);
+        NavigationUtil.switchFrame(this, new QuizUI(this));   
     }//GEN-LAST:event_btnQuizActionPerformed
 
     private void btnCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditsActionPerformed
-        Creditsframe.setVisible(true);
-        this.setVisible(false);
+        NavigationUtil.switchFrame(this, new CreditsUI(this));    
     }//GEN-LAST:event_btnCreditsActionPerformed
 
     private void btnDataVisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataVisActionPerformed
-        DataVisframe.setVisible(true);
-        
+        NavigationUtil.switchFrame(this, new DataVisUI(this));
     }//GEN-LAST:event_btnDataVisActionPerformed
 
     private void btnSbChatbotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbChatbotActionPerformed
-        ChatbotFrame.setVisible(true);        // TODO add your handling code here:
+        NavigationUtil.switchFrame(this, new Chatbot1(this));
     }//GEN-LAST:event_btnSbChatbotActionPerformed
 
     private void btnChatbotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatbotActionPerformed
-        ChatbotFrame.setVisible(true); // TODO add your handling code here:
+        NavigationUtil.switchFrame(this, new Chatbot1(this));
     }//GEN-LAST:event_btnChatbotActionPerformed
+
+    private void btnSbDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSbDashboardActionPerformed
+        
+    }//GEN-LAST:event_btnSbDashboardActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        NavigationUtil.switchFrame(this, new login());
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments

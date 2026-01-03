@@ -160,7 +160,7 @@ public class GradientButton extends JButton {
 
         if (pressedLocation.x - (pressedSize / 2) < 0
                 && pressedLocation.x + (pressedSize / 2) > getWidth()) {
-            timerPressed.setDelay(20);
+            timerPressed.setDelay(0);
             alphaPressed -= 0.05f;
             if (alphaPressed < 0) {
                 alphaPressed = 0;

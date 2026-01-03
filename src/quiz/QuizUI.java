@@ -1,24 +1,38 @@
 package quiz;
 
+import commons.NavigationUtil;
 import commons.UIUtils;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.table.DefaultTableModel;
 
 public class QuizUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(QuizUI.class.getName());
-   
-    public QuizUI() {
+    private JFrame parent;
+    
+    public QuizUI(JFrame parent) {
         setUndecorated(true);  
+        this.parent = parent;
         initComponents();
         
         // Hide tabs
@@ -37,8 +51,7 @@ public class QuizUI extends javax.swing.JFrame {
         FullScreen();
         Tabs(startquizPanel); 
         QuizInstructions();
-        
-  
+        ResetSummary();
     }
     
     private void FullScreen(){
@@ -89,14 +102,19 @@ public class QuizUI extends javax.swing.JFrame {
         titleLbl.setText(text);
     }
     
-    private void Evaluate(JRadioButton answer, JPanel addThis){
+    private boolean Evaluate(JRadioButton answer, JPanel addThis){
         boolean isCorrect = CheckIfAnswerIsCorrect(answer);
         AddScore(isCorrect);
         MessaageBox(isCorrect);
         Tabs(addThis);
+        return isCorrect;
     }
     
-    private void Summary(){
+    private String getCurrentUsername() {
+        return login_page.login.getLoggedInUsername();
+    }
+    
+    private void Result(){
         int score = Score;
         double percentage = (score * 100.0) / 17;
         String remark = Remark(percentage);
@@ -106,6 +124,24 @@ public class QuizUI extends javax.swing.JFrame {
         percentageLbl.setText(String.format("%.2f%%", percentage));
         remarkLbl.setText(remark);
         recommendationLbl.setText(recommendation);
+        
+        // Get username from login class
+        String username = getCurrentUsername();
+        
+        // Save or update result
+        saveOrUpdateQuizResult(username, score, percentage, remark);
+        
+        // Load all results to table
+        loadQuizResultsToTable();
+        
+         // Set font size for table headers (column names)
+        jTable1.getTableHeader().setFont(new Font("Montserrat", Font.BOLD, 20));
+
+        // Set font size for table cells (data)
+        jTable1.setFont(new Font("Montserrat", Font. PLAIN, 20));
+
+        // Set row height to accommodate larger font
+        jTable1.setRowHeight(30);
     }
     
     private String Remark(double percent) {
@@ -126,7 +162,73 @@ public class QuizUI extends javax.swing.JFrame {
 
         return remark; 
     }
-
+    
+    private void DisplaySummary(boolean isCorrect, ButtonGroup bg, JLabel answer, JLabel evaluation){
+        for (Enumeration<AbstractButton> buttons = bg.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                String buttonText = button.getText();
+                answer.setText(buttonText.substring(0, 2));
+                break;
+            }
+        }
+        
+        if(isCorrect){
+            evaluation.setText("Correct");
+        }
+    }
+    
+    private void ResetSummary(){
+        JLabel[] ans = {
+            q1AnsLbl,
+            q2AnsLbl,
+            q3AnsLbl,
+            q4AnsLbl,
+            q5AnsLbl,
+            q6AnsLbl,
+            q7AnsLbl,
+            q8AnsLbl,
+            q9AnsLbl,
+            q10AnsLbl,
+            q11AnsLbl,
+            q12AnsLbl,
+            q13AnsLbl,
+            q14AnsLbl,
+            q15AnsLbl,
+            q16AnsLbl,
+            q17AnsLbl,
+        };
+        
+        
+        JLabel[] eval = {
+            q1EvalLbl,
+            q2EvalLbl,
+            q3EvalLbl,
+            q4EvalLbl,
+            q5EvalLbl,
+            q6EvalLbl,
+            q7EvalLbl,
+            q8EvalLbl,
+            q9EvalLbl,
+            q10EvalLbl,
+            q11EvalLbl,
+            q12EvalLbl,
+            q13EvalLbl,
+            q14EvalLbl,
+            q15EvalLbl,
+            q16EvalLbl,
+            q17EvalLbl
+        };
+        
+        for(JLabel x : ans){
+            x.setText("None");
+        }
+        
+        for(JLabel x :  eval){
+            x.setText("Incorrect");
+        }
+    }
+    
     private String Recommendation(double percent) {
         String text;
 
@@ -417,14 +519,15 @@ public class QuizUI extends javax.swing.JFrame {
     }
 
     private void onTimeUp() {
-        System.out.println("Time's up!");
-
         JOptionPane.showMessageDialog(this, 
             "Time's up!  The quiz will be submitted automatically.", 
             "Time Expired", 
             JOptionPane. WARNING_MESSAGE);
-
-//        submitQuiz();
+        
+        currentlyTakingQuiz = false;
+        Result();
+        Tabs(resultPanel);
+//        ResetSummary();
     }
 
     private void stopTimer() {
@@ -434,6 +537,89 @@ public class QuizUI extends javax.swing.JFrame {
     }
     
     boolean currentlyTakingQuiz = false; // this will be used for the close button whenver the user is currently taking quiz
+    
+// ============================================================================================================================
+    
+    /* FILE OPERATIONS */
+
+    private static final String DATA_FILE = "src/quiz/quiz_results.txt";
+
+    // Save or update quiz result
+    private void saveOrUpdateQuizResult(String username, int score, double percentage, String remark) {
+        List<String> lines = new ArrayList<>();
+        boolean userFound = false;
+
+        // Read all existing data
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE))) {
+            String line;
+            while ((line = reader. readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts[0].equals(username)) {
+                    // Update existing user's data with 2 decimal places
+                    line = username + "," + score + "," + String.format("%.2f", percentage) + "," + remark;
+                    userFound = true;
+                }
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            // File doesn't exist yet, that's okay
+        }
+
+        // If user not found, add new entry with 2 decimal places
+        if (! userFound) {
+            String newData = username + "," + score + "," + String.format("%.2f", percentage) + "," + remark;
+            lines. add(newData);
+        }
+
+        // Write all data back to file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE))) {
+            for (String line : lines) {
+                writer. write(line);
+                writer.newLine();
+            }
+            System.out.println("Quiz result saved/updated successfully!");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, 
+                "Error saving data: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Load all quiz results into JTable
+    private void loadQuizResultsToTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        // Clear existing data
+        model.setRowCount(0);
+
+        // Read from file and populate table
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts. length == 4) {
+                    String username = parts[0];
+                    String score = parts[1] + "/17";
+                    String percentage = parts[2] + "%";
+                    String remark = parts[3];
+
+                    model.addRow(new Object[]{username, score, percentage, remark});
+                }
+            }
+        } catch (IOException e) {
+            // File doesn't exist or is empty
+            System.out.println("No quiz results found yet.");
+        }
+    }
+    
+    // ============================================================================================================================
+    
+    private void ResetAll(){
+        ResetSummary();
+        ResetScore();
+        DeselectAll();
+    }
     
     // ============================================================================================================================
     
@@ -467,10 +653,10 @@ public class QuizUI extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        closeBtn = new javax.swing.JLabel();
-        minimizeBtn = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        backBtn = new javax.swing.JLabel();
+        backBtn = new commons.RoundButton();
+        minimizeBtn = new commons.RoundButton();
+        closeBtn = new commons.RoundButton();
         contentsTabbedPane = new javax.swing.JTabbedPane();
         startquizPanel = new javax.swing.JPanel();
         instructionsLbl = new javax.swing.JLabel();
@@ -680,9 +866,6 @@ public class QuizUI extends javax.swing.JFrame {
         next1Btn117 = new javax.swing.JLabel();
         next17Btn = new commons.GradientButton();
         resultPanel = new javax.swing.JPanel();
-        goToDashboardBtn = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        retakeQuizBtn = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         scoreLbl = new javax.swing.JLabel();
@@ -692,6 +875,7 @@ public class QuizUI extends javax.swing.JFrame {
         remarkLbl = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         recommendationLbl = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         q17AnsLbl = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -730,7 +914,6 @@ public class QuizUI extends javax.swing.JFrame {
         q16AnsLbl = new javax.swing.JLabel();
         q1EvalLbl = new javax.swing.JLabel();
         q2EvalLbl = new javax.swing.JLabel();
-        scoreLbl1 = new javax.swing.JLabel();
         q3EvalLbl = new javax.swing.JLabel();
         q4EvalLbl = new javax.swing.JLabel();
         q5EvalLbl = new javax.swing.JLabel();
@@ -747,7 +930,13 @@ public class QuizUI extends javax.swing.JFrame {
         q16EvalLbl = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        next2Btn16 = new commons.GradientButton();
+        goToDashboardBtn = new commons.GradientButton();
+        retakeQuizBtn = new commons.GradientButton();
+        leftSideBorder = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
         titleLbl = new javax.swing.JLabel();
         timerLbl = new javax.swing.JLabel();
 
@@ -760,7 +949,7 @@ public class QuizUI extends javax.swing.JFrame {
         mainPanel.setBackground(new java.awt.Color(14, 22, 48));
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(53, 48, 128));
+        jPanel2.setBackground(new java.awt.Color(45, 45, 114));
         jPanel2.setMaximumSize(new java.awt.Dimension(32767, 77));
         jPanel2.setMinimumSize(new java.awt.Dimension(100, 77));
         jPanel2.setPreferredSize(new java.awt.Dimension(1520, 77));
@@ -771,58 +960,56 @@ public class QuizUI extends javax.swing.JFrame {
         jLabel2.setText("History Quiz");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, -1));
 
-        closeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/close-button.png"))); // NOI18N
-        closeBtn.setIconTextGap(0);
-        closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                closeBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                closeBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                closeBtnMouseExited(evt);
-            }
-        });
-        jPanel2.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1860, 20, -1, -1));
-
-        minimizeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        minimizeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/minimize-button.png"))); // NOI18N
-        minimizeBtn.setIconTextGap(0);
-        minimizeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseExited(evt);
-            }
-        });
-        jPanel2.add(minimizeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1810, 20, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(230, 238, 248));
         jLabel4.setText("TAKE QUIZ");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
+        backBtn.setBorder(null);
         backBtn.setForeground(new java.awt.Color(255, 255, 255));
-        backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/back-button.png"))); // NOI18N
-        backBtn.setIconTextGap(0);
-        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                backBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                backBtnMouseExited(evt);
-            }
-        });
-        jPanel2.add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 20, -1, -1));
+        backBtn.setText("BACK");
+        backBtn.setBorderColor(new java.awt.Color(75, 74, 151));
+        backBtn.setBorderEnabled(false);
+        backBtn.setBorderPainted(false);
+        backBtn.setColor(new java.awt.Color(75, 74, 151));
+        backBtn.setColorClick(new java.awt.Color(48, 43, 116));
+        backBtn.setColorOver(new java.awt.Color(48, 43, 116));
+        backBtn.setFocusable(false);
+        backBtn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        backBtn.setRadius(10);
+        backBtn.addActionListener(this::backBtnActionPerformed);
+        jPanel2.add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1650, 20, 136, 39));
+
+        minimizeBtn.setBorder(null);
+        minimizeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        minimizeBtn.setText("–");
+        minimizeBtn.setBorderColor(new java.awt.Color(75, 74, 151));
+        minimizeBtn.setBorderEnabled(false);
+        minimizeBtn.setBorderPainted(false);
+        minimizeBtn.setColor(new java.awt.Color(75, 74, 151));
+        minimizeBtn.setColorClick(new java.awt.Color(48, 43, 116));
+        minimizeBtn.setColorOver(new java.awt.Color(48, 43, 116));
+        minimizeBtn.setFocusable(false);
+        minimizeBtn.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        minimizeBtn.setRadius(10);
+        minimizeBtn.addActionListener(this::minimizeBtnActionPerformed);
+        jPanel2.add(minimizeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1800, 20, 40, 39));
+
+        closeBtn.setBackground(new java.awt.Color(219, 60, 172));
+        closeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        closeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        closeBtn.setText("x");
+        closeBtn.setBorderColor(new java.awt.Color(219, 60, 172));
+        closeBtn.setBorderEnabled(false);
+        closeBtn.setBorderPainted(false);
+        closeBtn.setColor(new java.awt.Color(219, 60, 172));
+        closeBtn.setColorClick(new java.awt.Color(153, 62, 145));
+        closeBtn.setColorOver(new java.awt.Color(153, 62, 145));
+        closeBtn.setFocusable(false);
+        closeBtn.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        closeBtn.setRadius(10);
+        closeBtn.addActionListener(this::closeBtnActionPerformed);
+        jPanel2.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1850, 20, 40, 39));
 
         mainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, -1));
 
@@ -842,6 +1029,7 @@ public class QuizUI extends javax.swing.JFrame {
         startQuizBtn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         startQuizBtn.setHoverColor1(new java.awt.Color(158, 100, 255));
         startQuizBtn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        startQuizBtn.setSizeSpeed(1000.0F);
         startQuizBtn.addActionListener(this::startQuizBtnActionPerformed);
         startquizPanel.add(startQuizBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -920,6 +1108,7 @@ public class QuizUI extends javax.swing.JFrame {
         next1Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next1Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next1Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next1Btn.setSizeSpeed(1000.0F);
         next1Btn.addActionListener(this::next1BtnActionPerformed);
         q1Panel.add(next1Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -998,6 +1187,7 @@ public class QuizUI extends javax.swing.JFrame {
         next2Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next2Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next2Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next2Btn.setSizeSpeed(1000.0F);
         next2Btn.addActionListener(this::next2BtnActionPerformed);
         q2Panel.add(next2Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1076,6 +1266,7 @@ public class QuizUI extends javax.swing.JFrame {
         next3Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next3Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next3Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next3Btn.setSizeSpeed(1000.0F);
         next3Btn.addActionListener(this::next3BtnActionPerformed);
         q3Panel.add(next3Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1154,6 +1345,7 @@ public class QuizUI extends javax.swing.JFrame {
         next4tn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next4tn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next4tn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next4tn.setSizeSpeed(1000.0F);
         next4tn.addActionListener(this::next4tnActionPerformed);
         q4Panel.add(next4tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1232,6 +1424,7 @@ public class QuizUI extends javax.swing.JFrame {
         next5Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next5Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next5Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next5Btn.setSizeSpeed(1000.0F);
         next5Btn.addActionListener(this::next5BtnActionPerformed);
         q5Panel.add(next5Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1310,6 +1503,7 @@ public class QuizUI extends javax.swing.JFrame {
         next6Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next6Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next6Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next6Btn.setSizeSpeed(1000.0F);
         next6Btn.addActionListener(this::next6BtnActionPerformed);
         q6Panel.add(next6Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1388,6 +1582,7 @@ public class QuizUI extends javax.swing.JFrame {
         next7Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next7Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next7Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next7Btn.setSizeSpeed(1000.0F);
         next7Btn.addActionListener(this::next7BtnActionPerformed);
         q7Panel.add(next7Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1466,6 +1661,7 @@ public class QuizUI extends javax.swing.JFrame {
         next8Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next8Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next8Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next8Btn.setSizeSpeed(1000.0F);
         next8Btn.addActionListener(this::next8BtnActionPerformed);
         q8Panel.add(next8Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1544,6 +1740,7 @@ public class QuizUI extends javax.swing.JFrame {
         next9Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next9Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next9Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next9Btn.setSizeSpeed(1000.0F);
         next9Btn.addActionListener(this::next9BtnActionPerformed);
         q9Panel.add(next9Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1622,6 +1819,7 @@ public class QuizUI extends javax.swing.JFrame {
         next10Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next10Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next10Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next10Btn.setSizeSpeed(1000.0F);
         next10Btn.addActionListener(this::next10BtnActionPerformed);
         q10Panel.add(next10Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1700,6 +1898,7 @@ public class QuizUI extends javax.swing.JFrame {
         next11Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next11Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next11Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next11Btn.setSizeSpeed(1000.0F);
         next11Btn.addActionListener(this::next11BtnActionPerformed);
         q11Panel.add(next11Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1778,6 +1977,7 @@ public class QuizUI extends javax.swing.JFrame {
         next12Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next12Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next12Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next12Btn.setSizeSpeed(1000.0F);
         next12Btn.addActionListener(this::next12BtnActionPerformed);
         q12Panel.add(next12Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1856,6 +2056,7 @@ public class QuizUI extends javax.swing.JFrame {
         next13Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next13Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next13Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next13Btn.setSizeSpeed(1000.0F);
         next13Btn.addActionListener(this::next13BtnActionPerformed);
         q13Panel.add(next13Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -1934,8 +2135,9 @@ public class QuizUI extends javax.swing.JFrame {
         next14Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next14Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next14Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next14Btn.setSizeSpeed(1000.0F);
         next14Btn.addActionListener(this::next14BtnActionPerformed);
-        q14Panel.add(next14Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
+        q14Panel.add(next14Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 770, 472, 46));
 
         contentsTabbedPane.addTab("Q14", q14Panel);
 
@@ -2012,6 +2214,7 @@ public class QuizUI extends javax.swing.JFrame {
         next15Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next15Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next15Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next15Btn.setSizeSpeed(1000.0F);
         next15Btn.addActionListener(this::next15BtnActionPerformed);
         q15Panel.add(next15Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -2090,6 +2293,7 @@ public class QuizUI extends javax.swing.JFrame {
         next16Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next16Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next16Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next16Btn.setSizeSpeed(1000.0F);
         next16Btn.addActionListener(this::next16BtnActionPerformed);
         q16Panel.add(next16Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -2168,6 +2372,7 @@ public class QuizUI extends javax.swing.JFrame {
         next17Btn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         next17Btn.setHoverColor1(new java.awt.Color(158, 100, 255));
         next17Btn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        next17Btn.setSizeSpeed(1000.0F);
         next17Btn.addActionListener(this::next17BtnActionPerformed);
         q17Panel.add(next17Btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 770, 472, 46));
 
@@ -2176,44 +2381,7 @@ public class QuizUI extends javax.swing.JFrame {
         resultPanel.setBackground(new java.awt.Color(53, 48, 128));
         resultPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        goToDashboardBtn.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
-        goToDashboardBtn.setForeground(new java.awt.Color(255, 255, 255));
-        goToDashboardBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        goToDashboardBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/result-button.png"))); // NOI18N
-        goToDashboardBtn.setText("GO TO DASHBOARD");
-        goToDashboardBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        goToDashboardBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                goToDashboardBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                goToDashboardBtnMouseExited(evt);
-            }
-        });
-        resultPanel.add(goToDashboardBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 770, -1, -1));
-
-        jLabel21.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("RESULT");
-        resultPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 50, -1, -1));
-
-        retakeQuizBtn.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
-        retakeQuizBtn.setForeground(new java.awt.Color(255, 255, 255));
-        retakeQuizBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        retakeQuizBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/result-button.png"))); // NOI18N
-        retakeQuizBtn.setText("RETAKE QUIZ");
-        retakeQuizBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        retakeQuizBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                retakeQuizBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                retakeQuizBtnMouseExited(evt);
-            }
-        });
-        resultPanel.add(retakeQuizBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 770, -1, -1));
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(53, 48, 128));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel24.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
@@ -2255,298 +2423,327 @@ public class QuizUI extends javax.swing.JFrame {
         recommendationLbl.setForeground(new java.awt.Color(255, 255, 255));
         recommendationLbl.setText("placeholder");
         recommendationLbl.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        recommendationLbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel1.add(recommendationLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 340, 360));
 
-        resultPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 360, 560));
+        resultPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 360, 560));
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 255));
+        jLabel21.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("QUIZ TAKERS");
+        resultPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 30, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(53, 48, 128));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         q17AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q17AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q17AnsLbl.setText("q17 ans");
-        jPanel3.add(q17AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 530, -1, -1));
+        jPanel3.add(q17AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, -1, -1));
 
         jLabel27.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("Question 2: ");
-        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("Question 3: ");
-        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
+        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
 
         jLabel29.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("Question 4: ");
-        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
 
         jLabel30.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setText("Question 5: ");
-        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, -1, -1));
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
 
         jLabel31.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setText("Question 6: ");
-        jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
+        jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
 
         jLabel32.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
         jLabel32.setText("Question 7: ");
-        jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
+        jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
         jLabel33.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
         jLabel33.setText("Question 8: ");
-        jPanel3.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+        jPanel3.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
 
         jLabel34.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Question 9: ");
-        jPanel3.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
+        jPanel3.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, -1));
 
         jLabel35.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setText("Question 10: ");
-        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, -1, -1));
+        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
 
         jLabel36.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("Question 11: ");
-        jPanel3.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, -1));
+        jPanel3.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
         jLabel37.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(255, 255, 255));
         jLabel37.setText("Question 12: ");
-        jPanel3.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, -1, -1));
+        jPanel3.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
 
         jLabel38.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(255, 255, 255));
         jLabel38.setText("Question 13: ");
-        jPanel3.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
+        jPanel3.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, -1, -1));
 
         jLabel39.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(255, 255, 255));
         jLabel39.setText("Question 14: ");
-        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
+        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, -1));
 
         jLabel40.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("Question 15: ");
-        jPanel3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, -1, -1));
+        jPanel3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
 
         jLabel41.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(255, 255, 255));
         jLabel41.setText("Question 16: ");
-        jPanel3.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, -1, -1));
+        jPanel3.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, -1));
 
         jLabel42.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(255, 255, 255));
         jLabel42.setText("Question 17: ");
-        jPanel3.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 530, -1, -1));
+        jPanel3.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, -1));
 
         q17EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q17EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q17EvalLbl.setText("???");
-        jPanel3.add(q17EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 530, -1, -1));
+        jPanel3.add(q17EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 490, -1, -1));
 
         jLabel44.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(255, 255, 255));
         jLabel44.setText("Question 1: ");
-        jPanel3.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
+        jPanel3.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         q1AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q1AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q1AnsLbl.setText("q1 ans");
-        jPanel3.add(q1AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
+        jPanel3.add(q1AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
         q2AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q2AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q2AnsLbl.setText("q2 ans");
-        jPanel3.add(q2AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, -1));
+        jPanel3.add(q2AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
 
         q3AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q3AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q3AnsLbl.setText("q3 ans");
-        jPanel3.add(q3AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
+        jPanel3.add(q3AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
 
         q4AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q4AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q4AnsLbl.setText("q4 ans");
-        jPanel3.add(q4AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jPanel3.add(q4AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, -1, -1));
 
         q5AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q5AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q5AnsLbl.setText("q5 ans");
-        jPanel3.add(q5AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
+        jPanel3.add(q5AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
 
         q6AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q6AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q6AnsLbl.setText("q6 ans");
-        jPanel3.add(q6AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
+        jPanel3.add(q6AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, -1, -1));
 
         q7AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q7AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q7AnsLbl.setText("q7 ans");
-        jPanel3.add(q7AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+        jPanel3.add(q7AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, -1));
 
         q8AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q8AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q8AnsLbl.setText("q8 ans");
-        jPanel3.add(q8AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+        jPanel3.add(q8AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
 
         q9AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q9AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q9AnsLbl.setText("q9 ans");
-        jPanel3.add(q9AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, -1, -1));
+        jPanel3.add(q9AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, -1, -1));
 
         q10AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q10AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q10AnsLbl.setText("q10 ans");
-        jPanel3.add(q10AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, -1, -1));
+        jPanel3.add(q10AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, -1, -1));
 
         q11AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q11AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q11AnsLbl.setText("q11 ans");
-        jPanel3.add(q11AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
+        jPanel3.add(q11AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, -1, -1));
 
         q12AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q12AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q12AnsLbl.setText("q12 ans");
-        jPanel3.add(q12AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, -1, -1));
+        jPanel3.add(q12AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, -1, -1));
 
         q13AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q13AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q13AnsLbl.setText("q13 ans");
-        jPanel3.add(q13AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, -1, -1));
+        jPanel3.add(q13AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, -1, -1));
 
         q14AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q14AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q14AnsLbl.setText("q14 ans");
-        jPanel3.add(q14AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, -1, -1));
+        jPanel3.add(q14AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, -1));
 
         q15AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q15AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q15AnsLbl.setText("q15 ans");
-        jPanel3.add(q15AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 470, -1, -1));
+        jPanel3.add(q15AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, -1, -1));
 
         q16AnsLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q16AnsLbl.setForeground(new java.awt.Color(255, 255, 255));
         q16AnsLbl.setText("q16 ans");
-        jPanel3.add(q16AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, -1, -1));
+        jPanel3.add(q16AnsLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, -1, -1));
 
         q1EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q1EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q1EvalLbl.setText("???");
-        jPanel3.add(q1EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, -1, -1));
+        jPanel3.add(q1EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, -1, -1));
 
         q2EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q2EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q2EvalLbl.setText("???");
-        jPanel3.add(q2EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, -1, -1));
-
-        scoreLbl1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
-        scoreLbl1.setForeground(new java.awt.Color(255, 255, 255));
-        scoreLbl1.setText("SUMMARY");
-        jPanel3.add(scoreLbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, -1, -1));
+        jPanel3.add(q2EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
         q3EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q3EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q3EvalLbl.setText("???");
-        jPanel3.add(q3EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
+        jPanel3.add(q3EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, -1, -1));
 
         q4EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q4EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q4EvalLbl.setText("???");
-        jPanel3.add(q4EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, -1, -1));
+        jPanel3.add(q4EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, -1));
 
         q5EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q5EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q5EvalLbl.setText("???");
-        jPanel3.add(q5EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, -1, -1));
+        jPanel3.add(q5EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, -1, -1));
 
         q6EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q6EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q6EvalLbl.setText("???");
-        jPanel3.add(q6EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
+        jPanel3.add(q6EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
 
         q7EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q7EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q7EvalLbl.setText("???");
-        jPanel3.add(q7EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, -1, -1));
+        jPanel3.add(q7EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
 
         q8EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q8EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q8EvalLbl.setText("???");
-        jPanel3.add(q8EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, -1, -1));
+        jPanel3.add(q8EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, -1, -1));
 
         q9EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q9EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q9EvalLbl.setText("???");
-        jPanel3.add(q9EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, -1, -1));
+        jPanel3.add(q9EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, -1, -1));
 
         q10EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q10EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q10EvalLbl.setText("???");
-        jPanel3.add(q10EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, -1, -1));
+        jPanel3.add(q10EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, -1, -1));
 
         q11EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q11EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q11EvalLbl.setText("???");
-        jPanel3.add(q11EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, -1));
+        jPanel3.add(q11EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
 
         q12EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q12EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q12EvalLbl.setText("???");
-        jPanel3.add(q12EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, -1, -1));
+        jPanel3.add(q12EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, -1, -1));
 
         q13EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q13EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q13EvalLbl.setText("???");
-        jPanel3.add(q13EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, -1, -1));
+        jPanel3.add(q13EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, -1));
 
         q14EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q14EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q14EvalLbl.setText("???");
-        jPanel3.add(q14EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 440, -1, -1));
+        jPanel3.add(q14EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, -1, -1));
 
         q15EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q15EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q15EvalLbl.setText("???");
-        jPanel3.add(q15EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 470, -1, -1));
+        jPanel3.add(q15EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 430, -1, -1));
 
         q16EvalLbl.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         q16EvalLbl.setForeground(new java.awt.Color(255, 255, 255));
         q16EvalLbl.setText("???");
-        jPanel3.add(q16EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 500, -1, -1));
+        jPanel3.add(q16EvalLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
 
-        resultPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 630, 560));
+        resultPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 630, 560));
 
+        jTable1.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Name", "Score", "Percentage", "Remark"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        resultPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 140, 480, 560));
+        resultPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 120, 480, 560));
 
-        next2Btn16.setText("START QUIZ");
-        next2Btn16.setColor1(new java.awt.Color(109, 31, 239));
-        next2Btn16.setColor2(new java.awt.Color(234, 46, 201));
-        next2Btn16.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
-        next2Btn16.setHoverColor1(new java.awt.Color(109, 31, 239));
-        next2Btn16.setHoverColor2(new java.awt.Color(234, 46, 201));
-        resultPanel.add(next2Btn16, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 720, 472, 46));
+        goToDashboardBtn.setText("GO TO DASHBOARD");
+        goToDashboardBtn.setColor1(new java.awt.Color(109, 31, 239));
+        goToDashboardBtn.setColor2(new java.awt.Color(234, 46, 201));
+        goToDashboardBtn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        goToDashboardBtn.setHoverColor1(new java.awt.Color(158, 100, 255));
+        goToDashboardBtn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        goToDashboardBtn.addActionListener(this::goToDashboardBtnActionPerformed);
+        resultPanel.add(goToDashboardBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 770, 250, 46));
+
+        retakeQuizBtn.setText("RETAKE QUIZ");
+        retakeQuizBtn.setColor1(new java.awt.Color(109, 31, 239));
+        retakeQuizBtn.setColor2(new java.awt.Color(234, 46, 201));
+        retakeQuizBtn.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        retakeQuizBtn.setHoverColor1(new java.awt.Color(158, 100, 255));
+        retakeQuizBtn.setHoverColor2(new java.awt.Color(244, 105, 220));
+        retakeQuizBtn.addActionListener(this::retakeQuizBtnActionPerformed);
+        resultPanel.add(retakeQuizBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 770, 250, 46));
+
+        leftSideBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/left-side-border.png"))); // NOI18N
+        resultPanel.add(leftSideBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/middel-border.png"))); // NOI18N
+        resultPanel.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("RESULT");
+        resultPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+
+        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/right-side-border.png"))); // NOI18N
+        resultPanel.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 100, -1, -1));
+
+        jLabel45.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel45.setText("SUMMARY");
+        resultPanel.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 30, -1, -1));
 
         contentsTabbedPane.addTab("Result", resultPanel);
 
@@ -2570,144 +2767,178 @@ public class QuizUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void startQuizBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startQuizBtnActionPerformed
+        StartQuiz();
+        TextPlaceholder(1);
+    }//GEN-LAST:event_startQuizBtnActionPerformed
+
+    private void next1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next1BtnActionPerformed
+        boolean eval = Evaluate(Bq1RadioBtn , q2Panel); 
+        DisplaySummary(eval, q1, q1AnsLbl, q1EvalLbl);
+        TextPlaceholder(2);
+    }//GEN-LAST:event_next1BtnActionPerformed
+
+    private void next2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next2BtnActionPerformed
+        boolean eval = Evaluate(Bq2RadioBtn , q3Panel); 
+        DisplaySummary(eval, q2, q2AnsLbl, q2EvalLbl);
+        TextPlaceholder(3);
+    }//GEN-LAST:event_next2BtnActionPerformed
+
+    private void next3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next3BtnActionPerformed
+        boolean eval = Evaluate(Bq3RadioBtn , q4Panel);
+        DisplaySummary(eval, q3, q3AnsLbl, q3EvalLbl);
+        TextPlaceholder(4);
+    }//GEN-LAST:event_next3BtnActionPerformed
+
+    private void next4tnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next4tnActionPerformed
+        boolean eval = Evaluate(Cq4RadioBtn , q5Panel);
+        DisplaySummary(eval, q4, q4AnsLbl, q4EvalLbl);
+        TextPlaceholder(5);
+    }//GEN-LAST:event_next4tnActionPerformed
+
+    private void next5BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next5BtnActionPerformed
+        boolean eval = Evaluate(Bq5RadioBtn , q6Panel);
+        DisplaySummary(eval, q5, q5AnsLbl, q5EvalLbl);
+        TextPlaceholder(6);
+    }//GEN-LAST:event_next5BtnActionPerformed
+
+    private void next6BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next6BtnActionPerformed
+        boolean eval = Evaluate(Dq6RadioBtn , q7Panel);
+        DisplaySummary(eval, q6, q6AnsLbl, q6EvalLbl);
+        TextPlaceholder(7);
+    }//GEN-LAST:event_next6BtnActionPerformed
+
+    private void next7BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next7BtnActionPerformed
+        boolean eval = Evaluate(Aq7RadioBtn , q8Panel);
+        DisplaySummary(eval, q7, q7AnsLbl, q7EvalLbl);
+        TextPlaceholder(8);
+    }//GEN-LAST:event_next7BtnActionPerformed
+
+    private void next8BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next8BtnActionPerformed
+        boolean eval = Evaluate(Dq8RadioBtn , q9Panel);
+        DisplaySummary(eval, q8, q8AnsLbl, q8EvalLbl);
+        TextPlaceholder(9);
+    }//GEN-LAST:event_next8BtnActionPerformed
+
+    private void next9BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next9BtnActionPerformed
+        boolean eval = Evaluate(Aq9RadioBtn , q10Panel);
+        DisplaySummary(eval, q9, q9AnsLbl, q9EvalLbl);
+        TextPlaceholder(10);
+    }//GEN-LAST:event_next9BtnActionPerformed
+
+    private void next10BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next10BtnActionPerformed
+        boolean eval = Evaluate(Cq10RadioBtn , q11Panel);
+        DisplaySummary(eval, q10, q10AnsLbl, q10EvalLbl);
+        TextPlaceholder(11);
+    }//GEN-LAST:event_next10BtnActionPerformed
+
+    private void next11BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next11BtnActionPerformed
+        boolean eval = Evaluate(Bq11RadioBtn , q12Panel);
+        DisplaySummary(eval, q11, q11AnsLbl, q11EvalLbl);
+        TextPlaceholder(12);
+    }//GEN-LAST:event_next11BtnActionPerformed
+
+    private void next12BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next12BtnActionPerformed
+        boolean eval = Evaluate(Bq12RadioBtn , q13Panel);
+        DisplaySummary(eval, q12, q12AnsLbl, q12EvalLbl);
+        TextPlaceholder(13);
+    }//GEN-LAST:event_next12BtnActionPerformed
+
+    private void next13BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next13BtnActionPerformed
+        boolean eval = Evaluate(Dq13RadioBtn , q14Panel);
+        DisplaySummary(eval, q13, q13AnsLbl, q13EvalLbl);
+        TextPlaceholder(14);
+    }//GEN-LAST:event_next13BtnActionPerformed
+
+    private void next14BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next14BtnActionPerformed
+        boolean eval = Evaluate(Cq14RadioBtn , q15Panel);
+        DisplaySummary(eval, q14, q14AnsLbl, q14EvalLbl);
+        TextPlaceholder(15);
+    }//GEN-LAST:event_next14BtnActionPerformed
+
+    private void next15BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next15BtnActionPerformed
+        boolean eval = Evaluate(Aq15RadioBtn , q16Panel);
+        DisplaySummary(eval, q15, q15AnsLbl, q15EvalLbl);
+        TextPlaceholder(16);
+    }//GEN-LAST:event_next15BtnActionPerformed
+
+    private void next16BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next16BtnActionPerformed
+        boolean eval = Evaluate(Cq16RadioBtn , q17Panel);
+        DisplaySummary(eval, q16, q16AnsLbl, q16EvalLbl);
+        TextPlaceholder(17);
+    }//GEN-LAST:event_next16BtnActionPerformed
+
+    private void next17BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next17BtnActionPerformed
+        boolean isCorrect = CheckIfAnswerIsCorrect(Cq17RadioBtn);
+        DisplaySummary(isCorrect, q17, q17AnsLbl, q17EvalLbl);
+        AddScore(isCorrect);
+        MessaageBox(isCorrect);
+        currentlyTakingQuiz = false;
+        stopTimer();
+        Result();
+        titleLbl.setText("RESULT");
+        Tabs(resultPanel);
+//        ResetSummary();
+    }//GEN-LAST:event_next17BtnActionPerformed
+
 // ============================================================================================================================        
     
-    private void closeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseEntered
-        MouseEntered(closeBtn);
-    }//GEN-LAST:event_closeBtnMouseEntered
+    private void retakeQuizBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retakeQuizBtnActionPerformed
+        ResetAll();
+        StartQuiz();
+    }//GEN-LAST:event_retakeQuizBtnActionPerformed
 
-    private void closeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseExited
-        MouseExited(closeBtn);
-    }//GEN-LAST:event_closeBtnMouseExited
+    private void goToDashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToDashboardBtnActionPerformed
+        ResetAll();
+        NavigationUtil.switchFrame(this, parent);
+    }//GEN-LAST:event_goToDashboardBtnActionPerformed
 
-    private void minimizeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseEntered
-        MouseEntered(minimizeBtn);
-    }//GEN-LAST:event_minimizeBtnMouseEntered
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        if(currentlyTakingQuiz){
+            int result = JOptionPane.showConfirmDialog(
+                null,
+                "Are you sure you want to exit? Your progress will be lost.",
+                "Warning",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+            
+            if(result == JOptionPane.YES_OPTION){
+                ResetAll();
+                NavigationUtil.switchFrame(this, parent);
+            }
+            
+        }
+        else {
+            int result = JOptionPane.showConfirmDialog(
+                null,
+                "Are you sure you want to exit?",
+                "Warning",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+            
+            if(result == JOptionPane.YES_OPTION){
+                ResetAll();
+                NavigationUtil.switchFrame(this, parent);
+            }
+        }
+    }//GEN-LAST:event_backBtnActionPerformed
 
-    private void minimizeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseExited
-        MouseExited(minimizeBtn);
-    }//GEN-LAST:event_minimizeBtnMouseExited
+    private void minimizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeBtnActionPerformed
+        UIUtils.minimizeFrame(this);
+    }//GEN-LAST:event_minimizeBtnActionPerformed
 
-    private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
-        MouseEntered(backBtn);
-    }//GEN-LAST:event_backBtnMouseEntered
-
-    private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
-        MouseExited(backBtn);
-    }//GEN-LAST:event_backBtnMouseExited
-
-    private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         if(currentlyTakingQuiz){
             UIUtils.closeFrame(this, "Are you sure you want to exit? Your progress will be lost.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
         else {
             UIUtils.closeFrame(this, "Are you sure you want to exit?", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_closeBtnMouseClicked
+    }//GEN-LAST:event_closeBtnActionPerformed
 
-    private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
-        UIUtils.minimizeFrame(this);
-    }//GEN-LAST:event_minimizeBtnMouseClicked
-
-    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
-        // GO BACK TO DASBOARD
-        // NOT YET DONE
-    }//GEN-LAST:event_backBtnMouseClicked
-
-    private void retakeQuizBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retakeQuizBtnMouseExited
-        MouseExited(retakeQuizBtn);
-    }//GEN-LAST:event_retakeQuizBtnMouseExited
-
-    private void retakeQuizBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retakeQuizBtnMouseEntered
-        MouseEntered(retakeQuizBtn);
-    }//GEN-LAST:event_retakeQuizBtnMouseEntered
-
-    private void goToDashboardBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goToDashboardBtnMouseExited
-        MouseExited(goToDashboardBtn);
-    }//GEN-LAST:event_goToDashboardBtnMouseExited
-
-    private void goToDashboardBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goToDashboardBtnMouseEntered
-        MouseEntered(goToDashboardBtn);
-    }//GEN-LAST:event_goToDashboardBtnMouseEntered
-
-    private void startQuizBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startQuizBtnActionPerformed
-        StartQuiz();
-    }//GEN-LAST:event_startQuizBtnActionPerformed
-
-    private void next1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next1BtnActionPerformed
-        Evaluate(Bq1RadioBtn , q2Panel); 
-    }//GEN-LAST:event_next1BtnActionPerformed
-
-    private void next2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next2BtnActionPerformed
-        Evaluate(Bq2RadioBtn , q3Panel); 
-    }//GEN-LAST:event_next2BtnActionPerformed
-
-    private void next3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next3BtnActionPerformed
-        Evaluate(Bq3RadioBtn , q4Panel);
-    }//GEN-LAST:event_next3BtnActionPerformed
-
-    private void next4tnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next4tnActionPerformed
-        Evaluate(Cq4RadioBtn , q5Panel);
-    }//GEN-LAST:event_next4tnActionPerformed
-
-    private void next5BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next5BtnActionPerformed
-        Evaluate(Bq5RadioBtn , q6Panel);
-    }//GEN-LAST:event_next5BtnActionPerformed
-
-    private void next6BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next6BtnActionPerformed
-        Evaluate(Dq6RadioBtn , q7Panel);
-    }//GEN-LAST:event_next6BtnActionPerformed
-
-    private void next7BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next7BtnActionPerformed
-        Evaluate(Aq7RadioBtn , q8Panel);
-    }//GEN-LAST:event_next7BtnActionPerformed
-
-    private void next8BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next8BtnActionPerformed
-        Evaluate(Dq8RadioBtn , q9Panel);
-    }//GEN-LAST:event_next8BtnActionPerformed
-
-    private void next9BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next9BtnActionPerformed
-        Evaluate(Aq9RadioBtn , q10Panel);
-    }//GEN-LAST:event_next9BtnActionPerformed
-
-    private void next10BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next10BtnActionPerformed
-        Evaluate(Cq10RadioBtn , q11Panel);
-    }//GEN-LAST:event_next10BtnActionPerformed
-
-    private void next11BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next11BtnActionPerformed
-        Evaluate(Bq11RadioBtn , q12Panel);
-    }//GEN-LAST:event_next11BtnActionPerformed
-
-    private void next12BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next12BtnActionPerformed
-        Evaluate(Bq12RadioBtn , q13Panel);
-    }//GEN-LAST:event_next12BtnActionPerformed
-
-    private void next13BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next13BtnActionPerformed
-        Evaluate(Dq13RadioBtn , q14Panel);
-    }//GEN-LAST:event_next13BtnActionPerformed
-
-    private void next14BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next14BtnActionPerformed
-        Evaluate(Cq14RadioBtn , q15Panel);
-    }//GEN-LAST:event_next14BtnActionPerformed
-
-    private void next15BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next15BtnActionPerformed
-        Evaluate(Aq15RadioBtn , q16Panel);
-    }//GEN-LAST:event_next15BtnActionPerformed
-
-    private void next16BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next16BtnActionPerformed
-        Evaluate(Cq16RadioBtn , q17Panel);
-    }//GEN-LAST:event_next16BtnActionPerformed
-
-    private void next17BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next17BtnActionPerformed
-        boolean isCorrect = CheckIfAnswerIsCorrect(Cq17RadioBtn);
-        AddScore(isCorrect);
-        MessaageBox(isCorrect);
-        currentlyTakingQuiz = false;
-        stopTimer();
-        Summary();
-        Tabs(resultPanel);
-    }//GEN-LAST:event_next17BtnActionPerformed
-    
+   
 // ============================================================================================================================    
     
     /**
@@ -2732,7 +2963,7 @@ public class QuizUI extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new QuizUI().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new QuizUI().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2804,10 +3035,10 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton Dq7RadioBtn;
     private javax.swing.JRadioButton Dq8RadioBtn;
     private javax.swing.JRadioButton Dq9RadioBtn;
-    private javax.swing.JLabel backBtn;
-    private javax.swing.JLabel closeBtn;
+    private commons.RoundButton backBtn;
+    private commons.RoundButton closeBtn;
     private javax.swing.JTabbedPane contentsTabbedPane;
-    private javax.swing.JLabel goToDashboardBtn;
+    private commons.GradientButton goToDashboardBtn;
     private javax.swing.JLabel instructionsLbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2826,6 +3057,8 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -2844,7 +3077,9 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2855,8 +3090,9 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel leftSideBorder;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel minimizeBtn;
+    private commons.RoundButton minimizeBtn;
     private commons.GradientButton next10Btn;
     private commons.GradientButton next11Btn;
     private commons.GradientButton next12Btn;
@@ -2943,7 +3179,6 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JLabel next1Btn98;
     private javax.swing.JLabel next1Btn99;
     private commons.GradientButton next2Btn;
-    private commons.GradientButton next2Btn16;
     private commons.GradientButton next3Btn;
     private commons.GradientButton next4tn;
     private commons.GradientButton next5Btn;
@@ -3015,9 +3250,8 @@ public class QuizUI extends javax.swing.JFrame {
     private javax.swing.JLabel recommendationLbl;
     private javax.swing.JLabel remarkLbl;
     private javax.swing.JPanel resultPanel;
-    private javax.swing.JLabel retakeQuizBtn;
+    private commons.GradientButton retakeQuizBtn;
     private javax.swing.JLabel scoreLbl;
-    private javax.swing.JLabel scoreLbl1;
     private commons.GradientButton startQuizBtn;
     private javax.swing.JPanel startquizPanel;
     private javax.swing.JLabel timerLbl;

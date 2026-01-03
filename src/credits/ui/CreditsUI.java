@@ -4,6 +4,7 @@
  */
 package credits.ui;
 
+import commons.NavigationUtil;
 import javax.swing.JFrame;
 
 /**
@@ -179,8 +180,7 @@ public class CreditsUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinimizeActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        parent.setVisible(true);
-        this.dispose();
+        NavigationUtil.switchFrame(this, parent);
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**

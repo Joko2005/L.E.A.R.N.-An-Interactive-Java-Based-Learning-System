@@ -1,5 +1,6 @@
 package chatbot;
 
+import commons.NavigationUtil;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JFrame;
@@ -178,8 +179,9 @@ public class Chatbot1 extends javax.swing.JFrame {
         btnResetConvo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnResetConvo.setHoverColor1(new java.awt.Color(158, 100, 255));
         btnResetConvo.setHoverColor2(new java.awt.Color(244, 105, 220));
+        btnResetConvo.setSizeSpeed(1000.0F);
         btnResetConvo.addActionListener(this::btnResetConvoActionPerformed);
-        Cpanel.add(btnResetConvo, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 887, -1, -1));
+        Cpanel.add(btnResetConvo, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 870, -1, -1));
         btnResetConvo.getAccessibleContext().setAccessibleDescription("");
 
         jScrollPane1.setBackground(new java.awt.Color(53, 48, 128));
@@ -187,6 +189,7 @@ public class Chatbot1 extends javax.swing.JFrame {
 
         ChatAreaPanel.setBackground(new java.awt.Color(53, 48, 128));
         ChatAreaPanel.setBorder(null);
+        ChatAreaPanel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         ChatAreaPanel.setFocusable(false);
         ChatAreaPanel.setHighlighter(null);
         ChatAreaPanel.setInheritsPopupMenu(true);
@@ -274,7 +277,7 @@ public class Chatbot1 extends javax.swing.JFrame {
         });
         BtnPanel.add(Q5btn);
 
-        Q6btn.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        Q6btn.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         Q6btn.setForeground(new java.awt.Color(255, 255, 255));
         Q6btn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Q6btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quiz/icons/radio-button-border.png"))); // NOI18N
@@ -520,8 +523,7 @@ public class Chatbot1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinimizeActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        parent.setVisible(true);
-        this.dispose();
+        NavigationUtil.switchFrame(this, parent);
     }//GEN-LAST:event_btnBackActionPerformed
 
 // ============================================================================================================================    

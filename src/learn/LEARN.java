@@ -4,7 +4,10 @@
  */
 package learn;
 
+/*import dashboard.admin.UI.AdminUI;*/
+//import datavisualization.ui.DashBoardUI;
 import login_page.login;
+
 
 /**
  *
@@ -17,8 +20,15 @@ public class LEARN {
      */
     public static void main(String[] args) {
         
-      login frm = new login();
-      frm.setVisible(true);
+        /*AdminUI frm = new AdminUI();
+        frm.setVisible(true);*/
+        
+//        DashBoardUI dshbrdui = new DashBoardUI();
+//        dshbrdui.setVisible(true);
+
+        login frm = new login();
+        frm.setVisible(true);
     }
     
 }
+
